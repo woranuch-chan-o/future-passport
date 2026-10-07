@@ -284,7 +284,12 @@ function api(action,payload){
   var body=Object.assign({action:action,idToken:liff.getIDToken()},payload||{});
   return fetch(CONFIG.API_URL,{method:"POST",body:JSON.stringify(body)})
     .catch(function(){var e=new Error("เชื่อมต่อระบบไม่ได้ ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่");e.code="NETWORK";throw e;})
-    .then(function(r){return r.json();})
+    .then(function(r){return r.text().then(function(t){
+      try{return JSON.parse(t);}catch(x){
+        var m=t.match(/<title>([^<]*)<\/title>/i);
+        var e=new Error("ระบบตอบกลับผิดรูปแบบ"+(m?" ("+m[1].trim()+")":"")+" ลองใหม่อีกครั้ง");
+        e.code="BAD_RESPONSE";throw e;
+      }});})
     .then(function(j){
       if(!j.ok){ if(j.code==="AUTH_EXPIRED") relogin(); var e=new Error(j.message||"เกิดข้อผิดพลาด");e.code=j.code;throw e; }
       lastFetch=Date.now(); return j.data;
@@ -351,7 +356,16 @@ function parseQr(v){
 function doScan(p){
   if(!stack.length) stack.push({name:"home",params:{}});
   busy("กำลังบันทึกภารกิจ…");
+  var prev=S?Object.keys(S.scans||{}):[], prevCert=!!(S&&S.cert);
   api("scan",p).then(function(r){S=r.state;go("result",r);})
+  .catch(function(e){
+    if(e.code!=="BAD_RESPONSE") throw e;
+    return api("me").then(function(d){
+      var added=Object.keys(d.scans||{}).filter(function(k){return prev.indexOf(k)<0;});
+      if(!added.length) throw e;
+      S=d; go("result",{station:Number(added[0]),dup:false,newCert:!!d.cert&&!prevCert,newSpecial:d.count===9,state:d});
+    });
+  })
   .catch(function(e){
     if(e.code==="NOT_REGISTERED"){pending=p;stack=[];go("register");toast("ลงทะเบียนก่อน แล้วระบบจะบันทึกฐานนี้ให้ต่อ","info");return;}
     go("result",{error:e.message,code:e.code});
@@ -394,6 +408,12 @@ VIEWS.register=function(){
         S=d; var g=S.user.group;
         if(pending){var p=pending;pending=null;stack=[];doScan(p);toast("ลงทะเบียนแล้ว · คุณอยู่กลุ่ม "+g);return;}
         stack=[];go("home");toast("ลงทะเบียนแล้ว · คุณอยู่กลุ่ม "+g);
+      })
+      .catch(function(e){
+        if(e.code!=="BAD_RESPONSE") throw e;
+        return api("me").then(function(d){ if(!d.registered) throw e; S=d; var g=S.user.group;
+          if(pending){var p=pending;pending=null;stack=[];doScan(p);toast("ลงทะเบียนแล้ว · คุณอยู่กลุ่ม "+g);return;}
+          stack=[];go("home");toast("ลงทะเบียนแล้ว · คุณอยู่กลุ่ม "+g); });
       })
       .catch(function(e){err.textContent=e.message;btn.disabled=false;btn.textContent="ลงทะเบียน";});
     };
@@ -512,6 +532,10 @@ function claimSheet(p){
     s.querySelector("#pinOk").onclick=function(){
       var btn=this; btn.disabled=true;
       api("claim",{tier:p,pin:s.querySelector("#pin").value}).then(function(d){S=d;closeSheet();go("rewards",{},true);toast("ยืนยันการรับ "+t.name+" แล้ว","gift");})
+      .catch(function(e){
+        if(e.code!=="BAD_RESPONSE") throw e;
+        return api("me").then(function(d){ if(!d.claims[String(p)]) throw e; S=d;closeSheet();go("rewards",{},true);toast("ยืนยันการรับ "+t.name+" แล้ว","gift"); });
+      })
       .catch(function(e){s.querySelector("#pinErr").textContent=e.message;btn.disabled=false;});
     };
     s.querySelector("#pin").focus();
