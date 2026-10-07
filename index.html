@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Future Passport · BA&amp;IT EXPO 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@500;600;700;800&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+<script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.383.0/dist/umd/lucide.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#E9EBFA; --surface:#FFFFFF; --surface-2:#F3F2FF; --text:#191340; --muted:#5E5987; --line:#DCD9F2;
+  --night:#120D46; --night-2:#2A1488; --violet:#5B2EE6; --blue:#2F6BFF; --magenta:#E2399E;
+  --gold:#FFB72B; --mint:#13B58C; --danger:#C92A45;
+  --head:"Prompt","Leelawadee UI","Tahoma",sans-serif;
+  --body:"IBM Plex Sans Thai","Leelawadee UI","Tahoma",sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#06051C; --surface:#151139; --surface-2:#1D184F; --text:#F1F0FF; --muted:#ABA6D8; --line:#2D2770; --danger:#FF6B82;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#06051C; --surface:#151139; --surface-2:#1D184F; --text:#F1F0FF; --muted:#ABA6D8; --line:#2D2770; --danger:#FF6B82;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:var(--body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+img{max-width:100%}
+svg.lucide{width:1.15em;height:1.15em;stroke-width:2.2;vertical-align:-0.2em}
+
+/* ---------- stage ---------- */
+.stage{height:100%;display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:48px;max-width:1080px;margin:0 auto;padding:28px 24px;align-items:center}
+.brief h1{font-family:var(--head);font-weight:800;font-size:40px;line-height:1.1;margin:0 0 10px;letter-spacing:-.01em}
+.brief .lead{color:var(--muted);max-width:44ch;margin:0 0 22px}
+.rules{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin-bottom:16px}
+.rules h2{font-family:var(--head);font-size:17px;margin:0 0 8px}
+.rules ul{margin:0;padding-left:18px}
+.rules li{margin:3px 0}
+.demo-row{display:flex;gap:10px;flex-wrap:wrap}
+.btn-ghost{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:9px 16px;font-weight:600}
+.note{font-size:13px;color:var(--muted);margin-top:14px}
+
+.phone{position:relative;height:min(860px,100%);width:100%;background:var(--surface-2);border-radius:38px;overflow:hidden;display:flex;flex-direction:column;
+  box-shadow:0 0 0 10px var(--night),0 30px 60px -20px rgba(18,13,70,.55)}
+.liff-bar{flex:none;display:flex;align-items:center;gap:8px;padding:14px 14px 10px;background:var(--surface);border-bottom:1px solid var(--line)}
+.liff-bar .t{flex:1;font-family:var(--head);font-weight:600;font-size:15px;text-align:center}
+.icon-btn{width:36px;height:36px;border-radius:50%;border:0;background:transparent;display:grid;place-items:center}
+.icon-btn[hidden]{visibility:hidden;display:grid}
+.screen{flex:1;overflow-y:auto;overflow-x:hidden;padding:16px 16px 28px}
+.info-fab{display:none}
+
+@media (max-width:820px){
+  .stage{display:block;padding:0;max-width:none}
+  .brief{display:none}
+  .brief.open{display:block;position:fixed;inset:0;z-index:50;overflow:auto;background:var(--bg);padding:calc(env(safe-area-inset-top,0px) + 20px) 20px calc(env(safe-area-inset-bottom,0px) + 20px)}
+  .phone{height:100%;border-radius:0;box-shadow:none}
+  .liff-bar{padding-top:12px}
+  .info-fab{display:grid}
+}
+
+/* ---------- brand blocks ---------- */
+.hero{position:relative;border-radius:22px;padding:18px;color:#fff;overflow:hidden;
+  background:radial-gradient(120% 90% at 100% 0%,#E2399E 0%,rgba(226,57,158,0) 55%),linear-gradient(150deg,#2F6BFF 0%,#2A1488 55%,#120D46 100%)}
+.hero::after{content:"";position:absolute;inset:auto -10% -40% auto;width:220px;height:220px;border-radius:50%;border:2px solid rgba(255,255,255,.18)}
+.hero .kicker{font-family:var(--head);font-weight:600;font-size:13px;opacity:.85}
+.wordmark{font-family:var(--head);font-weight:800;font-size:30px;line-height:1;letter-spacing:.02em;margin:4px 0 6px;
+  background:linear-gradient(90deg,#fff 0%,#C9D8FF 60%,#FFC4E6 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{margin:0;opacity:.9;font-size:14px}
+
+.pass{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center}
+.avatar{width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,.18);display:grid;place-items:center;font-family:var(--head);font-weight:700;font-size:20px}
+.pass .nm{font-family:var(--head);font-weight:600;font-size:16px;line-height:1.25}
+.pass .sc{font-size:12.5px;opacity:.85}
+.grp{font-family:var(--head);font-weight:700;background:var(--gold);color:#2B1700;border-radius:10px;padding:4px 10px;font-size:13px;white-space:nowrap}
+.pts{display:flex;align-items:baseline;gap:6px;margin:16px 0 8px}
+.pts b{font-family:var(--head);font-size:44px;line-height:1;font-weight:800}
+.segs{display:grid;grid-template-columns:repeat(9,1fr);gap:4px}
+.segs i{height:8px;border-radius:4px;background:rgba(255,255,255,.22)}
+.segs i.on{background:var(--gold)}
+.segs i.goal{box-shadow:inset 0 0 0 2px rgba(255,183,43,.9)}
+.prog-note{font-size:13px;margin-top:8px;opacity:.95}
+
+/* rich menu */
+.menu{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px;background:var(--night);padding:8px;border-radius:20px}
+.tile{border:0;border-radius:14px;padding:14px 6px 12px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;color:#1A1446;min-height:104px;justify-content:center}
+.tile svg.lucide{width:28px;height:28px;stroke-width:2}
+.tile .en{font-family:var(--head);font-weight:700;font-size:11.5px;letter-spacing:.02em;line-height:1.15}
+.tile .th{font-size:11.5px;color:#4A4470;line-height:1.2}
+.t1{background:#E7DDFF}.t2{background:#D9E6FF}.t3{background:#FFDDF0}.t4{background:#DCF5EC}.t5{background:#FFEBC7}.t6{background:#E2E8FF}
+.tile.t3{outline:2px solid #E2399E;outline-offset:-2px}
+
+/* generic */
+h2.sec{font-family:var(--head);font-weight:700;font-size:20px;margin:4px 0 4px;line-height:1.25}
+.sub{color:var(--muted);margin:0 0 14px;font-size:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px}
+.stack>*+*{margin-top:12px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:14px;padding:13px 16px;font-family:var(--head);font-weight:600;font-size:15.5px;background:var(--blue);color:#fff}
+.btn.alt{background:var(--surface);color:var(--text);border:1px solid var(--line)}
+.btn.gold{background:var(--gold);color:#2B1700}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:10px}
+.row>*{flex:1}
+
+/* chat */
+.chat{display:flex;gap:10px;align-items:flex-start}
+.oa{flex:none;width:40px;height:40px;border-radius:50%;background:linear-gradient(140deg,#2F6BFF,#5B2EE6);color:#fff;display:grid;place-items:center;font-family:var(--head);font-weight:800;font-size:12px}
+.bubble{background:var(--surface);border:1px solid var(--line);border-radius:4px 18px 18px 18px;padding:12px 14px;max-width:290px}
+.bubble .who{font-size:12px;color:var(--muted);margin-bottom:2px}
+.bubble p{margin:0 0 10px}
+
+/* form */
+label.f{display:block;font-size:13.5px;font-weight:600;margin:12px 0 5px}
+input.in,select.in{width:100%;border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:12px;padding:11px 12px;font:inherit}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 12px;font-size:13.5px}
+.chip[aria-pressed="true"]{background:var(--violet);border-color:var(--violet);color:#fff}
+.err{color:var(--danger);font-size:13px;margin-top:8px;min-height:1em}
+
+/* scanner */
+.viewfinder{position:relative;aspect-ratio:1/1;border-radius:22px;background:#0A0826;overflow:hidden;display:grid;place-items:center}
+.viewfinder .fr{position:absolute;inset:16%;border-radius:18px}
+.viewfinder .fr::before,.viewfinder .fr::after{content:"";position:absolute;width:44px;height:44px;border:4px solid #3DF2C4}
+.viewfinder .fr::before{top:-2px;left:-2px;border-right:0;border-bottom:0;border-radius:14px 0 0 0}
+.viewfinder .fr::after{bottom:-2px;right:-2px;border-left:0;border-top:0;border-radius:0 0 14px 0}
+.scanline{position:absolute;left:16%;right:16%;height:2px;background:#3DF2C4;box-shadow:0 0 12px #3DF2C4;top:16%;animation:scan 2.2s ease-in-out infinite alternate}
+@keyframes scan{to{top:84%}}
+.viewfinder .hint{position:absolute;bottom:14px;left:0;right:0;text-align:center;color:#D6DCFF;font-size:13px}
+.vf-busy{position:absolute;inset:0;background:rgba(10,8,38,.75);display:grid;place-items:center;color:#fff;font-family:var(--head);font-weight:600}
+.qr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.qr-chip{border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:10px 6px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12px;line-height:1.2;text-align:center}
+.qr-chip b{font-family:var(--head);font-size:18px}
+.qr-chip.done{background:var(--surface-2);color:var(--muted)}
+.qr-chip.done b::after{content:" ✓";color:var(--mint)}
+
+/* badges */
+.hex{--c:#5B2EE6;width:76px;aspect-ratio:1/1.12;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:linear-gradient(160deg,color-mix(in srgb,var(--c) 70%,#fff),var(--c) 60%,color-mix(in srgb,var(--c) 70%,#000));display:grid;place-items:center;color:#fff}
+.hex svg.lucide{width:34px;height:34px}
+.hex.locked{background:var(--line);color:var(--muted)}
+.badges{display:grid;grid-template-columns:repeat(3,1fr);gap:14px 8px}
+.badge{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;font-size:12px;line-height:1.25}
+.badge .bn{font-weight:600}
+.badge .bt{color:var(--muted);font-size:11px}
+
+.result{text-align:center;padding-top:8px}
+.result .hex{width:140px;margin:6px auto 0}
+.result .hex svg.lucide{width:62px;height:62px}
+.burst{position:relative;display:inline-block}
+.burst::before{content:"";position:absolute;inset:-26px;border-radius:50%;background:radial-gradient(circle,rgba(255,183,43,.45),rgba(255,183,43,0) 65%)}
+.pop{animation:pop .6s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+.result h2{font-family:var(--head);font-weight:800;font-size:26px;margin:18px 0 2px}
+.plus{display:inline-block;font-family:var(--head);font-weight:800;font-size:22px;color:var(--mint);margin:4px 0 6px}
+.unlock{background:linear-gradient(120deg,#FFF1CF,#FFE0F1);color:#2B1700;border-radius:16px;padding:14px;text-align:left;display:flex;gap:12px;align-items:center}
+.unlock svg.lucide{width:30px;height:30px;flex:none;color:#C9520F}
+
+/* lists */
+.mlist{list-style:none;margin:0;padding:0}
+.mlist li{display:grid;grid-template-columns:42px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.mlist li:last-child{border-bottom:0}
+.num{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-family:var(--head);font-weight:700;color:#fff}
+.mlist .mt{font-family:var(--head);font-weight:600;font-size:14.5px;line-height:1.25}
+.mlist .md{font-size:12.5px;color:var(--muted)}
+.st{font-size:12px;font-weight:600;border-radius:999px;padding:4px 10px;white-space:nowrap}
+.st.ok{background:color-mix(in srgb,var(--mint) 18%,transparent);color:var(--mint)}
+.st.wait{background:var(--surface-2);color:var(--muted)}
+
+/* city map */
+.city{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:var(--night);border-radius:20px;padding:10px}
+.block{border:0;border-radius:12px;aspect-ratio:1/1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#fff;font-size:11.5px;line-height:1.2;text-align:center;padding:6px}
+.block b{font-family:var(--head);font-size:22px;line-height:1}
+.block.sel{outline:3px solid #fff;outline-offset:-3px}
+.block.done{opacity:.55}
+.gate{display:flex;justify-content:space-between;color:var(--muted);font-size:12.5px;margin:8px 4px 0}
+
+/* rewards */
+.tier{display:grid;grid-template-columns:52px 1fr;gap:12px;align-items:center}
+.tier .ic{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;color:#fff}
+.tier .ic svg.lucide{width:26px;height:26px}
+.tier h3{font-family:var(--head);font-size:15.5px;margin:0;line-height:1.25}
+.tier p{margin:0;font-size:13px;color:var(--muted)}
+.bar{height:6px;background:var(--surface-2);border-radius:3px;margin:8px 0 10px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--gold);border-radius:3px}
+
+/* certificate */
+.certimg{position:relative;width:100%;aspect-ratio:3508/2480;container-type:inline-size;background:#fff url("cert-bg.jpg") center/100% 100% no-repeat;border-radius:6px;box-shadow:0 8px 24px -10px rgba(18,13,70,.45);color:#1C1640;font-family:var(--body);overflow:hidden}
+.certimg>div{position:absolute;line-height:1.2}
+.certimg .ctr{left:0;right:0;text-align:center}
+.c-title{top:46.9%;font-family:var(--head);font-weight:800;font-size:3.6cqw;color:#2A1488}
+.c-sub{top:53.3%;font-family:var(--head);font-weight:600;font-size:1.35cqw;letter-spacing:.2em;color:#A8761A}
+.c-to{top:57.4%;font-size:1.5cqw;color:#5E5987}
+.c-name{top:60.3%;font-family:var(--head);font-weight:700;font-size:3.8cqw;color:#120D46}
+.c-school{top:67.4%;font-size:1.8cqw;font-weight:600}
+.c-body{top:71.9%;left:20%!important;right:20%!important;font-size:1.45cqw;line-height:1.5!important;text-align:center}
+.c-sig{top:87%;left:18%;width:26%;text-align:center;font-size:1.15cqw;border-top:.12cqw solid #1C1640;padding-top:.6cqw;color:#3E3970}
+.c-sig b{display:block;font-weight:600;color:#1C1640}
+.c-no{top:86.6%;right:21.4%;text-align:right;font-size:1.15cqw;color:#5E5987}
+.c-no b{display:block;font-family:var(--head);font-weight:700;font-size:1.5cqw;color:#120D46}
+.c-qr{left:81.9%;top:74.6%;width:11.8%;aspect-ratio:1/1;line-height:0}
+.c-qr img,.c-qr canvas{width:100%!important;height:100%!important}
+.cert-full{position:fixed;inset:0;z-index:80;background:rgba(6,5,28,.92);display:grid;place-items:center;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+.cert-full .certimg{width:min(94vw,1100px)}
+@media (orientation:portrait){.cert-full .certimg{width:min(92vh,1100px);transform:rotate(90deg)}}
+.cert-full .x{position:fixed;top:calc(env(safe-area-inset-top,0px) + 12px);right:12px;z-index:81;border:0;border-radius:999px;padding:8px 14px;background:#fff;color:#120D46;font-family:var(--head);font-weight:600}
+.qrbox{background:#fff;padding:6px;border-radius:8px;line-height:0;overflow:hidden;font-size:9px;word-break:break-all}
+.qrbox img,.qrbox canvas{width:84px!important;height:84px!important}
+
+/* sheet & toast */
+.scrim{position:absolute;inset:0;background:rgba(10,8,38,.55);display:flex;align-items:flex-end;z-index:20}
+.sheet{width:100%;background:var(--surface);border-radius:24px 24px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px))}
+.sheet .grab{width:44px;height:5px;border-radius:3px;background:var(--line);margin:0 auto 12px}
+.redeem-qr{display:grid;place-items:center;margin:10px 0}
+.redeem-qr .qrbox img,.redeem-qr .qrbox canvas{width:150px!important;height:150px!important}
+.code{font-family:var(--head);font-weight:700;text-align:center;font-size:18px;letter-spacing:.08em}
+.toast{position:absolute;left:16px;right:16px;bottom:18px;background:var(--night);color:#fff;border-radius:14px;padding:12px 14px;font-size:14px;z-index:30;display:flex;gap:10px;align-items:center;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+
+@media (prefers-reduced-motion:reduce){
+  .scanline,.pop{animation:none}
+}
+
+html,body{height:100%}
+.phone{height:100%;max-width:560px;margin:0 auto;border-radius:0;box-shadow:none}
+.liff-bar{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
+.loading{display:grid;place-items:center;align-content:center;min-height:60vh;text-align:center;color:var(--muted);gap:12px}
+.spinner{width:42px;height:42px;border-radius:50%;border:4px solid var(--line);border-top-color:var(--blue);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;margin-top:14px;line-height:1.45}
+.check input{width:20px;height:20px;flex:none;margin-top:1px;accent-color:var(--violet)}
+.linkbtn{background:none;border:0;color:var(--blue);text-decoration:underline;padding:0 2px;font:inherit;cursor:pointer}
+.codein{display:flex;gap:8px}
+.codein .in{text-transform:uppercase;letter-spacing:.25em;font-family:var(--head);font-weight:700;text-align:center;font-size:18px}
+.viewfinder .hint{padding:0 12px}
+</style>
+</head>
+<body>
+<div class="phone" id="phone">
+  <div class="liff-bar">
+    <button class="icon-btn" id="backBtn" aria-label="ย้อนกลับ" hidden><i data-lucide="chevron-left"></i></button>
+    <div class="t" id="barTitle">Future Passport</div>
+    <button class="icon-btn" id="homeBtn" aria-label="กลับหน้าเมนู" hidden><i data-lucide="layout-grid"></i></button>
+  </div>
+  <main class="screen" id="screen" tabindex="-1"></main>
+</div>
+<script>
+(function(){
+"use strict";
+
+/* ===== ตั้งค่า (แก้ 2 บรรทัดนี้) ===== */
+var CONFIG = {
+  LIFF_ID: "2011921526-UG9tsWey",
+  API_URL: "PASTE_APPS_SCRIPT_WEB_APP_URL_HERE"
+};
+
+var STYLE = {1:["crown","#D3263A"],2:["truck","#C92A8A"],3:["trending-up","#B9740C"],4:["calculator","#0F8A6A"],5:["camera","#6A33D1"],6:["cpu","#2459E0"],7:["briefcase","#B8222E"],8:["lightbulb","#0B7A9E"],9:["building-2","#33278F"]};
+var TIER_STYLE = [["gift","#E2399E"],["ticket","#2F6BFF"],["package","#13A57F"],["star","#C98A10"]];
+var SCHOOLS = ["อยุธยานุสรณ์","วิทยาลัยเทคโนโลยีพณิชยการอยุธยา","จอมสุรางค์อุปถัมภ์","วิทยาลัยเทคโนโลยีไทยอโยธยาบริหารธุรกิจ","อยุธยาวิทยาลัย","อิสลามศรีอยุธยามูลนิธิ","ภาชี สุนทรวิทยานุกูล","บางปะอิน ราชานุเคราะห์ 1","เสนา เสนาประสิทธิ์","ธรรมโชติศึกษาลัย","สามชุกรัตนโภคาราม","บรรหารแจ่มใสวิทยา 3","สตรีอ่างทอง","ปาโมกข์วิทยาภูมิ","อ่างทองปัทมโรจน์วิทยาคม"];
+var OTHER = "อื่น ๆ (พิมพ์ชื่อสถานศึกษา)";
+var PROVINCES = ["พระนครศรีอยุธยา","สุพรรณบุรี","อ่างทอง","อื่น ๆ"];
+var LEVELS = ["ม.4","ม.5","ม.6","ปวช.","ปวส.","อื่น ๆ"];
+var INTERESTS = ["ธุรกิจ/การจัดการ","การตลาด","บัญชี/การเงิน","โลจิสติกส์","เทคโนโลยี/AI","ดิจิทัลคอนเทนต์"];
+
+var S = null, pending = null, walkin = false, lastFetch = 0;
+
+/* ===== helpers ===== */
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function fmtTime(iso){if(!iso)return "";var d=new Date(iso);return d.toLocaleTimeString("th-TH",{hour:"2-digit",minute:"2-digit"})+" น.";}
+function missions(){return (S&&S.missions||[]).map(function(m){var st=STYLE[m.id]||["star","#5B2EE6"];return Object.assign({},m,{icon:st[0],c:st[1]});});}
+function mission(id){return missions().filter(function(m){return m.id===Number(id);})[0];}
+function done(id){return S&&S.scans&&S.scans[String(id)];}
+function count(){return S?S.count:0;}
+function certMin(){return S?S.settings.certMin:5;}
+function pts(){return S?S.points:0;}
+
+function api(action,payload){
+  var body=Object.assign({action:action,idToken:liff.getIDToken()},payload||{});
+  return fetch(CONFIG.API_URL,{method:"POST",body:JSON.stringify(body)})
+    .catch(function(){var e=new Error("เชื่อมต่อระบบไม่ได้ ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่");e.code="NETWORK";throw e;})
+    .then(function(r){return r.json();})
+    .then(function(j){
+      if(!j.ok){ if(j.code==="AUTH_EXPIRED") relogin(); var e=new Error(j.message||"เกิดข้อผิดพลาด");e.code=j.code;throw e; }
+      lastFetch=Date.now(); return j.data;
+    });
+}
+function relogin(){
+  try{ if(sessionStorage.getItem("fp-relogin")) return; sessionStorage.setItem("fp-relogin","1"); }catch(e){}
+  if(liff.isInClient()) location.reload(); else { liff.logout(); liff.login({redirectUri:location.href}); }
+}
+
+/* ===== router ===== */
+var stack=[], $screen, $title, $back, $home, $phone;
+function go(name,params,replace){ if(replace) stack.pop(); stack.push({name:name,params:params||{}}); draw(); }
+function back(){ if(stack.length>1){stack.pop();draw();} }
+function draw(){
+  closeSheet();
+  var cur=stack[stack.length-1], v=VIEWS[cur.name](cur.params);
+  $title.textContent=v.title||"Future Passport";
+  $back.hidden=stack.length<2||!!v.noBack;
+  $home.hidden=!S||!S.registered||cur.name==="home"||cur.name==="register";
+  $screen.innerHTML=v.html; $screen.scrollTop=0;
+  if(window.lucide) lucide.createIcons();
+  if(v.after) v.after();
+}
+function busy(msg){
+  $back.hidden=true; $home.hidden=true;
+  $screen.innerHTML='<div class="loading"><div class="spinner"></div><div>'+esc(msg||"กำลังโหลด…")+'</div></div>';
+}
+function fatal(title,msg){
+  $back.hidden=true;$home.hidden=true;$title.textContent="Future Passport";
+  $screen.innerHTML='<div class="result"><div class="hex locked" style="width:96px;margin:20px auto 0"><i data-lucide="alert-triangle"></i></div><h2>'+esc(title)+'</h2><p class="sub">'+esc(msg)+'</p><button class="btn" id="retry"><i data-lucide="refresh-cw"></i>ลองใหม่</button></div>';
+  if(window.lucide) lucide.createIcons();
+  $("retry").onclick=function(){location.reload();};
+}
+
+/* ===== UI bits ===== */
+function hex(m,size,locked){return '<div class="hex'+(locked?' locked':'')+'" style="--c:'+m.c+(size?';width:'+size+'px':'')+'"><i data-lucide="'+(locked?'lock':m.icon)+'"></i></div>';}
+function segs(light){var h='<div class="segs" aria-hidden="true">';for(var i=1;i<=9;i++){h+='<i class="'+(i<=count()?'on':'')+(i===certMin()?' goal':'')+'"'+(light&&i>count()?' style="background:var(--line)"':'')+'></i>';}return h+'</div>';}
+function progNote(){var n=count();if(n>=9)return "ครบทั้ง 9 ฐานแล้ว ได้รับ Special Badge";if(n>=certMin())return "รับวุฒิบัตรได้แล้ว · อีก "+(9-n)+" ฐานรับ Special Badge";return "อีก "+(certMin()-n)+" ฐาน รับวุฒิบัตรดิจิทัล";}
+var toastTimer;
+function toast(msg,icon){var o=$phone.querySelector(".toast");if(o)o.remove();var t=document.createElement("div");t.className="toast";t.setAttribute("role","status");t.innerHTML='<i data-lucide="'+(icon||"check-circle-2")+'"></i><span>'+esc(msg)+'</span>';$phone.appendChild(t);if(window.lucide)lucide.createIcons();clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.remove();},3200);}
+function closeSheet(){var s=$phone.querySelector(".scrim");if(s)s.remove();}
+function openSheet(html,after){closeSheet();var s=document.createElement("div");s.className="scrim";s.innerHTML='<div class="sheet" role="dialog" aria-modal="true"><div class="grab"></div>'+html+'</div>';s.addEventListener("click",function(e){if(e.target===s)closeSheet();});$phone.appendChild(s);if(window.lucide)lucide.createIcons();if(after)after(s);}
+function qrSvg(text){
+  if(!window.qrcode) return "";
+  var q=qrcode(0,"M");q.addData(text);q.make();var n=q.getModuleCount(),m=2,size=n+m*2,d="";
+  for(var r=0;r<n;r++)for(var c=0;c<n;c++)if(q.isDark(r,c))d+="M"+(c+m)+" "+(r+m)+"h1v1h-1z";
+  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+size+' '+size+'" shape-rendering="crispEdges" style="width:100%;height:100%"><rect width="'+size+'" height="'+size+'" fill="#fff"/><path d="'+d+'" fill="#120D46"/></svg>';
+}
+function openUrl(url){ if(!url){toast("ยังไม่ได้ตั้งค่าลิงก์นี้","info");return;} try{liff.openWindow({url:url,external:false});}catch(e){window.open(url,"_blank");} }
+
+function parseQr(v){
+  if(!v) return null;
+  try{
+    var u=new URL(v), s=u.searchParams.get("s"), k=u.searchParams.get("k");
+    if(!s){var st=u.searchParams.get("liff.state");if(st){var q=new URLSearchParams(st.split("?")[1]||"");s=q.get("s");k=q.get("k");if(q.get("p")==="register")return {register:true};}}
+    if(s&&k) return {station:Number(s),key:k};
+    if(u.searchParams.get("p")==="register") return {register:true};
+    return null;
+  }catch(e){}
+  var code=String(v).trim().toUpperCase();
+  return /^[A-Z0-9]{6}$/.test(code)?{code:code}:null;
+}
+function doScan(p){
+  if(!stack.length) stack.push({name:"home",params:{}});
+  busy("กำลังบันทึกภารกิจ…");
+  api("scan",p).then(function(r){S=r.state;go("result",r);})
+  .catch(function(e){
+    if(e.code==="NOT_REGISTERED"){pending=p;stack=[];go("register");toast("ลงทะเบียนก่อน แล้วระบบจะบันทึกฐานนี้ให้ต่อ","info");return;}
+    go("result",{error:e.message,code:e.code});
+  });
+}
+
+/* ===== views ===== */
+var VIEWS={};
+
+VIEWS.register=function(){
+  function opts(a){return a.map(function(x){return '<option>'+esc(x)+'</option>';}).join("");}
+  var ps=S&&S.settings&&S.settings.privacyUrl;
+  return {title:"ลงทะเบียน Future Passport",noBack:true,html:
+  '<div class="hero"><div class="kicker">BA&amp;IT EXPO 2027 · Zone 3 BA&amp;IT FUTURE CITY</div><div class="wordmark">FUTURE PASSPORT</div><p>ลงทะเบียนครั้งเดียว แล้วสแกน QR ที่ฐานกิจกรรมเพื่อสะสมแต้ม รับ Badge และวุฒิบัตร</p></div>'+
+  (walkin?'<p class="note" style="margin:12px 0 0"><i data-lucide="footprints"></i> ลงทะเบียนแบบ Walk-in</p>':'')+
+  '<div class="card" style="margin-top:14px">'+
+  '<label class="f" for="rName">ชื่อ–นามสกุล (แสดงบนวุฒิบัตร)</label><input class="in" id="rName" autocomplete="name" maxlength="80" placeholder="เช่น อนงค์ ใจดี">'+
+  '<label class="f" for="rSchool">สถานศึกษา</label><select class="in" id="rSchool"><option value="">เลือกสถานศึกษา</option>'+opts(SCHOOLS)+'<option>'+OTHER+'</option></select>'+
+  '<input class="in" id="rSchoolOther" maxlength="120" placeholder="พิมพ์ชื่อสถานศึกษา" style="margin-top:8px;display:none">'+
+  '<div class="row"><div><label class="f" for="rLevel">ระดับชั้น</label><select class="in" id="rLevel">'+opts(LEVELS)+'</select></div>'+
+  '<div><label class="f" for="rProv">จังหวัด</label><select class="in" id="rProv">'+opts(PROVINCES)+'</select></div></div>'+
+  '<label class="f">ความสนใจ (เลือกได้หลายข้อ)</label><div class="chips" id="rInt">'+INTERESTS.map(function(x){return '<button type="button" class="chip" aria-pressed="false">'+esc(x)+'</button>';}).join("")+'</div>'+
+  '<label class="check"><input type="checkbox" id="rNews"><span>ยินยอมรับข่าวสารหลักสูตรและการรับสมัครเรียนของคณะทาง LINE (ไม่บังคับ ยกเลิกได้ทุกเมื่อ)</span></label>'+
+  '<div class="err" id="rErr" role="alert"></div>'+
+  '<button class="btn" id="rGo" style="margin-top:6px">ลงทะเบียน</button>'+
+  '<p class="note">การลงทะเบียนถือว่าคุณได้อ่าน'+(ps?'<button class="linkbtn" id="rPriv">ประกาศความเป็นส่วนตัว</button>':'ประกาศความเป็นส่วนตัว')+'ของงานแล้ว</p></div>',
+  after:function(){
+    [].forEach.call(document.querySelectorAll("#rInt .chip"),function(b){b.onclick=function(){b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")==="true"?"false":"true");};});
+    $("rSchool").onchange=function(){$("rSchoolOther").style.display=this.value===OTHER?"block":"none";};
+    if($("rPriv")) $("rPriv").onclick=function(){openUrl(ps);};
+    $("rGo").onclick=function(){
+      var name=$("rName").value.trim(), sel=$("rSchool").value, school=sel===OTHER?$("rSchoolOther").value.trim():sel, err=$("rErr");
+      if(name.length<3){err.textContent="กรอกชื่อ–นามสกุล เพื่อใช้แสดงบนวุฒิบัตร";return;}
+      if(!school){err.textContent="เลือกหรือพิมพ์ชื่อสถานศึกษา";return;}
+      err.textContent=""; var btn=this; btn.disabled=true; btn.textContent="กำลังลงทะเบียน…";
+      api("register",{name:name,school:school,level:$("rLevel").value,province:$("rProv").value,
+        interests:[].map.call(document.querySelectorAll('#rInt .chip[aria-pressed="true"]'),function(b){return b.textContent;}),
+        consentNews:$("rNews").checked,walkin:walkin})
+      .then(function(d){
+        S=d; var g=S.user.group;
+        if(pending){var p=pending;pending=null;stack=[];doScan(p);toast("ลงทะเบียนแล้ว · คุณอยู่กลุ่ม "+g);return;}
+        stack=[];go("home");toast("ลงทะเบียนแล้ว · คุณอยู่กลุ่ม "+g);
+      })
+      .catch(function(e){err.textContent=e.message;btn.disabled=false;btn.textContent="ลงทะเบียน";});
+    };
+  }};
+};
+
+VIEWS.home=function(){
+  var u=S.user;
+  var tiles=[["passport","t1","book-user","MY PASSPORT","ดูแต้ม / Badge"],["city","t2","map","EXPLORE CITY","ผังฐานกิจกรรม"],["scan","t3","scan-line","SCAN MISSION","สแกน QR"],["missions","t4","list-checks","MY MISSION","ภารกิจของฉัน"],["rewards","t5","gift","REWARDS","ของรางวัล"],["admission","t6","graduation-cap","ADMISSION","ข้อมูลหลักสูตร"]];
+  return {title:"Future Passport",noBack:true,html:
+  '<div class="hero"><div class="pass"><div class="avatar">'+esc(u.name.charAt(0))+'</div><div><div class="nm">'+esc(u.name)+'</div><div class="sc">'+esc(u.school)+'</div></div><div class="grp">กลุ่ม '+esc(u.group)+'</div></div>'+
+  '<div class="pts"><b>'+pts()+'</b><span>แต้ม · '+count()+'/9 ฐาน</span></div>'+segs()+'<div class="prog-note">'+progNote()+'</div></div>'+
+  '<nav class="menu" aria-label="เมนู">'+tiles.map(function(t){return '<button class="tile '+t[1]+'" data-go="'+t[0]+'"><i data-lucide="'+t[2]+'"></i><span class="en">'+t[3]+'</span><span class="th">'+t[4]+'</span></button>';}).join("")+'</nav>'+
+  (S.cert?'<button class="btn gold" id="hCert" style="margin-top:14px"><i data-lucide="award"></i>ดูวุฒิบัตรของฉัน</button>':''),
+  after:function(){
+    [].forEach.call(document.querySelectorAll("[data-go]"),function(b){b.onclick=function(){go(b.getAttribute("data-go"));};});
+    if($("hCert")) $("hCert").onclick=function(){go("cert");};
+    if(Date.now()-lastFetch>20000) api("me").then(function(d){S=d; var c=stack[stack.length-1]; if(c&&c.name==="home") draw();}).catch(function(){});
+  }};
+};
+
+VIEWS.scan=function(){
+  return {title:"Scan Mission",html:
+  '<button class="viewfinder" id="cam" style="width:100%;border:0;cursor:pointer" aria-label="เปิดกล้องสแกน QR"><div class="fr"></div><div class="scanline"></div><div class="hint">แตะเพื่อเปิดกล้อง แล้วส่องไปที่ QR ประจำฐาน</div></button>'+
+  '<button class="btn" id="cam2" style="margin-top:14px"><i data-lucide="camera"></i>เปิดกล้องสแกน QR</button>'+
+  '<div class="card" style="margin-top:16px"><h2 class="sec" style="font-size:16px">สแกนไม่ได้? พิมพ์รหัสฐาน</h2><p class="sub" style="margin:0 0 10px">รหัส 6 ตัวอยู่ใต้ QR บนป้ายประจำฐาน</p>'+
+  '<div class="codein"><input class="in" id="code" maxlength="6" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="XXXXXX" aria-label="รหัสฐาน"><button class="btn" id="codeGo" style="width:auto;margin:0">บันทึก</button></div><div class="err" id="codeErr" role="alert"></div></div>',
+  after:function(){
+    function cam(){
+      if(!liff.isApiAvailable("scanCodeV2")){toast("เปิดกล้องในแอปไม่ได้ ใช้กล้องมือถือสแกน QR ที่ฐาน หรือพิมพ์รหัสด้านล่าง","alert-circle");return;}
+      liff.scanCodeV2().then(function(r){
+        if(!r||!r.value) return;
+        var p=parseQr(r.value);
+        if(!p){toast("QR นี้ไม่ใช่ QR ประจำฐานกิจกรรม","alert-circle");return;}
+        if(p.register){toast("นี่คือ QR จุดลงทะเบียน ให้สแกน QR ที่ฐานกิจกรรม","info");return;}
+        doScan(p);
+      }).catch(function(){toast("เปิดกล้องไม่สำเร็จ ลองอีกครั้ง หรือพิมพ์รหัสฐาน","alert-circle");});
+    }
+    $("cam").onclick=cam; $("cam2").onclick=cam;
+    $("codeGo").onclick=function(){var v=$("code").value.trim().toUpperCase();if(!/^[A-Z0-9]{6}$/.test(v)){$("codeErr").textContent="รหัสฐานมี 6 ตัวอักษร";return;}doScan({code:v});};
+  }};
+};
+
+VIEWS.result=function(r){
+  if(r.error){
+    var titles={WRONG_STATION:"ยังไม่ถึงคิวฐานนี้",OUT_OF_TIME:"นอกช่วงเวลากิจกรรม",BAD_QR:"QR ไม่ถูกต้อง",BUSY:"ระบบกำลังยุ่ง",NETWORK:"เชื่อมต่อไม่ได้"};
+    return {title:"Scan Mission",html:'<div class="result"><div class="hex locked" style="width:110px;margin:10px auto 0"><i data-lucide="alert-circle"></i></div><h2>'+esc(titles[r.code]||"บันทึกไม่สำเร็จ")+'</h2><p class="sub">'+esc(r.error)+'</p>'+
+      '<div class="stack"><button class="btn" id="rScan"><i data-lucide="scan-line"></i>สแกนอีกครั้ง</button><button class="btn alt" id="rHome">กลับเมนู</button></div></div>',
+      after:function(){$("rScan").onclick=function(){go("scan",{},true);};$("rHome").onclick=function(){stack=[];go("home");};}};
+  }
+  var m=mission(r.station);
+  if(r.dup){
+    return {title:"Scan Mission",html:'<div class="result"><div class="burst">'+hex(m,140)+'</div><h2>สแกนฐานนี้แล้ว</h2><p class="sub">ฐาน '+m.id+' '+esc(m.act)+' บันทึกไว้เมื่อ '+fmtTime(r.at)+' แต้มไม่นับซ้ำ ไปฐานถัดไปตามตารางหมุนเวียนของกลุ่ม '+esc(S.user.group)+'</p>'+
+      '<div class="stack"><button class="btn" id="rScan"><i data-lucide="scan-line"></i>สแกนฐานถัดไป</button><button class="btn alt" id="rPass">ดู Passport ของฉัน</button></div></div>',after:wire};
+  }
+  var extra="";
+  if(r.newCert) extra+='<div class="unlock"><i data-lucide="award"></i><div><b>ปลดล็อกวุฒิบัตรแล้ว</b><br>ครบ '+certMin()+' ฐาน เลขที่ '+esc(S.cert.no)+'</div></div><button class="btn gold" id="rCert"><i data-lucide="award"></i>ดูวุฒิบัตรของฉัน</button>';
+  if(r.newSpecial) extra+='<div class="unlock"><i data-lucide="crown"></i><div><b>Special Badge: Future City Master</b><br>ทำครบทั้ง 9 Mission</div></div>';
+  return {title:"Mission Completed",html:
+  '<div class="result"><div class="burst pop">'+hex(m,140)+'</div><h2>ภารกิจสำเร็จ</h2><div class="sub" style="margin:0">ฐาน '+m.id+' · '+esc(m.act)+'</div>'+
+  '<div class="plus">+'+S.settings.pointsPerStation+' แต้ม</div><div>ได้รับ Badge <b>'+esc(m.badge)+'</b></div>'+
+  '<div class="card" style="margin:16px 0;text-align:left"><div style="display:flex;justify-content:space-between;font-weight:600;margin-bottom:8px"><span>'+count()+'/9 ฐาน</span><span>'+pts()+' แต้ม</span></div>'+segs(true)+'<div class="sub" style="margin:8px 0 0">'+progNote()+'</div></div>'+
+  '<div class="stack">'+extra+'<button class="btn" id="rPass"><i data-lucide="book-user"></i>ดู Passport ของฉัน</button><button class="btn alt" id="rScan"><i data-lucide="scan-line"></i>สแกนฐานถัดไป</button></div></div>',
+  after:function(){wire();if($("rCert"))$("rCert").onclick=function(){go("cert",{},true);};}};
+  function wire(){$("rScan").onclick=function(){go("scan",{},true);};$("rPass").onclick=function(){go("passport",{},true);};}
+};
+
+VIEWS.passport=function(){
+  var n=count();
+  var certCard=S.cert?'<button class="btn gold" id="pCert"><i data-lucide="award"></i>ดูวุฒิบัตร · '+esc(S.cert.no)+'</button>'
+    :'<div class="card" style="display:flex;gap:12px;align-items:center"><i data-lucide="lock"></i><div><b>วุฒิบัตรดิจิทัล</b><div class="sub" style="margin:0">ร่วมกิจกรรมอีก '+(certMin()-n)+' ฐาน เพื่อปลดล็อก</div></div></div>';
+  return {title:"My Passport",html:
+  '<div class="hero"><div class="pass"><div class="avatar">'+esc(S.user.name.charAt(0))+'</div><div><div class="nm">'+esc(S.user.name)+'</div><div class="sc">'+esc(S.user.school)+' · '+esc(S.user.level)+'</div></div><div class="grp">กลุ่ม '+esc(S.user.group)+'</div></div>'+
+  '<div class="pts"><b>'+pts()+'</b><span>แต้ม · '+n+'/9 ฐาน</span></div>'+segs()+'<div class="prog-note">'+progNote()+'</div></div>'+
+  '<h2 class="sec" style="margin-top:18px">Badge ของฉัน</h2><p class="sub">ได้แล้ว '+n+' จาก 9</p>'+
+  '<div class="card"><div class="badges">'+missions().map(function(m){var t=done(m.id);return '<div class="badge">'+hex(m,64,!t)+'<span class="bn">'+esc(m.badge)+'</span><span class="bt">'+(t?fmtTime(t):'ฐาน '+m.id)+'</span></div>';}).join("")+'</div>'+
+  '<div class="badge" style="margin-top:16px;flex-direction:row;justify-content:center;gap:12px;text-align:left"><div class="hex'+(n>=9?'':' locked')+'" style="--c:#C98A10;width:56px"><i data-lucide="'+(n>=9?'crown':'lock')+'"></i></div><div><span class="bn">Special Badge · Future City Master</span><br><span class="bt">'+(n>=9?'ได้รับแล้ว':'ทำครบทั้ง 9 Mission')+'</span></div></div></div>'+
+  '<div style="margin-top:14px">'+certCard+'</div>',
+  after:function(){if($("pCert"))$("pCert").onclick=function(){go("cert");};}};
+};
+
+VIEWS.missions=function(){
+  return {title:"My Mission",html:'<h2 class="sec">ภารกิจของฉัน</h2><p class="sub">9 ฐาน 9 Mission ฐานละ '+S.settings.pointsPerStation+' แต้ม · ครบ '+certMin()+' ฐานรับวุฒิบัตร</p>'+
+  '<div class="card"><ul class="mlist">'+missions().map(function(m){var t=done(m.id);
+    return '<li><div class="num" style="background:'+m.c+'">'+m.id+'</div><div><div class="mt">'+esc(m.act)+'</div><div class="md">Mission '+esc(m.type)+' · Badge '+esc(m.badge)+'</div></div>'+(t?'<span class="st ok">สำเร็จ '+fmtTime(t)+'</span>':'<span class="st wait">ยังไม่ได้ทำ</span>')+'</li>';}).join("")+'</ul></div>'+
+  '<button class="btn" id="mScan" style="margin-top:14px"><i data-lucide="scan-line"></i>สแกน Mission</button>',
+  after:function(){$("mScan").onclick=function(){go("scan");};}};
+};
+
+VIEWS.city=function(p){
+  var sel=p.sel||1, m=mission(sel);
+  return {title:"Explore City",html:'<h2 class="sec">ผังฐาน Zone 3 · BA&amp;IT FUTURE CITY</h2><p class="sub">แตะฐานเพื่อดูรายละเอียด ฐานที่ทำแล้วจะจางลง</p>'+
+  '<div class="city">'+missions().map(function(x){return '<button class="block'+(x.id===sel?' sel':'')+(done(x.id)?' done':'')+'" style="background:'+x.c+'" data-sel="'+x.id+'" aria-label="ฐาน '+x.id+' '+esc(x.act)+'"><b>'+x.id+'</b>'+esc(x.type)+'</button>';}).join("")+'</div>'+
+  '<div class="card" style="margin-top:14px;display:flex;gap:14px;align-items:center">'+hex(m,64,false)+'<div><div style="font-family:var(--head);font-weight:700">ฐาน '+m.id+' · '+esc(m.act)+'</div><div class="sub" style="margin:2px 0 0">Mission '+esc(m.type)+' · '+esc(m.th)+'<br>'+(done(m.id)?'ทำแล้ว '+fmtTime(done(m.id)):'รับ '+S.settings.pointsPerStation+' แต้ม และ Badge '+esc(m.badge))+'</div></div></div>',
+  after:function(){[].forEach.call(document.querySelectorAll("[data-sel]"),function(b){b.onclick=function(){go("city",{sel:+b.dataset.sel},true);};});}};
+};
+
+VIEWS.rewards=function(){
+  var pt=pts(), tiers=S.settings.tiers;
+  function row(t,i){var c=S.claims[String(t.pts)], ok=pt>=t.pts, st=TIER_STYLE[i%TIER_STYLE.length];
+    return '<div class="card"><div class="tier"><div class="ic" style="background:'+st[1]+'"><i data-lucide="'+st[0]+'"></i></div><div><h3>'+t.pts+' แต้ม · '+esc(t.name)+'</h3><p>'+(c?'รับแล้วเมื่อ '+fmtTime(c):ok?'พร้อมรับที่จุดแลกรางวัล':'สะสมอีก '+(t.pts-pt)+' แต้ม')+'</p></div></div>'+
+    '<div class="bar"><i style="width:'+Math.min(100,pt/t.pts*100)+'%"></i></div><button class="btn'+(ok&&!c?' gold':' alt')+'" data-claim="'+t.pts+'"'+(ok&&!c?'':' disabled')+'>'+(c?'รับของรางวัลแล้ว':'รับของรางวัล')+'</button></div>';}
+  return {title:"Rewards",html:'<h2 class="sec">ของรางวัล</h2><p class="sub">มี '+pt+' แต้ม · รับได้ทุกระดับที่สะสมถึง ระดับละ 1 ครั้ง แต้มไม่ถูกหัก</p><div class="stack">'+tiers.map(row).join("")+
+  '<div class="card"><div class="tier"><div class="ic" style="background:#C98A10"><i data-lucide="award"></i></div><div><h3>ครบ '+certMin()+' ฐาน · Digital Certificate</h3><p>'+(S.cert?'ออกแล้ว เลขที่ '+esc(S.cert.no):'อีก '+(certMin()-count())+' ฐาน')+'</p></div></div></div>'+
+  '<div class="card"><div class="tier"><div class="ic" style="background:#3B2A9E"><i data-lucide="crown"></i></div><div><h3>ครบ 9 ฐาน · Special Badge</h3><p>'+(count()>=9?'ได้รับแล้ว':'อีก '+(9-count())+' ฐาน')+'</p></div></div></div></div>',
+  after:function(){[].forEach.call(document.querySelectorAll("[data-claim]"),function(b){b.onclick=function(){claimSheet(+b.dataset.claim);};});}};
+};
+function claimSheet(p){
+  var t=S.settings.tiers.filter(function(x){return x.pts===p;})[0];
+  openSheet('<h2 class="sec" style="text-align:center">รับ '+esc(t.name)+'</h2><p class="sub" style="text-align:center">แสดงหน้าจอนี้ที่จุดแลกรางวัล</p>'+
+    '<div class="card" style="text-align:center"><div style="font-family:var(--head);font-weight:700;font-size:18px">'+esc(S.user.name)+'</div><div class="sub" style="margin:0">'+esc(S.user.school)+' · '+pts()+' แต้ม</div></div>'+
+    '<label class="f" for="pin">สำหรับเจ้าหน้าที่: ใส่ PIN เพื่อยืนยัน</label><input class="in" id="pin" type="password" inputmode="numeric" maxlength="8" autocomplete="off">'+
+    '<div class="err" id="pinErr" role="alert"></div><div class="row"><button class="btn alt" id="pinX">ยกเลิก</button><button class="btn gold" id="pinOk">ยืนยันการรับ</button></div>',
+  function(s){
+    s.querySelector("#pinX").onclick=closeSheet;
+    s.querySelector("#pinOk").onclick=function(){
+      var btn=this; btn.disabled=true;
+      api("claim",{tier:p,pin:s.querySelector("#pin").value}).then(function(d){S=d;closeSheet();go("rewards",{},true);toast("ยืนยันการรับ "+t.name+" แล้ว","gift");})
+      .catch(function(e){s.querySelector("#pinErr").textContent=e.message;btn.disabled=false;});
+    };
+    s.querySelector("#pin").focus();
+  });
+}
+
+VIEWS.admission=function(){
+  var st=S.settings;
+  return {title:"Admission",html:'<div class="hero"><div class="kicker">คณะบริหารธุรกิจและเทคโนโลยีสารสนเทศ</div><div class="wordmark" style="font-size:24px">มทร.สุวรรณภูมิ</div><p>เรียนได้ใกล้บ้าน 4 ศูนย์พื้นที่</p></div>'+
+  '<div class="stack" style="margin-top:14px"><div class="card"><h2 class="sec" style="font-size:17px">ศูนย์พื้นที่</h2><div class="chips" style="margin-top:6px"><span class="chip">หันตรา (อยุธยา)</span><span class="chip">วาสุกรี (อยุธยา)</span><span class="chip">สุพรรณบุรี</span><span class="chip">นนทบุรี</span></div></div>'+
+  '<button class="btn" id="aApply"><i data-lucide="file-pen-line"></i>ดูหลักสูตรและสมัครเรียน</button><button class="btn alt" id="aAsk"><i data-lucide="message-circle"></i>สอบถามผ่านแชต LINE</button></div>',
+  after:function(){$("aApply").onclick=function(){openUrl(st.admissionUrl);};$("aAsk").onclick=function(){openUrl(st.oaId?"https://line.me/R/ti/p/"+encodeURIComponent(st.oaId):"");};}};
+};
+
+function certHtml(){
+  return '<div class="certimg" role="img" aria-label="วุฒิบัตรเลขที่ '+esc(S.cert.no)+' ของ '+esc(S.user.name)+'">'+
+  '<div class="ctr c-title">วุฒิบัตร</div><div class="ctr c-sub">FUTURE CITY EXPLORER CERTIFICATE</div>'+
+  '<div class="ctr c-to">ขอมอบวุฒิบัตรฉบับนี้ไว้เพื่อแสดงว่า</div><div class="ctr c-name">'+esc(S.user.name)+'</div><div class="ctr c-school">'+esc(S.user.school)+'</div>'+
+  '<div class="c-body">ได้เข้าร่วมกิจกรรม Future Passport และผ่านภารกิจ '+count()+' จาก 9 ฐาน<br>ในงาน BA&amp;IT EXPO 2027 การแข่งขันทักษะวิชาการด้านบริหารธุรกิจระดับชาติ ครั้งที่ 4<br>ระหว่างวันที่ 13–14 มกราคม 2570 ณ The Hall อยุธยาซิตี้พาร์ค</div>'+
+  '<div class="c-sig"><b>(ชื่อคณบดี)</b>คณบดีคณะบริหารธุรกิจและเทคโนโลยีสารสนเทศ<br>มหาวิทยาลัยเทคโนโลยีราชมงคลสุวรรณภูมิ</div>'+
+  '<div class="c-no"><b>เลขที่ '+esc(S.cert.no)+'</b>สแกน QR เพื่อตรวจสอบ</div>'+
+  '<div class="c-qr">'+qrSvg(S.settings.verifyUrl+"?cert="+encodeURIComponent(S.cert.no))+'</div></div>';
+}
+VIEWS.cert=function(){
+  if(!S.cert) return VIEWS.passport();
+  return {title:"Digital Certificate",html:certHtml()+
+  '<p class="note" style="text-align:center">กด "ดูขนาดเต็ม" แล้วบันทึกภาพหน้าจอเก็บไว้ได้ · สแกน QR บนวุฒิบัตรเพื่อตรวจสอบว่าเป็นของจริง</p>'+
+  '<div class="stack"><button class="btn gold" id="cFull"><i data-lucide="maximize-2"></i>ดูวุฒิบัตรขนาดเต็ม</button><button class="btn alt" id="cVerify"><i data-lucide="shield-check"></i>เปิดหน้าตรวจสอบวุฒิบัตร</button></div>',
+  after:function(){
+    $("cVerify").onclick=function(){openUrl(S.settings.verifyUrl+"?cert="+encodeURIComponent(S.cert.no));};
+    $("cFull").onclick=function(){
+      var o=document.createElement("div");o.className="cert-full";o.setAttribute("role","dialog");o.setAttribute("aria-label","วุฒิบัตรขนาดเต็ม");
+      o.innerHTML='<button class="x">ปิด</button>'+certHtml();document.body.appendChild(o);
+      var close=function(){o.remove();document.removeEventListener("keydown",k);}, k=function(e){if(e.key==="Escape")close();};
+      o.querySelector(".x").onclick=close;o.addEventListener("click",function(e){if(e.target===o)close();});document.addEventListener("keydown",k);
+    };
+  }};
+};
+
+/* ===== boot ===== */
+function boot(){
+  $screen=$("screen");$title=$("barTitle");$back=$("backBtn");$home=$("homeBtn");$phone=$("phone");
+  $back.onclick=back; $home.onclick=function(){stack=[];go("home");};
+  busy("กำลังเปิด Future Passport…");
+  if(!window.liff){fatal("โหลดระบบไม่สำเร็จ","ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่");return;}
+  if(CONFIG.API_URL.indexOf("http")!==0){fatal("ยังไม่ได้ตั้งค่าระบบ","ผู้ดูแลต้องใส่ API_URL ในไฟล์ index.html");return;}
+  liff.init({liffId:CONFIG.LIFF_ID}).then(function(){
+    if(!liff.isLoggedIn()){liff.login({redirectUri:location.href});return;}
+    var q=new URLSearchParams(location.search);
+    walkin=q.get("walkin")==="1";
+    if(q.get("s")&&q.get("k")) pending={station:Number(q.get("s")),key:q.get("k")};
+    var start=q.get("p");
+    return api("me").then(function(d){
+      S=d; try{sessionStorage.removeItem("fp-relogin");}catch(e){}
+      try{history.replaceState(null,"",location.pathname);}catch(e){}
+      if(!S.registered){stack=[];go("register");return;}
+      if(pending){var p=pending;pending=null;stack=[{name:"home",params:{}}];doScan(p);return;}
+      stack=[];
+      var ok={passport:1,missions:1,rewards:1,city:1,admission:1,scan:1,cert:1};
+      if(start&&ok[start]){stack.push({name:"home",params:{}});go(start);}else go("home");
+    });
+  }).catch(function(e){fatal("เปิดระบบไม่สำเร็จ",e&&e.message?e.message:"ลองปิดแล้วเปิดใหม่ผ่านแอป LINE");});
+}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot);else boot();
+})();
+
+</script>
+</body>
+</html>
