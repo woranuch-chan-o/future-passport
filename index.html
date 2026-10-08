@@ -217,6 +217,7 @@ input.in,select.in{width:100%;border:1px solid var(--line);background:var(--surf
 .cv-img{display:block;max-width:96vw;max-height:calc(100vh - 210px);width:auto;height:auto;border-radius:6px}
 .cv-img.rot{position:absolute;left:50%;top:50%;max-width:none;max-height:none;width:min(calc(100vh - 210px),134vw);transform:translate(-50%,-50%) rotate(90deg)}
 .cv-bar{padding:10px 16px 16px}
+.cert-photo{display:block;width:100%;height:auto;border-radius:6px;box-shadow:0 8px 24px -10px rgba(18,13,70,.45)}
 .cv-hint{color:#A9A4D6;font-size:12.5px;line-height:1.5;text-align:center;margin:8px 0 0}
 .cert-full{position:fixed;inset:0;z-index:80;background:rgba(6,5,28,.92);display:grid;place-items:center;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
 .cert-full .certimg{width:min(94vw,1100px)}
@@ -584,12 +585,20 @@ VIEWS.cert=function(){
   after:function(){
     $("cVerify").onclick=function(){openUrl(S.settings.verifyUrl+"?cert="+encodeURIComponent(S.cert.no));};
     $("cFull").onclick=openCertViewer;
+    // แทนตัวอย่าง HTML ด้วยรูปที่สร้างจริง ให้เหมือนรูปที่บันทึกทุกจุด
+    renderCert().then(function(u){var box=$screen.querySelector(".certimg");if(!box)return;var im=new Image();im.src=u;im.className="cert-photo";im.alt="วุฒิบัตรเลขที่ "+S.cert.no;box.replaceWith(im);}).catch(function(){});
   }};
 };
 
 /* ===== certificate image (save) ===== */
 function loadImg(src){return new Promise(function(res,rej){var i=new Image();i.onload=function(){res(i);};i.onerror=function(){rej(new Error("โหลดภาพพื้นหลังไม่สำเร็จ"));};i.src=src;});}
+var certCache={key:"",url:""};
+function certKey(){return [S.cert.no,S.user.name,S.user.school,count()].join("|");}
 function renderCert(){
+  if(certCache.key===certKey()&&certCache.url) return Promise.resolve(certCache.url);
+  return renderCertRaw().then(function(u){certCache={key:certKey(),url:u};return u;});
+}
+function renderCertRaw(){
   var want=["800 40px Prompt","700 40px Prompt","600 40px Prompt",'600 40px "IBM Plex Sans Thai"','400 40px "IBM Plex Sans Thai"'];
   var fl=(document.fonts&&document.fonts.load)?Promise.all(want.map(function(f){return document.fonts.load(f,"วุฒิบัตร Aa");})).catch(function(){}):Promise.resolve();
   return fl.then(function(){return loadImg("cert-bg.jpg");}).then(function(bg){
