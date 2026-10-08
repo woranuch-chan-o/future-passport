@@ -381,6 +381,52 @@ input.in:focus,select.in:focus{border-color:var(--cyan);box-shadow:var(--glow-c)
   .node.sel{animation:pulse 1.8s ease-in-out infinite}
   @keyframes pulse{50%{box-shadow:inset 0 0 0 2px #fff,0 0 0 2px var(--nc),0 0 34px var(--nc)}}
 }
+
+.scanbig{margin:14px 0 4px;padding:16px;font-size:17px;background:linear-gradient(90deg,#FF3EA5,#8B5CFF);box-shadow:0 0 22px rgba(255,62,165,.5)}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:14px 0 12px;padding:5px;background:#0A0F28;border:1px solid var(--line);clip-path:var(--cut)}
+.tabs button{border:0;background:transparent;color:var(--muted);font-family:var(--head);font-weight:600;font-size:13.5px;padding:9px 4px;display:flex;align-items:center;justify-content:center;gap:6px;clip-path:var(--cut);cursor:pointer}
+.tabs button svg.lucide{width:16px;height:16px}
+.tabs button[aria-selected="true"]{background:linear-gradient(90deg,rgba(34,228,255,.25),rgba(139,92,255,.3));color:#fff;box-shadow:inset 0 0 0 1px rgba(34,228,255,.5)}
+.prof{display:grid;grid-template-columns:auto 1fr;gap:10px 14px;margin:0}
+.prof dt{color:var(--muted);font-size:13px}
+.prof dd{margin:0;color:#fff;font-weight:600}
+
+.tile.t3{box-shadow:none}
+.tile.t1{box-shadow:inset 0 0 0 2px #B892FF,0 0 22px rgba(184,146,255,.45)}
+.idbtn{margin-left:auto;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;font-family:var(--head);font-weight:600;font-size:11px;letter-spacing:.06em;padding:4px 10px;display:flex;align-items:center;gap:5px;clip-path:var(--cut);cursor:pointer}
+.idbtn svg.lucide{width:14px;height:14px}
+.hud-k{flex-wrap:wrap}
+.idwrap{display:grid;place-items:center}
+.idimg{display:block;width:min(100%,360px);height:auto;cursor:zoom-in;filter:drop-shadow(0 0 18px rgba(34,228,255,.35))}
+.imgcard{display:block;width:100%;border:1px solid rgba(34,228,255,.4);background:#0A0F28;padding:0;cursor:zoom-in;position:relative;clip-path:var(--cut);margin-top:6px}
+.imgcard img{display:block;width:100%;height:auto}
+.imgcard span{position:absolute;right:8px;bottom:8px;display:flex;gap:6px;align-items:center;background:rgba(7,11,31,.8);color:#fff;font-family:var(--head);font-size:12px;padding:5px 10px;clip-path:var(--cut)}
+.imgcard span svg.lucide{width:14px;height:14px;color:var(--cyan)}
+.emptybox{display:flex;gap:12px;align-items:center;color:#DDE8FF}
+.emptybox svg.lucide{width:28px;height:28px;color:var(--cyan);flex:none}
+.zgrid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.zcard{--zc:#22E4FF;position:relative;border:0;cursor:pointer;min-height:132px;padding:14px 12px;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:4px;text-align:left;color:#fff;
+  background:linear-gradient(160deg,color-mix(in srgb,var(--zc) 30%,#0E1435),#0B1030 75%);clip-path:var(--cut);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--zc) 60%,transparent)}
+.zcard .zl{position:absolute;top:6px;right:12px;font-family:var(--head);font-weight:700;font-size:44px;line-height:1;color:color-mix(in srgb,var(--zc) 55%,#fff);text-shadow:0 0 16px var(--zc)}
+.zcard svg.lucide{width:26px;height:26px;color:#fff;filter:drop-shadow(0 0 8px var(--zc));margin-bottom:auto}
+.zcard .zt{font-family:var(--head);font-weight:700;font-size:15px;line-height:1.2}
+.zcard .zs{font-size:12px;color:var(--muted);line-height:1.3}
+.zcard.sel{box-shadow:inset 0 0 0 2px #fff,0 0 0 2px var(--zc),0 0 22px var(--zc)}
+.zdesc{margin:10px 0 0;color:#DDE8FF;font-size:14px;line-height:1.6}
+.mbrief .btn{margin-top:14px}
+.mbrief .imgcard{margin-top:12px}
+.prog{display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:start}
+.pgn{font-family:var(--head);font-weight:700;font-size:22px;color:var(--cyan);text-shadow:0 0 12px rgba(34,228,255,.6)}
+.pgt{font-family:var(--head);font-weight:700;font-size:16px;color:#fff;line-height:1.3}
+.pgm{font-size:13px;color:var(--muted);margin-top:2px}
+.pgh{margin:8px 0 0;font-size:13.5px;color:#DDE8FF;line-height:1.55}
+
+.welcome{display:flex;gap:12px;align-items:center;padding:12px 14px;margin-bottom:14px;background:linear-gradient(120deg,rgba(166,255,61,.18),rgba(34,228,255,.18));border:1px solid rgba(166,255,61,.55);clip-path:var(--cut);color:#EFFFE0;font-size:14px;line-height:1.45}
+.welcome svg.lucide{width:28px;height:28px;color:var(--lime);flex:none}
+.idskel{width:min(100%,360px);aspect-ratio:2/3;display:grid;place-items:center;align-content:center;gap:10px;color:var(--muted);border:1px dashed var(--line)}
+.idmeta{display:flex;flex-direction:column;align-items:center;gap:2px;margin-top:10px;font-family:var(--head);color:#DDE8FF;font-size:13.5px;text-align:center}
+.idmeta span:first-child{color:var(--lime);font-weight:700;letter-spacing:.04em}
+#hId .idimg{width:min(100%,300px)}
 </style>
 </head>
 <body>
@@ -527,7 +573,7 @@ VIEWS.register=function(){
   function opts(a){return a.map(function(x){return '<option>'+esc(x)+'</option>';}).join("");}
   var ps=S&&S.settings&&S.settings.privacyUrl;
   return {title:"ลงทะเบียน Future Passport",noBack:true,html:
-  '<div class="hero"><div class="kicker">BA&amp;IT EXPO 2027 · Zone 3 BA&amp;IT FUTURE CITY</div><div class="wordmark">FUTURE PASSPORT</div><p>ลงทะเบียนครั้งเดียว แล้วสแกน QR ที่ฐานกิจกรรมเพื่อสะสมแต้ม รับ Badge และวุฒิบัตร</p></div>'+
+  '<div class="hero"><div class="kicker">BA&amp;IT EXPO 2027 · Zone C BA&amp;IT FUTURE CITY</div><div class="wordmark">FUTURE PASSPORT</div><p>ลงทะเบียนครั้งเดียว แล้วสแกน QR ที่ฐานกิจกรรมเพื่อเก็บ Badge รับ Badge และวุฒิบัตร</p></div>'+
   (walkin?'<p class="note" style="margin:12px 0 0"><i data-lucide="footprints"></i> ลงทะเบียนแบบ Walk-in</p>':'')+
   '<div class="card" style="margin-top:14px">'+
   '<label class="f" for="rName">ชื่อ–นามสกุล (แสดงบนวุฒิบัตร)</label><input class="in" id="rName" autocomplete="name" maxlength="80" placeholder="เช่น อนงค์ ใจดี">'+
@@ -553,32 +599,39 @@ VIEWS.register=function(){
         interests:[].map.call(document.querySelectorAll('#rInt .chip[aria-pressed="true"]'),function(b){return b.textContent;}),
         consentNews:$("rNews").checked,walkin:walkin})
       .then(function(d){
-        S=d; var g=S.user.group;
-        if(pending){var p=pending;pending=null;stack=[];doScan(p);toast("ลงทะเบียนแล้ว · คุณอยู่กลุ่ม "+g);return;}
-        stack=[];go("home");toast("ลงทะเบียนแล้ว · คุณอยู่กลุ่ม "+g);
+        S=d;
+        if(pending){var p=pending;pending=null;stack=[];doScan(p);toast("ลงทะเบียนสำเร็จ");return;}
+        stack=[];go("home",{fresh:1});
       })
       .catch(function(e){
         if(e.code!=="BAD_RESPONSE") throw e;
-        return api("me").then(function(d){ if(!d.registered) throw e; S=d; var g=S.user.group;
-          if(pending){var p=pending;pending=null;stack=[];doScan(p);toast("ลงทะเบียนแล้ว · คุณอยู่กลุ่ม "+g);return;}
-          stack=[];go("home");toast("ลงทะเบียนแล้ว · คุณอยู่กลุ่ม "+g); });
+        return api("me").then(function(d){ if(!d.registered) throw e; S=d;
+          if(pending){var p=pending;pending=null;stack=[];doScan(p);toast("ลงทะเบียนสำเร็จ");return;}
+          stack=[];go("home",{fresh:1}); });
       })
       .catch(function(e){err.textContent=e.message;btn.disabled=false;btn.textContent="ลงทะเบียน";});
     };
   }};
 };
 
-VIEWS.home=function(){
+VIEWS.home=function(p){
   var u=S.user;
-  var tiles=[["passport","t1","book-user","MY PASSPORT","ดูแต้ม / Badge"],["city","t2","map","EXPLORE CITY","ผังฐานกิจกรรม"],["scan","t3","scan-line","SCAN MISSION","สแกน QR"],["missions","t4","list-checks","MY MISSION","ภารกิจของฉัน"],["rewards","t5","gift","REWARDS","ของรางวัล"],["admission","t6","graduation-cap","ADMISSION","ข้อมูลหลักสูตร"]];
+  var tiles=[["passport","t1","contact","MY PASSPORT","ID · ภารกิจ"],["schedule","t2","calendar-clock","SCHEDULE","ตารางการแข่งขัน"],["map","t3","map","EVENT MAP","ผังงาน Zone A–D"],["eval","t4","clipboard-check","EVALUATION","แบบประเมินงาน"],["journey","t5","route","JOURNEY MAP","Competition Journey"],["programs","t6","graduation-cap","PROGRAMS","ข้อมูลหลักสูตร"]];
   return {title:"Future Passport",noBack:true,html:
-  '<div class="hero"><div class="hud-k">PLAYER CARD<span class="lv">LV '+count()+'</span></div><div class="pass"><div class="avatar">'+esc(u.name.charAt(0))+'</div><div><div class="nm">'+esc(u.name)+'</div><div class="sc">'+esc(u.school)+'</div></div><div class="grp">กลุ่ม '+esc(u.group)+'</div></div>'+
-  '<div class="pts"><b>'+pts()+'</b><span>XP · '+count()+'/9 ฐาน</span></div>'+segs()+'<div class="prog-note">'+progNote()+'</div></div>'+
+  ((p&&p.fresh)?'<div class="welcome"><i data-lucide="party-popper"></i><div><b>ลงทะเบียนสำเร็จ!</b><br>นี่คือ Passport ID ของคุณ แตะบัตรเพื่อบันทึกเก็บไว้</div></div>':'')+
+  '<div class="hud-k">PASSPORT ID</div>'+
+  '<div class="idwrap" id="hId"><div class="idskel"><div class="spinner"></div><div>กำลังสร้าง Passport ID…</div></div></div>'+
+  '<div class="idmeta"><span>ผ่านแล้ว '+count()+'/9 ฐาน</span><span>'+progNote()+'</span></div>'+
+  '<button class="btn alt" id="hIdSave" style="margin-top:10px"><i data-lucide="download"></i>บันทึก Passport ID</button>'+
+  '<button class="btn scanbig" id="hScan"><i data-lucide="scan-line"></i>SCAN MISSION · สแกนฐาน</button>'+
   '<nav class="menu" aria-label="เมนู">'+tiles.map(function(t){return '<button class="tile '+t[1]+'" data-go="'+t[0]+'"><i data-lucide="'+t[2]+'"></i><span class="en">'+t[3]+'</span><span class="th">'+t[4]+'</span></button>';}).join("")+'</nav>'+
   (S.cert?'<button class="btn gold" id="hCert" style="margin-top:14px"><i data-lucide="award"></i>ดูวุฒิบัตรของฉัน</button>':''),
   after:function(){
-    [].forEach.call(document.querySelectorAll("[data-go]"),function(b){b.onclick=function(){go(b.getAttribute("data-go"));};});
+    [].forEach.call(document.querySelectorAll("[data-go]"),function(b){b.onclick=function(){var g=b.getAttribute("data-go");if(g==="journey"&&S.settings.journeyUrl){openUrl(S.settings.journeyUrl);return;}go(g);};});
     if($("hCert")) $("hCert").onclick=function(){go("cert");};
+    $("hScan").onclick=function(){go("scan");};
+    renderIdCard().then(function(u){var w=$("hId");if(!w)return;w.innerHTML='<img class="idimg" alt="Passport ID ของ '+esc(S.user.name)+'" src="'+u+'">';w.firstChild.onclick=function(){openImageViewer(u,"PassportID-"+memberId()+".jpg",false);};}).catch(function(){var w=$("hId");if(w)w.innerHTML="";});
+    $("hIdSave").onclick=function(){openImageViewer(renderIdCard(),"PassportID-"+memberId()+".jpg",false);};
     if(Date.now()-lastFetch>20000) api("me").then(function(d){S=d; var c=stack[stack.length-1]; if(c&&c.name==="home") draw();}).catch(function(){});
   }};
 };
@@ -614,7 +667,7 @@ VIEWS.result=function(r){
   }
   var m=mission(r.station);
   if(r.dup){
-    return {title:"Scan Mission",html:'<div class="result"><div class="burst">'+hex(m,140)+'</div><h2>สแกนฐานนี้แล้ว</h2><p class="sub">ฐาน '+m.id+' '+esc(m.act)+' บันทึกไว้เมื่อ '+fmtTime(r.at)+' แต้มไม่นับซ้ำ ไปฐานถัดไปตามตารางหมุนเวียนของกลุ่ม '+esc(S.user.group)+'</p>'+
+    return {title:"Scan Mission",html:'<div class="result"><div class="burst">'+hex(m,140)+'</div><h2>สแกนฐานนี้แล้ว</h2><p class="sub">ฐาน '+m.id+' '+esc(m.act)+' บันทึกไว้เมื่อ '+fmtTime(r.at)+' ไปสแกนฐานอื่นต่อได้เลย</p>'+
       '<div class="stack"><button class="btn" id="rScan"><i data-lucide="scan-line"></i>สแกนฐานถัดไป</button><button class="btn alt" id="rPass">ดู Passport ของฉัน</button></div></div>',after:wire};
   }
   var extra="";
@@ -622,29 +675,50 @@ VIEWS.result=function(r){
   if(r.newSpecial) extra+='<div class="unlock"><i data-lucide="crown"></i><div><b>Special Badge: Future City Master</b><br>ทำครบทั้ง 9 Mission</div></div>';
   return {title:"Mission Completed",html:
   '<div class="result"><div class="burst pop">'+hex(m,140)+'</div><h2>Mission Clear!</h2><div class="clear-th">ภารกิจสำเร็จ</div><div class="sub" style="margin:2px 0 0">ฐาน '+m.id+' · '+esc(m.act)+'</div>'+
-  '<div class="plus">+'+S.settings.pointsPerStation+' XP</div><div>ได้รับ Badge <b>'+esc(m.badge)+'</b></div>'+
-  '<div class="card" style="margin:16px 0;text-align:left"><div style="display:flex;justify-content:space-between;font-weight:600;margin-bottom:8px"><span>'+count()+'/9 ฐาน</span><span>'+pts()+' XP</span></div>'+segs(true)+'<div class="sub" style="margin:8px 0 0">'+progNote()+'</div></div>'+
+  '<div class="plus">ผ่านแล้ว '+count()+'/9 ฐาน</div><div>ได้รับ Badge <b>'+esc(m.badge)+'</b></div>'+
+  '<div class="card" style="margin:16px 0;text-align:left"><div style="display:flex;justify-content:space-between;font-weight:600;margin-bottom:8px"><span>ผ่านแล้ว '+count()+'/9 ฐาน</span><span>เกณฑ์วุฒิบัตร '+certMin()+' ฐาน</span></div>'+segs(true)+'<div class="sub" style="margin:8px 0 0">'+progNote()+'</div></div>'+
   '<div class="stack">'+extra+'<button class="btn" id="rPass"><i data-lucide="book-user"></i>ดู Passport ของฉัน</button><button class="btn alt" id="rScan"><i data-lucide="scan-line"></i>สแกนฐานถัดไป</button></div></div>',
   after:function(){wire();if($("rCert"))$("rCert").onclick=function(){go("cert",{},true);};}};
   function wire(){$("rScan").onclick=function(){go("scan",{},true);};$("rPass").onclick=function(){go("passport",{},true);};}
 };
 
-VIEWS.passport=function(){
-  var n=count();
+VIEWS.passport=function(p){
+  var n=count(), tab=(p&&p.tab)||"missions", pp=S.settings.pointsPerStation;
   var certCard=S.cert?'<button class="btn gold" id="pCert"><i data-lucide="award"></i>ดูวุฒิบัตร · '+esc(S.cert.no)+'</button>'
     :'<div class="card" style="display:flex;gap:12px;align-items:center"><i data-lucide="lock"></i><div><b>วุฒิบัตรดิจิทัล</b><div class="sub" style="margin:0">ร่วมกิจกรรมอีก '+(certMin()-n)+' ฐาน เพื่อปลดล็อก</div></div></div>';
+  var list='<div class="card"><ul class="mlist">'+missions().map(function(m){var t=done(m.id);
+    return '<li><div class="num" style="background:'+m.c+'">'+m.id+'</div><div><div class="mt">'+esc(m.act)+'</div><div class="md">Mission '+esc(m.type)+' · Badge '+esc(m.badge)+'</div></div>'+(t?'<span class="st ok">CLEARED '+fmtTime(t)+'</span>':'<span class="st wait">ยังไม่ได้ทำ</span>')+'</li>';}).join("")+'</ul></div>';
+  var badges='<div class="card"><div class="badges">'+missions().map(function(m){var t=done(m.id);return '<div class="badge">'+hex(m,64,!t)+'<span class="bn">'+esc(m.badge)+'</span><span class="bt">'+(t?fmtTime(t):'ฐาน '+m.id)+'</span></div>';}).join("")+'</div>'+
+    '<div class="badge" style="margin-top:16px;flex-direction:row;justify-content:center;gap:12px;text-align:left"><div class="hex'+(n>=9?'':' locked')+'" style="--c:#C98A10;width:56px"><i data-lucide="'+(n>=9?'crown':'lock')+'"></i></div><div><span class="bn">Special Badge · Future City Master</span><br><span class="bt">'+(n>=9?'ได้รับแล้ว':'ทำครบทั้ง 9 Mission')+'</span></div></div></div>';
+  var profile='<div class="idwrap" id="idWrap"><div class="loading" style="min-height:160px"><div class="spinner"></div><div>กำลังสร้างบัตร ID…</div></div></div>'+
+    '<button class="btn gold" id="pId" style="margin:12px 0"><i data-lucide="download"></i>บันทึกบัตร ID</button>'+
+    '<div class="card"><dl class="prof">'+
+    '<dt>ชื่อ–นามสกุล</dt><dd>'+esc(S.user.name)+'</dd><dt>สถานศึกษา</dt><dd>'+esc(S.user.school)+'</dd>'+
+    '<dt>ระดับชั้น</dt><dd>'+esc(S.user.level||"-")+'</dd>'+(S.user.walkin?'<dt>ประเภท</dt><dd>Walk-in</dd>':'')+
+    '<dt>รหัสผู้เล่น</dt><dd>'+esc(memberId())+'</dd><dt>วุฒิบัตร</dt><dd>'+(S.cert?esc(S.cert.no):'ยังไม่ปลดล็อก')+'</dd></dl>'+
+    '<p class="note" style="margin:10px 0 0">ชื่อหรือสถานศึกษาผิด แจ้งเจ้าหน้าที่ที่จุดลงทะเบียนเพื่อแก้ไขก่อนรับวุฒิบัตร</p></div>';
+  var tabs=[["missions","ภารกิจ","list-checks"],["badges","Badge","hexagon"],["profile","บัตร ID","contact"]];
   return {title:"My Passport",html:
-  '<div class="hero"><div class="hud-k">PLAYER CARD<span class="lv">LV '+count()+'</span></div><div class="pass"><div class="avatar">'+esc(S.user.name.charAt(0))+'</div><div><div class="nm">'+esc(S.user.name)+'</div><div class="sc">'+esc(S.user.school)+' · '+esc(S.user.level)+'</div></div><div class="grp">กลุ่ม '+esc(S.user.group)+'</div></div>'+
-  '<div class="pts"><b>'+pts()+'</b><span>XP · '+n+'/9 ฐาน</span></div>'+segs()+'<div class="prog-note">'+progNote()+'</div></div>'+
-  '<h2 class="sec" style="margin-top:18px">Badge ของฉัน</h2><p class="sub">ได้แล้ว '+n+' จาก 9</p>'+
-  '<div class="card"><div class="badges">'+missions().map(function(m){var t=done(m.id);return '<div class="badge">'+hex(m,64,!t)+'<span class="bn">'+esc(m.badge)+'</span><span class="bt">'+(t?fmtTime(t):'ฐาน '+m.id)+'</span></div>';}).join("")+'</div>'+
-  '<div class="badge" style="margin-top:16px;flex-direction:row;justify-content:center;gap:12px;text-align:left"><div class="hex'+(n>=9?'':' locked')+'" style="--c:#C98A10;width:56px"><i data-lucide="'+(n>=9?'crown':'lock')+'"></i></div><div><span class="bn">Special Badge · Future City Master</span><br><span class="bt">'+(n>=9?'ได้รับแล้ว':'ทำครบทั้ง 9 Mission')+'</span></div></div></div>'+
-  '<div style="margin-top:14px">'+certCard+'</div>',
-  after:function(){if($("pCert"))$("pCert").onclick=function(){go("cert");};}};
+  '<div class="hero"><div class="hud-k">PLAYER CARD<span class="lv">LV '+n+'</span><button class="idbtn" id="pIdTop"><i data-lucide="contact"></i>บัตร ID</button></div><div class="pass"><div class="avatar">'+esc(S.user.name.charAt(0))+'</div><div><div class="nm">'+esc(S.user.name)+'</div><div class="sc">'+esc(S.user.school)+' · '+esc(S.user.level)+'</div></div></div>'+
+  '<div class="pts"><b>'+n+'</b><span>/ 9 ฐาน</span></div>'+segs()+'<div class="prog-note">'+progNote()+'</div></div>'+
+  '<button class="btn scanbig" id="pScan"><i data-lucide="scan-line"></i>SCAN MISSION · สแกนฐาน</button>'+
+  '<div class="tabs" role="tablist">'+tabs.map(function(t){return '<button role="tab" aria-selected="'+(t[0]===tab)+'" data-tab="'+t[0]+'"><i data-lucide="'+t[2]+'"></i>'+t[1]+'</button>';}).join("")+'</div>'+
+  (tab==="badges"?badges:tab==="profile"?profile:list)+
+  '<button class="btn alt" id="pCity" style="margin-top:14px"><i data-lucide="map"></i>ผังฐานภารกิจ Zone C</button>'+
+  '<div style="margin-top:12px">'+certCard+'</div>',
+  after:function(){
+    if($("pCert"))$("pCert").onclick=function(){go("cert");};
+    $("pScan").onclick=function(){go("scan");};
+    $("pIdTop").onclick=function(){go("passport",{tab:"profile"},true);};
+    if($("idWrap")) renderIdCard().then(function(u){var w=$("idWrap");if(!w)return;w.innerHTML='<img class="idimg" alt="บัตร ID ของ '+esc(S.user.name)+'" src="'+u+'">';w.firstChild.onclick=function(){openImageViewer(u,"PlayerID-"+memberId()+".jpg",false);};}).catch(function(){});
+    if($("pId")) $("pId").onclick=function(){renderIdCard().then(function(u){openImageViewer(u,"PlayerID-"+memberId()+".jpg",false);});};
+    $("pCity").onclick=function(){go("city");};
+    [].forEach.call(document.querySelectorAll("[data-tab]"),function(b){b.onclick=function(){go("passport",{tab:b.dataset.tab},true);};});
+  }};
 };
 
 VIEWS.missions=function(){
-  return {title:"My Mission",html:'<h2 class="sec">ภารกิจของฉัน</h2><p class="sub">9 ฐาน 9 Mission ฐานละ '+S.settings.pointsPerStation+' แต้ม · ครบ '+certMin()+' ฐานรับวุฒิบัตร</p>'+
+  return {title:"My Mission",html:'<h2 class="sec">ภารกิจของฉัน</h2><p class="sub">9 ฐาน 9 Mission · ครบ '+certMin()+' ฐานรับวุฒิบัตร</p>'+
   '<div class="card"><ul class="mlist">'+missions().map(function(m){var t=done(m.id);
     return '<li><div class="num" style="background:'+m.c+'">'+m.id+'</div><div><div class="mt">'+esc(m.act)+'</div><div class="md">Mission '+esc(m.type)+' · Badge '+esc(m.badge)+'</div></div>'+(t?'<span class="st ok">สำเร็จ '+fmtTime(t)+'</span>':'<span class="st wait">ยังไม่ได้ทำ</span>')+'</li>';}).join("")+'</ul></div>'+
   '<button class="btn" id="mScan" style="margin-top:14px"><i data-lucide="scan-line"></i>สแกน Mission</button>',
@@ -655,15 +729,15 @@ VIEWS.city=function(p){
   var sel=p.sel||1, m=mission(sel), n=count(), pp=S.settings.pointsPerStation;
   var nodes=missions().map(function(x){var d=done(x.id);
     return '<button class="node'+(x.id===sel?' sel':'')+(d?' clear':'')+'" style="--nc:'+x.c+'" data-sel="'+x.id+'" aria-label="ฐาน '+x.id+' '+esc(x.act)+(d?' ทำแล้ว':'')+'">'+
-      '<span class="nnum">0'+x.id+'</span><i data-lucide="'+(d?'check-circle-2':x.icon)+'"></i><span class="nname">'+esc(x.act)+'</span><span class="nstat">'+(d?'CLEARED':'+'+pp+' XP')+'</span></button>';}).join("");
+      '<span class="nnum">0'+x.id+'</span><i data-lucide="'+(d?'check-circle-2':x.icon)+'"></i><span class="nname">'+esc(x.act)+'</span><span class="nstat">'+(d?'CLEARED':'MISSION')+'</span></button>';}).join("");
   var d=done(m.id);
   return {title:"Explore City",html:
-  '<div class="map-head"><div><div class="hud-k">ZONE 3 · CITY MAP</div><h2 class="sec">BA&amp;IT FUTURE CITY</h2><p class="sub">Innovator Showcase &amp; Career Match</p></div><div class="hud-prog"><b>'+n+'/9</b><span>CLEARED</span></div></div>'+
+  '<div class="map-head"><div><div class="hud-k">ZONE C · CITY MAP</div><h2 class="sec">BA&amp;IT FUTURE CITY</h2><p class="sub">Innovator Showcase &amp; Career Match</p></div><div class="hud-prog"><b>'+n+'/9</b><span>CLEARED</span></div></div>'+
   '<div class="zmap"><div class="zgrid">'+nodes+'</div>'+
   '<div class="zfoot"><span><i data-lucide="log-in"></i>ทางเข้า · ลงทะเบียน</span><span><i data-lucide="radio-tower"></i>ศูนย์ควบคุม</span></div></div>'+
   '<div class="legend"><span><i style="background:var(--lime)"></i>ผ่านแล้ว</span><span><i style="background:var(--cyan)"></i>ยังไม่ได้ทำ</span><span><i style="background:#fff"></i>ฐานที่เลือก</span></div>'+
   '<div class="mbrief" style="--nc:'+m.c+'"><div class="bk">MISSION BRIEF · ฐาน 0'+m.id+'</div><div class="bt">'+esc(m.act)+'</div><div class="bm">Mission '+esc(m.type)+' · '+esc(m.th)+'</div>'+
-  '<div class="row3"><span class="pill"><i data-lucide="zap"></i>+'+pp+' XP</span><span class="pill"><i data-lucide="'+m.icon+'"></i>'+esc(m.badge)+'</span><span class="pill"><i data-lucide="'+(d?'check-circle-2':'circle-dashed')+'"></i>'+(d?'ผ่านแล้ว '+fmtTime(d):'ยังไม่ได้ทำ')+'</span></div>'+
+  '<div class="row3"><span class="pill"><i data-lucide="'+m.icon+'"></i>'+esc(m.badge)+'</span><span class="pill"><i data-lucide="'+(d?'check-circle-2':'circle-dashed')+'"></i>'+(d?'ผ่านแล้ว '+fmtTime(d):'ยังไม่ได้ทำ')+'</span></div>'+
   (d?'':'<button class="btn" id="bScan" style="margin-top:14px"><i data-lucide="scan-line"></i>สแกนรับภารกิจ</button>')+'</div>',
   after:function(){
     [].forEach.call(document.querySelectorAll("[data-sel]"),function(b){b.onclick=function(){go("city",{sel:+b.dataset.sel},true);};});
@@ -671,16 +745,7 @@ VIEWS.city=function(p){
   }};
 };
 
-VIEWS.rewards=function(){
-  var pt=pts(), tiers=S.settings.tiers;
-  function row(t,i){var c=S.claims[String(t.pts)], ok=pt>=t.pts, st=TIER_STYLE[i%TIER_STYLE.length];
-    return '<div class="card"><div class="tier"><div class="ic" style="background:'+st[1]+'"><i data-lucide="'+st[0]+'"></i></div><div><h3>'+t.pts+' แต้ม · '+esc(t.name)+'</h3><p>'+(c?'รับแล้วเมื่อ '+fmtTime(c):ok?'พร้อมรับที่จุดแลกรางวัล':'สะสมอีก '+(t.pts-pt)+' แต้ม')+'</p></div></div>'+
-    '<div class="bar"><i style="width:'+Math.min(100,pt/t.pts*100)+'%"></i></div><button class="btn'+(ok&&!c?' gold':' alt')+'" data-claim="'+t.pts+'"'+(ok&&!c?'':' disabled')+'>'+(c?'รับของรางวัลแล้ว':'รับของรางวัล')+'</button></div>';}
-  return {title:"Rewards",html:'<h2 class="sec">ของรางวัล</h2><p class="sub">มี '+pt+' แต้ม · รับได้ทุกระดับที่สะสมถึง ระดับละ 1 ครั้ง แต้มไม่ถูกหัก</p><div class="stack">'+tiers.map(row).join("")+
-  '<div class="card"><div class="tier"><div class="ic" style="background:#C98A10"><i data-lucide="award"></i></div><div><h3>ครบ '+certMin()+' ฐาน · Digital Certificate</h3><p>'+(S.cert?'ออกแล้ว เลขที่ '+esc(S.cert.no):'อีก '+(certMin()-count())+' ฐาน')+'</p></div></div></div>'+
-  '<div class="card"><div class="tier"><div class="ic" style="background:#3B2A9E"><i data-lucide="crown"></i></div><div><h3>ครบ 9 ฐาน · Special Badge</h3><p>'+(count()>=9?'ได้รับแล้ว':'อีก '+(9-count())+' ฐาน')+'</p></div></div></div></div>',
-  after:function(){[].forEach.call(document.querySelectorAll("[data-claim]"),function(b){b.onclick=function(){claimSheet(+b.dataset.claim);};});}};
-};
+VIEWS.rewards=function(){return VIEWS.passport({tab:"missions"});};
 function claimSheet(p){
   var t=S.settings.tiers.filter(function(x){return x.pts===p;})[0];
   openSheet('<h2 class="sec" style="text-align:center">รับ '+esc(t.name)+'</h2><p class="sub" style="text-align:center">แสดงหน้าจอนี้ที่จุดแลกรางวัล</p>'+
@@ -781,31 +846,148 @@ function renderCertRaw(){
   });
 }
 function dataUrlToBlob(u){var p=u.split(","),b=atob(p[1]),a=new Uint8Array(b.length);for(var i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return new Blob([a],{type:"image/jpeg"});}
-function openCertViewer(){
-  var o=document.createElement("div");o.className="cert-view";o.setAttribute("role","dialog");o.setAttribute("aria-label","วุฒิบัตรขนาดเต็ม");
+function openCertViewer(){ openImageViewer(renderCert(),"Certificate-"+S.cert.no+".jpg",window.innerHeight>window.innerWidth); }
+
+/* ===== shared image viewer (save / share) ===== */
+function srcToBlob(src){
+  if(/^data:/.test(src)) return Promise.resolve(dataUrlToBlob(src));
+  return fetch(src).then(function(r){if(!r.ok)throw new Error("โหลดภาพไม่สำเร็จ");return r.blob();});
+}
+function openImageViewer(srcOrPromise,fileName,rotDefault){
+  var o=document.createElement("div");o.className="cert-view";o.setAttribute("role","dialog");o.setAttribute("aria-label","ดูภาพขนาดเต็ม");
   o.innerHTML='<div class="cv-top"><button class="cv-btn" id="cvClose">ปิด</button><button class="cv-btn" id="cvRot">หมุนภาพ</button></div>'+
-    '<div class="cv-stage" id="cvStage"><div class="loading"><div class="spinner"></div><div>กำลังสร้างรูปวุฒิบัตร…</div></div></div>'+
-    '<div class="cv-bar"><button class="btn gold" id="cvSave" disabled>บันทึกรูปวุฒิบัตร</button><p class="cv-hint" id="cvHint">ถ้าปุ่มบันทึกไม่ทำงาน ให้แตะค้างที่รูปแล้วเลือก "บันทึกรูปภาพ" หรือแคปหน้าจอเก็บไว้</p></div>';
+    '<div class="cv-stage" id="cvStage"><div class="loading"><div class="spinner"></div><div>กำลังเตรียมภาพ…</div></div></div>'+
+    '<div class="cv-bar"><button class="btn gold" id="cvSave" disabled>บันทึกรูปลงเครื่อง</button><p class="cv-hint" id="cvHint">ถ้าปุ่มบันทึกไม่ทำงาน ให้แตะค้างที่รูปแล้วเลือก "บันทึกรูปภาพ" หรือแคปหน้าจอเก็บไว้</p></div>';
   document.body.appendChild(o);
-  var rot=window.innerHeight>window.innerWidth, img=null, dataUrl=null;
+  var rot=!!rotDefault, img=null;
   function close(){o.remove();document.removeEventListener("keydown",key);}
   function key(e){if(e.key==="Escape")close();}
   document.addEventListener("keydown",key);
   o.querySelector("#cvClose").onclick=close;
   o.querySelector("#cvRot").onclick=function(){rot=!rot;if(img)img.className="cv-img"+(rot?" rot":"");};
-  renderCert().then(function(u){
-    dataUrl=u; img=new Image(); img.src=u; img.alt="วุฒิบัตรเลขที่ "+S.cert.no; img.className="cv-img"+(rot?" rot":"");
+  Promise.resolve(srcOrPromise).then(function(src){
+    img=new Image(); img.src=src; img.alt=fileName; img.className="cv-img"+(rot?" rot":"");
     var st=o.querySelector("#cvStage"); st.innerHTML=""; st.appendChild(img);
     var btn=o.querySelector("#cvSave"); btn.disabled=false;
     btn.onclick=function(){
-      var name="Certificate-"+S.cert.no+".jpg", blob=dataUrlToBlob(dataUrl);
-      try{var f=new File([blob],name,{type:"image/jpeg"});
-        if(navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],title:"วุฒิบัตร BA&IT EXPO 2027"}).catch(function(){});return;}}catch(e){}
-      var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();
-      o.querySelector("#cvHint").textContent='ถ้ายังไม่มีรูปในเครื่อง ให้แตะค้างที่รูปแล้วเลือก "บันทึกรูปภาพ" หรือแคปหน้าจอเก็บไว้';
+      srcToBlob(src).then(function(blob){
+        try{var f=new File([blob],fileName,{type:blob.type||"image/jpeg"});
+          if(navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],title:fileName}).catch(function(){});return;}}catch(e){}
+        var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=fileName;document.body.appendChild(a);a.click();a.remove();
+        o.querySelector("#cvHint").textContent='ถ้ายังไม่มีรูปในเครื่อง ให้แตะค้างที่รูปแล้วเลือก "บันทึกรูปภาพ" หรือแคปหน้าจอเก็บไว้';
+      }).catch(function(){o.querySelector("#cvHint").textContent='บันทึกด้วยปุ่มไม่ได้ ให้แตะค้างที่รูปแล้วเลือก "บันทึกรูปภาพ" หรือแคปหน้าจอ';});
     };
-  }).catch(function(e){o.querySelector("#cvStage").innerHTML='<p class="cv-hint">'+esc(e.message||"สร้างรูปไม่สำเร็จ")+' ลองปิดแล้วเปิดใหม่</p>';});
+  }).catch(function(e){o.querySelector("#cvStage").innerHTML='<p class="cv-hint">'+esc(e&&e.message||"เปิดภาพไม่สำเร็จ")+'</p>';});
 }
+
+/* ===== player ID card ===== */
+function memberId(){var id=(SUB||"").replace(/[^A-Za-z0-9]/g,"").slice(-6).toUpperCase()||"000000";return "FP-"+id;}
+var idCache={key:"",url:""};
+function renderIdCard(){
+  var key=[memberId(),S.user.name,S.user.school,count()].join("|");
+  if(idCache.key===key&&idCache.url) return Promise.resolve(idCache.url);
+  var want=["700 40px \"Chakra Petch\"","600 40px \"Chakra Petch\"",'600 40px "IBM Plex Sans Thai"','400 40px "IBM Plex Sans Thai"'];
+  var fl=(document.fonts&&document.fonts.load)?Promise.all(want.map(function(f){return document.fonts.load(f,"บัตร Aa");})).catch(function(){}):Promise.resolve();
+  return fl.then(function(){
+    var W=1080,H=1620,c=document.createElement("canvas");c.width=W;c.height=H;var x=c.getContext("2d");
+    var HEAD='"Chakra Petch","Prompt","Leelawadee UI",sans-serif',BODY='"IBM Plex Sans Thai","Leelawadee UI",sans-serif';
+    function cut(px,py,w,h,k){x.beginPath();x.moveTo(px+k,py);x.lineTo(px+w,py);x.lineTo(px+w,py+h-k);x.lineTo(px+w-k,py+h);x.lineTo(px,py+h);x.lineTo(px,py+k);x.closePath();}
+    function t(str,px,py,o){var fs=o.size,mw=o.maxW||W-160;x.font=(o.w||400)+" "+fs+"px "+(o.head?HEAD:BODY);
+      while(x.measureText(str).width>mw&&fs>14){fs*=0.95;x.font=(o.w||400)+" "+fs+"px "+(o.head?HEAD:BODY);}
+      x.fillStyle=o.color||"#fff";x.textAlign=o.align||"center";x.textBaseline="top";if("letterSpacing" in x)x.letterSpacing=(o.ls||0)+"px";
+      if(o.glow){x.shadowColor=o.glow;x.shadowBlur=24;} x.fillText(str,px,py); x.shadowBlur=0;}
+    // background
+    var g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,"#1B2A8C");g.addColorStop(.55,"#22126B");g.addColorStop(1,"#070B1F");x.fillStyle=g;x.fillRect(0,0,W,H);
+    var r1=x.createRadialGradient(W,0,0,W,0,700);r1.addColorStop(0,"rgba(255,62,165,.55)");r1.addColorStop(1,"rgba(255,62,165,0)");x.fillStyle=r1;x.fillRect(0,0,W,H);
+    var r2=x.createRadialGradient(0,H,0,0,H,700);r2.addColorStop(0,"rgba(34,228,255,.35)");r2.addColorStop(1,"rgba(34,228,255,0)");x.fillStyle=r2;x.fillRect(0,0,W,H);
+    x.strokeStyle="rgba(255,255,255,.06)";x.lineWidth=2;for(var i=0;i<W;i+=60){x.beginPath();x.moveTo(i,0);x.lineTo(i,H);x.stroke();}for(var j=0;j<H;j+=60){x.beginPath();x.moveTo(0,j);x.lineTo(W,j);x.stroke();}
+    cut(30,30,W-60,H-60,48);x.strokeStyle="#22E4FF";x.lineWidth=5;x.shadowColor="#22E4FF";x.shadowBlur=20;x.stroke();x.shadowBlur=0;
+    // header
+    t("BA&IT EXPO 2027",W/2,90,{size:40,head:1,w:700,color:"#9FF4FF",ls:6});
+    t("FUTURE PASSPORT · PLAYER ID",W/2,146,{size:52,head:1,w:700,glow:"#FF3EA5",ls:3});
+    // avatar hex
+    var cx=W/2,cy=430,R=170;x.beginPath();for(var k=0;k<6;k++){var a=Math.PI/3*k-Math.PI/2;x.lineTo(cx+R*Math.cos(a),cy+R*Math.sin(a));}x.closePath();
+    var ag=x.createLinearGradient(cx-R,cy-R,cx+R,cy+R);ag.addColorStop(0,"#FF3EA5");ag.addColorStop(1,"#8B5CFF");x.fillStyle=ag;x.shadowColor="#FF3EA5";x.shadowBlur=40;x.fill();x.shadowBlur=0;
+    t(S.user.name.charAt(0),cx,cy-95,{size:170,head:1,w:700});
+    // LV badge
+    cut(cx+90,cy+100,170,70,16);x.fillStyle="#A6FF3D";x.fill();t("LV "+count(),cx+175,cy+110,{size:44,head:1,w:700,color:"#0A0F28"});
+    // name & school
+    t(S.user.name,W/2,650,{size:76,head:1,w:700,maxW:W-160});
+    t(S.user.school,W/2,752,{size:44,w:600,color:"#DDE8FF",maxW:W-160});
+    t([S.user.level,S.user.province,S.user.walkin?"Walk-in":""].filter(Boolean).join(" · ")||"BA&IT EXPO 2027",W/2,818,{size:36,color:"#93A6DA",maxW:W-160});
+    // stats
+    var st=[["CLEARED",count()+"/9","#A6FF3D"],["BADGE",String(count()),"#22E4FF"],["CERTIFICATE",S.cert?"✓":"อีก "+Math.max(0,certMin()-count()),"#FFC83D"]],bw=280,gap=30,sx=(W-(bw*3+gap*2))/2;
+    st.forEach(function(v,i){var px=sx+i*(bw+gap);cut(px,900,bw,170,20);x.fillStyle="rgba(10,15,40,.75)";x.fill();x.strokeStyle=v[2];x.lineWidth=3;x.stroke();
+      t(v[1],px+bw/2,925,{size:70,head:1,w:700,color:v[2],glow:v[2]});t(v[0],px+bw/2,1010,{size:28,head:1,w:600,color:"#C8D6FF",ls:4});});
+    // QR + id
+    var qs=300,qx=W/2-qs/2,qy=1130;x.fillStyle="#fff";cut(qx-16,qy-16,qs+32,qs+32,18);x.fill();
+    if(window.qrcode){var q=qrcode(0,"M");q.addData("FUTURE-PASSPORT:"+memberId());q.make();var n=q.getModuleCount(),cell=qs/(n+2);x.fillStyle="#120D46";
+      for(var r=0;r<n;r++)for(var kk=0;kk<n;kk++)if(q.isDark(r,kk))x.fillRect(qx+(kk+1)*cell,qy+(r+1)*cell,Math.ceil(cell),Math.ceil(cell));}
+    t(memberId(),W/2,1462,{size:46,head:1,w:700,color:"#FFC83D",ls:6,glow:"#FFC83D"});
+    t("13–14 ม.ค. 2570 · The Hall อยุธยาซิตี้พาร์ค",W/2,1528,{size:28,color:"#93A6DA"});
+    var u=c.toDataURL("image/jpeg",0.92); idCache={key:key,url:u}; return u;
+  });
+}
+function imgSrc(v){v=String(v||"").trim();return v;}
+
+/* ===== new menu views ===== */
+function imagePage(title,kicker,heading,sub,src,file,empty){
+  return {title:title,html:'<div class="hud-k">'+kicker+'</div><h2 class="sec">'+heading+'</h2><p class="sub">'+sub+'</p>'+
+    (src?'<button class="imgcard" id="ipOpen" aria-label="ดูภาพขนาดเต็ม"><img src="'+esc(src)+'" alt="'+esc(heading)+'" loading="lazy"><span><i data-lucide="maximize-2"></i>แตะเพื่อขยาย / บันทึกรูป</span></button>'+
+      '<button class="btn gold" id="ipSave" style="margin-top:12px"><i data-lucide="download"></i>ดูขนาดเต็มและบันทึกรูป</button>'
+      :'<div class="card emptybox"><i data-lucide="image"></i><div><b>'+empty+'</b><div class="sub" style="margin:4px 0 0">ทีมงานจะอัปเดตภาพก่อนวันงาน</div></div></div>'),
+    after:function(){if(src){var f=function(){openImageViewer(src,file,false);};$("ipOpen").onclick=f;$("ipSave").onclick=f;}}};
+}
+VIEWS.schedule=function(){return imagePage("Schedule","COMPETITION SCHEDULE","ตารางการแข่งขัน","BA&IT EXPO 2027 · 13–14 มกราคม 2570",imgSrc(S.settings.scheduleImg),"BAIT-EXPO-2027-Schedule.jpg","ยังไม่มีภาพตารางการแข่งขัน");};
+VIEWS.journey=function(){
+  var u=S.settings.journeyUrl;
+  if(u) return {title:"Journey Map",html:'<div class="hero"><div class="hud-k">BA&amp;IT COMPETITION</div><div class="wordmark" style="font-size:26px">Journey Map</div><p>เส้นทางการแข่งขันและกิจกรรมตลอดงาน BA&amp;IT EXPO 2027</p></div>'+
+    '<button class="btn scanbig" id="jGo"><i data-lucide="route"></i>เปิด Competition Journey Map</button>'+
+    (S.settings.journeyImg?'<button class="imgcard" id="ipOpen"><img src="'+esc(S.settings.journeyImg)+'" alt="Journey Map" loading="lazy"><span><i data-lucide="maximize-2"></i>แตะเพื่อขยาย / บันทึกรูป</span></button>':''),
+    after:function(){$("jGo").onclick=function(){openUrl(u);};if($("ipOpen"))$("ipOpen").onclick=function(){openImageViewer(S.settings.journeyImg,"BAIT-Competition-Journey-Map.jpg",false);};}};
+  return VIEWS.journeyImg();
+};
+VIEWS.journeyImg=function(){return imagePage("Journey Map","BA&IT COMPETITION","Competition Journey Map","เส้นทางการแข่งขันและกิจกรรมตลอดงาน",imgSrc(S.settings.journeyImg),"BAIT-Competition-Journey-Map.jpg","ยังไม่มีภาพ Journey Map");};
+
+var ZONE_STYLE={A:["#22E4FF","trophy"],B:["#FFC83D","briefcase"],C:["#A6FF3D","building-2"],D:["#FF3EA5","laptop"]};
+VIEWS.map=function(p){
+  var zones=(S.settings.zones||[]).filter(function(z){return z.zone;}), sel=(p&&p.z)||(zones[0]&&zones[0].zone), img=imgSrc(S.settings.mapImg);
+  var z=zones.filter(function(v){return v.zone===sel;})[0];
+  function st(code){return ZONE_STYLE[String(code).toUpperCase()]||["#8B5CFF","map-pin"];}
+  var cards=zones.map(function(v){var c=st(v.zone);return '<button class="zcard'+(v.zone===sel?' sel':'')+'" style="--zc:'+c[0]+'" data-z="'+esc(v.zone)+'"><span class="zl">'+esc(v.zone)+'</span><i data-lucide="'+c[1]+'"></i><span class="zt">'+esc(v.title||("Zone "+v.zone))+'</span>'+(v.subtitle?'<span class="zs">'+esc(v.subtitle)+'</span>':'')+'</button>';}).join("");
+  var detail=z?(function(){var c=st(z.zone),link=String(z.link||"").trim();
+    return '<div class="mbrief" style="--nc:'+c[0]+'"><div class="bk">ZONE '+esc(z.zone)+'</div><div class="bt">'+esc(z.title||("Zone "+z.zone))+'</div>'+(z.subtitle?'<div class="bm">'+esc(z.subtitle)+'</div>':'')+
+      (z.image?'<button class="imgcard" id="zImg" aria-label="ดูภาพโซนขนาดเต็ม"><img src="'+esc(z.image)+'" alt="'+esc(z.title||("Zone "+z.zone))+'" loading="lazy"><span><i data-lucide="maximize-2"></i>แตะเพื่อขยาย / บันทึกรูป</span></button>':'')+
+      '<p class="zdesc">'+(z.description?esc(z.description).replace(/\n/g,"<br>"):'รายละเอียดโซนจะอัปเดตเร็ว ๆ นี้')+'</p>'+
+      (link==="city"?'<button class="btn" id="zGo"><i data-lucide="map"></i>ดูฐานภารกิจ Future Passport</button>':/^https?:/.test(link)?'<button class="btn" id="zGo"><i data-lucide="external-link"></i>ดูรายละเอียดเพิ่มเติม</button>':'')+'</div>';})():'';
+  return {title:"Event Map",html:'<div class="map-head"><div><div class="hud-k">EVENT MAP</div><h2 class="sec">ผังงาน BA&amp;IT EXPO 2027</h2><p class="sub">แตะโซนเพื่อดูรายละเอียด</p></div></div>'+
+    (img?'<button class="imgcard" id="mImg" aria-label="ดูผังงานขนาดเต็ม"><img src="'+esc(img)+'" alt="ผังงาน" loading="lazy"><span><i data-lucide="maximize-2"></i>แตะเพื่อขยายผังงาน</span></button>':'')+
+    (zones.length?'<div class="zgrid2">'+cards+'</div>'+detail:'<div class="card emptybox"><i data-lucide="map"></i><div><b>ยังไม่มีข้อมูลโซน</b></div></div>'),
+    after:function(){
+      [].forEach.call(document.querySelectorAll("[data-z]"),function(b){b.onclick=function(){go("map",{z:b.dataset.z},true);};});
+      if($("mImg")) $("mImg").onclick=function(){openImageViewer(img,"BAIT-EXPO-2027-Map.jpg",false);};
+      if($("zImg")) $("zImg").onclick=function(){openImageViewer(z.image,"BAIT-EXPO-2027-Zone-"+z.zone+".jpg",window.innerHeight>window.innerWidth);};
+      if($("zGo")) $("zGo").onclick=function(){var l=String(z.link||"").trim();if(l==="city")go("city");else openUrl(l);};
+    }};
+};
+VIEWS.eval=function(){
+  var u=S.settings.evalUrl;
+  return {title:"Evaluation",html:'<div class="hero"><div class="hud-k">EVALUATION</div><div class="wordmark" style="font-size:26px">แบบประเมินงาน</div><p>ช่วยบอกเราว่างาน BA&amp;IT EXPO 2027 เป็นอย่างไร ใช้เวลาไม่เกิน 3 นาที ความเห็นของคุณช่วยให้งานครั้งต่อไปดีขึ้น</p></div>'+
+    (u?'<button class="btn scanbig" id="eGo"><i data-lucide="clipboard-check"></i>ทำแบบประเมิน</button>':'<div class="card emptybox" style="margin-top:14px"><i data-lucide="clock"></i><div><b>แบบประเมินยังไม่เปิด</b><div class="sub" style="margin:4px 0 0">จะเปิดให้ทำในวันงาน</div></div></div>'),
+    after:function(){if($("eGo"))$("eGo").onclick=function(){openUrl(u);};}};
+};
+VIEWS.programs=function(){
+  var list=(S.settings.programs||[]).filter(function(p){return p.program;}), ap=S.settings.applyUrl;
+  return {title:"Programs",html:'<div class="hero"><div class="hud-k">PROGRAMS</div><div class="wordmark" style="font-size:24px">หลักสูตรที่เปิดสอน</div><p>คณะบริหารธุรกิจและเทคโนโลยีสารสนเทศ มทร.สุวรรณภูมิ</p></div>'+
+    (ap?'<button class="btn gold" id="pgApply" style="margin-top:14px"><i data-lucide="file-pen-line"></i>สมัครเรียนออนไลน์</button>':'')+
+    (list.length?'<div class="stack" style="margin-top:14px">'+list.map(function(p,i){return '<div class="card prog"><div class="pgn">'+String(i+1).padStart(2,"0")+'</div><div><div class="pgt">'+esc(p.program)+'</div>'+
+      (p.degree||p.campus?'<div class="pgm">'+[p.degree,p.campus].filter(Boolean).map(esc).join(" · ")+'</div>':'')+(p.highlight?'<p class="pgh">'+esc(p.highlight)+'</p>':'')+
+      (p.url?'<button class="linkbtn" data-url="'+esc(p.url)+'">ดูรายละเอียดหลักสูตร</button>':'')+'</div></div>';}).join("")+'</div>'
+      :'<div class="card emptybox" style="margin-top:14px"><i data-lucide="graduation-cap"></i><div><b>ข้อมูลหลักสูตรกำลังอัปเดต</b></div></div>'),
+    after:function(){if($("pgApply"))$("pgApply").onclick=function(){openUrl(ap);};[].forEach.call(document.querySelectorAll("[data-url]"),function(b){b.onclick=function(){openUrl(b.dataset.url);};});}};
+};
+VIEWS.admission=VIEWS.programs;
+VIEWS.idcard=function(){return VIEWS.passport({tab:"profile"});};
 
 /* ===== boot ===== */
 function boot(){
@@ -821,7 +1003,7 @@ function boot(){
     if(q.get("s")&&q.get("k")) pending={station:Number(q.get("s")),key:q.get("k")};
     var start=q.get("p");
     try{ var tok=liff.getDecodedIDToken(); SUB=tok&&tok.sub||""; }catch(e){}
-    var ok={passport:1,missions:1,rewards:1,city:1,admission:1,scan:1,cert:1};
+    var ok={passport:1,missions:1,rewards:1,city:1,admission:1,scan:1,cert:1,schedule:1,map:1,eval:1,journey:1,programs:1,idcard:1};
     var cached=pending?null:recall();
     if(cached){
       // แสดงข้อมูลล่าสุดในเครื่องทันที แล้วอัปเดตจากระบบเบื้องหลัง
