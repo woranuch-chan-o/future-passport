@@ -2,6 +2,7 @@
 <html lang="th">
 <head>
 <meta charset="utf-8">
+<meta name="theme-color" content="#070B1F">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Future Passport · BA&amp;IT EXPO 2027</title>
 <link rel="preconnect" href="https://script.google.com">
@@ -9,7 +10,7 @@
 <link rel="preconnect" href="https://api.line.me">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@500;600;700;800&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Prompt:wght@500;600;700;800&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
 <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lucide@0.383.0/dist/umd/lucide.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
@@ -42,8 +43,8 @@ svg.lucide{width:1.15em;height:1.15em;stroke-width:2.2;vertical-align:-0.2em}
 
 /* ---------- stage ---------- */
 .stage{height:100%;display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:48px;max-width:1080px;margin:0 auto;padding:28px 24px;align-items:center}
-.brief h1{font-family:var(--head);font-weight:800;font-size:40px;line-height:1.1;margin:0 0 10px;letter-spacing:-.01em}
-.brief .lead{color:var(--muted);max-width:44ch;margin:0 0 22px}
+.mbrief h1{font-family:var(--head);font-weight:800;font-size:40px;line-height:1.1;margin:0 0 10px;letter-spacing:-.01em}
+.mbrief .lead{color:var(--muted);max-width:44ch;margin:0 0 22px}
 .rules{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin-bottom:16px}
 .rules h2{font-family:var(--head);font-size:17px;margin:0 0 8px}
 .rules ul{margin:0;padding-left:18px}
@@ -63,7 +64,7 @@ svg.lucide{width:1.15em;height:1.15em;stroke-width:2.2;vertical-align:-0.2em}
 
 @media (max-width:820px){
   .stage{display:block;padding:0;max-width:none}
-  .brief{display:none}
+  .mbrief{display:none}
   .brief.open{display:block;position:fixed;inset:0;z-index:50;overflow:auto;background:var(--bg);padding:calc(env(safe-area-inset-top,0px) + 20px) 20px calc(env(safe-area-inset-bottom,0px) + 20px)}
   .phone{height:100%;border-radius:0;box-shadow:none}
   .liff-bar{padding-top:12px}
@@ -251,6 +252,135 @@ html,body{height:100%}
 .codein{display:flex;gap:8px}
 .codein .in{text-transform:uppercase;letter-spacing:.25em;font-family:var(--head);font-weight:700;text-align:center;font-size:18px}
 .viewfinder .hint{padding:0 12px}
+
+/* ================= GAMING THEME ================= */
+:root,:root[data-theme],:root:not([data-theme="light"]){
+  --bg:#070B1F;--surface:#0F1533;--surface-2:#0A0F28;--text:#EAF2FF;--muted:#93A6DA;--line:#24305E;
+  --cyan:#22E4FF;--magenta:#FF3EA5;--lime:#A6FF3D;--gold:#FFC83D;--violet:#8B5CFF;--danger:#FF5C7A;
+  --blue:#2F6BFF;--mint:#3DF2C4;
+  --head:"Chakra Petch","Prompt","Leelawadee UI",sans-serif;
+  --glow-c:0 0 0 1px rgba(34,228,255,.55),0 0 18px rgba(34,228,255,.35);
+  --cut:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);
+}
+html,body{background:var(--bg);color:var(--text)}
+.phone{background:
+  radial-gradient(60% 40% at 100% 0%,rgba(255,62,165,.20),transparent 70%),
+  radial-gradient(60% 40% at 0% 100%,rgba(34,228,255,.16),transparent 70%),
+  repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 32px),
+  repeating-linear-gradient(90deg,rgba(255,255,255,.035) 0 1px,transparent 1px 32px),
+  var(--bg)}
+.liff-bar{background:rgba(7,11,31,.85);backdrop-filter:blur(10px);border-bottom:1px solid rgba(34,228,255,.25)}
+.liff-bar .t{font-family:var(--head);font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#fff}
+.icon-btn{color:var(--cyan)}
+h2.sec{font-family:var(--head);color:#fff;letter-spacing:.02em}
+.sub,.note{color:var(--muted)}
+.card{background:linear-gradient(180deg,rgba(21,29,66,.92),rgba(13,19,46,.92));border:1px solid var(--line);border-radius:16px;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+/* hero = player card */
+.hero{border-radius:18px;border:1px solid rgba(34,228,255,.45);box-shadow:0 0 24px rgba(34,228,255,.18),inset 0 0 40px rgba(139,92,255,.25);
+  background:radial-gradient(120% 90% at 100% 0%,rgba(255,62,165,.55),transparent 55%),linear-gradient(150deg,#1B2A8C 0%,#22126B 55%,#0A0D2E 100%)}
+.hero::after{border-color:rgba(34,228,255,.25)}
+.hud-k{font-family:var(--head);font-weight:700;font-size:11.5px;letter-spacing:.22em;color:var(--cyan);text-transform:uppercase;display:flex;align-items:center;gap:6px;margin-bottom:10px}
+.hud-k::before{content:"";width:8px;height:8px;background:var(--cyan);box-shadow:0 0 10px var(--cyan);clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+.wordmark{font-family:var(--head);letter-spacing:.06em;background:linear-gradient(90deg,#fff,#9FF4FF 50%,#FF9AD2);-webkit-background-clip:text;background-clip:text}
+.avatar{background:linear-gradient(140deg,var(--magenta),var(--violet));box-shadow:0 0 14px rgba(255,62,165,.6);border-radius:12px;font-family:var(--head)}
+.grp{font-family:var(--head);background:var(--gold);color:#2B1700;box-shadow:0 0 12px rgba(255,200,61,.55);clip-path:var(--cut);border-radius:0;padding:5px 12px}
+.lv{font-family:var(--head);font-weight:700;font-size:12px;letter-spacing:.12em;color:#0A0F28;background:var(--lime);padding:3px 8px;margin-left:8px;box-shadow:0 0 10px rgba(166,255,61,.6);clip-path:var(--cut)}
+.pts b{font-family:var(--head);color:#fff;text-shadow:0 0 18px rgba(34,228,255,.7)}
+.pts span{font-family:var(--head);letter-spacing:.06em;color:#CFE6FF}
+.segs i{background:rgba(255,255,255,.12);height:9px;border-radius:2px;transform:skewX(-18deg)}
+.segs i.on{background:linear-gradient(90deg,var(--cyan),var(--lime));box-shadow:0 0 8px rgba(34,228,255,.8)}
+.segs i.goal{box-shadow:inset 0 0 0 2px var(--gold)}
+.prog-note{color:#DDE8FF}
+/* menu tiles */
+.menu{background:rgba(10,15,40,.85);border:1px solid var(--line);border-radius:18px;gap:10px;padding:10px}
+.tile{background:linear-gradient(160deg,#18214F,#0E1435)!important;color:#fff;border:1px solid rgba(255,255,255,.08);clip-path:var(--cut);border-radius:0;min-height:108px;transition:transform .15s,box-shadow .15s}
+.tile svg.lucide{width:30px;height:30px;color:var(--tc,var(--cyan));filter:drop-shadow(0 0 8px var(--tc,var(--cyan)))}
+.tile .en{font-family:var(--head);color:#fff;letter-spacing:.06em;font-size:12px}
+.tile .th{color:var(--muted)}
+.tile:active{transform:scale(.97)}
+.t1{--tc:#B892FF}.t2{--tc:#22E4FF}.t3{--tc:#FF3EA5}.t4{--tc:#A6FF3D}.t5{--tc:#FFC83D}.t6{--tc:#7CB4FF}
+.tile.t3{outline:0;box-shadow:inset 0 0 0 2px var(--magenta),0 0 22px rgba(255,62,165,.45)}
+/* buttons */
+.btn{font-family:var(--head);letter-spacing:.04em;border-radius:0;clip-path:var(--cut);background:linear-gradient(90deg,#2F6BFF,#8B5CFF);color:#fff;box-shadow:0 0 18px rgba(47,107,255,.45)}
+.btn.gold{background:linear-gradient(90deg,#FFC83D,#FF8A3D);color:#1E1100;box-shadow:0 0 18px rgba(255,200,61,.45)}
+.btn.alt{background:rgba(255,255,255,.04);color:#DDE8FF;border:1px solid var(--line);box-shadow:none}
+.btn:disabled{opacity:.4}
+/* form */
+label.f{color:#CFE0FF}
+input.in,select.in{background:#0A0F28;border:1px solid var(--line);color:#fff;border-radius:10px}
+input.in:focus,select.in:focus{border-color:var(--cyan);box-shadow:var(--glow-c);outline:0}
+.chip{background:#0A0F28;border:1px solid var(--line);color:#DDE8FF}
+.chip[aria-pressed="true"]{background:linear-gradient(90deg,var(--magenta),var(--violet));border-color:transparent;color:#fff;box-shadow:0 0 12px rgba(255,62,165,.5)}
+.check{color:#DDE8FF}
+.err{color:var(--danger)}
+/* scanner */
+.viewfinder{background:radial-gradient(circle at 50% 50%,#111A44,#05081A);border:1px solid rgba(34,228,255,.35);box-shadow:inset 0 0 40px rgba(34,228,255,.12)}
+.viewfinder .fr::before,.viewfinder .fr::after{border-color:var(--cyan);filter:drop-shadow(0 0 6px var(--cyan))}
+.scanline{background:var(--magenta);box-shadow:0 0 14px var(--magenta)}
+.codein .in{color:var(--lime);letter-spacing:.35em;font-family:var(--head)}
+/* badges & result */
+.hex{filter:drop-shadow(0 0 10px color-mix(in srgb,var(--c) 70%,transparent))}
+.hex.locked{background:#1A2250;color:#4F5D99;filter:none}
+.badge .bn{color:#fff}.badge .bt{color:var(--muted)}
+.result h2{font-family:var(--head);font-size:30px;letter-spacing:.06em;background:linear-gradient(90deg,var(--cyan),var(--lime));-webkit-background-clip:text;background-clip:text;color:transparent;text-transform:uppercase}
+.result .clear-th{font-family:var(--head);color:#fff;font-weight:600;margin-top:-2px}
+.plus{font-family:var(--head);color:var(--lime);text-shadow:0 0 14px rgba(166,255,61,.7)}
+.burst::before{background:radial-gradient(circle,rgba(34,228,255,.45),transparent 65%)}
+.unlock{background:linear-gradient(120deg,rgba(255,200,61,.18),rgba(255,62,165,.18));border:1px solid rgba(255,200,61,.5);color:#FFF2D0}
+.unlock svg.lucide{color:var(--gold)}
+/* lists */
+.mlist li{border-color:var(--line)}
+.mlist .mt{color:#fff;font-family:var(--head)}
+.num{font-family:var(--head);clip-path:var(--cut);border-radius:0;box-shadow:0 0 12px rgba(255,255,255,.1)}
+.st.ok{background:rgba(166,255,61,.14);color:var(--lime);font-family:var(--head);letter-spacing:.04em}
+.st.wait{background:rgba(255,255,255,.05);color:var(--muted)}
+/* rewards */
+.tier h3{color:#fff;font-family:var(--head)}
+.tier .ic{clip-path:var(--cut);border-radius:0}
+.bar{background:#0A0F28}.bar i{background:linear-gradient(90deg,var(--gold),var(--magenta));box-shadow:0 0 8px rgba(255,200,61,.6)}
+/* sheet & toast */
+.sheet{background:#0F1533;border-top:1px solid rgba(34,228,255,.35);color:var(--text)}
+.toast{background:#0F1533;border:1px solid rgba(34,228,255,.45);box-shadow:0 0 18px rgba(34,228,255,.25)}
+.loading{color:var(--muted)}.spinner{border-color:var(--line);border-top-color:var(--cyan)}
+/* ===== ZONE MAP ===== */
+.map-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:12px}
+.map-head h2.sec{margin:0;font-size:22px}
+.map-head .sub{margin:2px 0 0}
+.hud-prog{text-align:right;flex:none;font-family:var(--head)}
+.hud-prog b{display:block;font-size:28px;line-height:1;color:var(--lime);text-shadow:0 0 14px rgba(166,255,61,.6)}
+.hud-prog span{font-size:11px;letter-spacing:.2em;color:var(--muted)}
+.zmap{position:relative;padding:14px;border:1px solid rgba(34,228,255,.35);border-radius:18px;
+  background:repeating-linear-gradient(0deg,rgba(34,228,255,.08) 0 1px,transparent 1px 24px),repeating-linear-gradient(90deg,rgba(34,228,255,.08) 0 1px,transparent 1px 24px),radial-gradient(circle at 50% 50%,#121C4C,#070B1F);
+  box-shadow:inset 0 0 50px rgba(139,92,255,.25),0 0 22px rgba(34,228,255,.12)}
+.zgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;position:relative}
+.node{--nc:#22E4FF;position:relative;border:0;cursor:pointer;aspect-ratio:1/1.12;padding:10px 6px 8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;text-align:center;color:#fff;
+  background:linear-gradient(165deg,color-mix(in srgb,var(--nc) 30%,#0E1435),#0B1030 70%);clip-path:var(--cut);
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--nc) 55%,transparent),inset 0 -18px 30px rgba(0,0,0,.35);transition:transform .15s}
+.node:active{transform:scale(.96)}
+.node .nnum{position:absolute;top:6px;left:9px;font-family:var(--head);font-weight:700;font-size:12px;color:color-mix(in srgb,var(--nc) 45%,#fff);letter-spacing:.06em}
+.node svg.lucide{width:30px;height:30px;color:#fff;filter:drop-shadow(0 0 8px var(--nc))}
+.node .nname{font-family:var(--head);font-weight:600;font-size:10.5px;line-height:1.15;max-height:2.4em;overflow:hidden;color:#E6EEFF}
+.node .nstat{font-family:var(--head);font-weight:700;font-size:10px;letter-spacing:.08em;padding:2px 6px;background:rgba(255,255,255,.08);color:color-mix(in srgb,var(--nc) 40%,#fff)}
+.node.clear{background:linear-gradient(165deg,rgba(166,255,61,.22),#0B1030 70%);box-shadow:inset 0 0 0 1px rgba(166,255,61,.6)}
+.node.clear .nstat{background:var(--lime);color:#0A0F28}
+.node.clear svg.lucide{filter:drop-shadow(0 0 8px var(--lime))}
+.node.sel{box-shadow:inset 0 0 0 2px #fff,0 0 0 2px var(--nc),0 0 22px var(--nc);z-index:2}
+.zfoot{display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-family:var(--head);font-size:11.5px;letter-spacing:.06em;color:var(--muted)}
+.zfoot span{display:flex;align-items:center;gap:6px}
+.zfoot svg.lucide{color:var(--cyan)}
+.legend{display:flex;gap:12px;margin-top:10px;font-size:12px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;margin-right:5px;vertical-align:-1px;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+.mbrief{display:block;margin-top:14px;padding:16px;border:1px solid color-mix(in srgb,var(--nc) 60%,transparent);background:linear-gradient(160deg,color-mix(in srgb,var(--nc) 18%,#0F1533),#0B1030);clip-path:var(--cut);box-shadow:0 0 22px color-mix(in srgb,var(--nc) 25%,transparent)}
+.mbrief .bk{font-family:var(--head);font-size:11px;letter-spacing:.22em;color:color-mix(in srgb,var(--nc) 45%,#fff)}
+.mbrief .bt{font-family:var(--head);font-weight:700;font-size:18px;color:#fff;margin:4px 0 2px;line-height:1.2}
+.mbrief .bm{font-size:13px;color:var(--muted)}
+.mbrief .row3{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.mbrief .pill{font-family:var(--head);font-size:12px;font-weight:600;padding:5px 10px;background:rgba(255,255,255,.06);color:#fff;display:flex;align-items:center;gap:6px;clip-path:var(--cut)}
+.mbrief .pill svg.lucide{width:14px;height:14px;color:color-mix(in srgb,var(--nc) 45%,#fff)}
+@media (prefers-reduced-motion:no-preference){
+  .node.sel{animation:pulse 1.8s ease-in-out infinite}
+  @keyframes pulse{50%{box-shadow:inset 0 0 0 2px #fff,0 0 0 2px var(--nc),0 0 34px var(--nc)}}
+}
 </style>
 </head>
 <body>
@@ -442,8 +572,8 @@ VIEWS.home=function(){
   var u=S.user;
   var tiles=[["passport","t1","book-user","MY PASSPORT","ดูแต้ม / Badge"],["city","t2","map","EXPLORE CITY","ผังฐานกิจกรรม"],["scan","t3","scan-line","SCAN MISSION","สแกน QR"],["missions","t4","list-checks","MY MISSION","ภารกิจของฉัน"],["rewards","t5","gift","REWARDS","ของรางวัล"],["admission","t6","graduation-cap","ADMISSION","ข้อมูลหลักสูตร"]];
   return {title:"Future Passport",noBack:true,html:
-  '<div class="hero"><div class="pass"><div class="avatar">'+esc(u.name.charAt(0))+'</div><div><div class="nm">'+esc(u.name)+'</div><div class="sc">'+esc(u.school)+'</div></div><div class="grp">กลุ่ม '+esc(u.group)+'</div></div>'+
-  '<div class="pts"><b>'+pts()+'</b><span>แต้ม · '+count()+'/9 ฐาน</span></div>'+segs()+'<div class="prog-note">'+progNote()+'</div></div>'+
+  '<div class="hero"><div class="hud-k">PLAYER CARD<span class="lv">LV '+count()+'</span></div><div class="pass"><div class="avatar">'+esc(u.name.charAt(0))+'</div><div><div class="nm">'+esc(u.name)+'</div><div class="sc">'+esc(u.school)+'</div></div><div class="grp">กลุ่ม '+esc(u.group)+'</div></div>'+
+  '<div class="pts"><b>'+pts()+'</b><span>XP · '+count()+'/9 ฐาน</span></div>'+segs()+'<div class="prog-note">'+progNote()+'</div></div>'+
   '<nav class="menu" aria-label="เมนู">'+tiles.map(function(t){return '<button class="tile '+t[1]+'" data-go="'+t[0]+'"><i data-lucide="'+t[2]+'"></i><span class="en">'+t[3]+'</span><span class="th">'+t[4]+'</span></button>';}).join("")+'</nav>'+
   (S.cert?'<button class="btn gold" id="hCert" style="margin-top:14px"><i data-lucide="award"></i>ดูวุฒิบัตรของฉัน</button>':''),
   after:function(){
@@ -491,9 +621,9 @@ VIEWS.result=function(r){
   if(r.newCert) extra+='<div class="unlock"><i data-lucide="award"></i><div><b>ปลดล็อกวุฒิบัตรแล้ว</b><br>ครบ '+certMin()+' ฐาน เลขที่ '+esc(S.cert.no)+'</div></div><button class="btn gold" id="rCert"><i data-lucide="award"></i>ดูวุฒิบัตรของฉัน</button>';
   if(r.newSpecial) extra+='<div class="unlock"><i data-lucide="crown"></i><div><b>Special Badge: Future City Master</b><br>ทำครบทั้ง 9 Mission</div></div>';
   return {title:"Mission Completed",html:
-  '<div class="result"><div class="burst pop">'+hex(m,140)+'</div><h2>ภารกิจสำเร็จ</h2><div class="sub" style="margin:0">ฐาน '+m.id+' · '+esc(m.act)+'</div>'+
-  '<div class="plus">+'+S.settings.pointsPerStation+' แต้ม</div><div>ได้รับ Badge <b>'+esc(m.badge)+'</b></div>'+
-  '<div class="card" style="margin:16px 0;text-align:left"><div style="display:flex;justify-content:space-between;font-weight:600;margin-bottom:8px"><span>'+count()+'/9 ฐาน</span><span>'+pts()+' แต้ม</span></div>'+segs(true)+'<div class="sub" style="margin:8px 0 0">'+progNote()+'</div></div>'+
+  '<div class="result"><div class="burst pop">'+hex(m,140)+'</div><h2>Mission Clear!</h2><div class="clear-th">ภารกิจสำเร็จ</div><div class="sub" style="margin:2px 0 0">ฐาน '+m.id+' · '+esc(m.act)+'</div>'+
+  '<div class="plus">+'+S.settings.pointsPerStation+' XP</div><div>ได้รับ Badge <b>'+esc(m.badge)+'</b></div>'+
+  '<div class="card" style="margin:16px 0;text-align:left"><div style="display:flex;justify-content:space-between;font-weight:600;margin-bottom:8px"><span>'+count()+'/9 ฐาน</span><span>'+pts()+' XP</span></div>'+segs(true)+'<div class="sub" style="margin:8px 0 0">'+progNote()+'</div></div>'+
   '<div class="stack">'+extra+'<button class="btn" id="rPass"><i data-lucide="book-user"></i>ดู Passport ของฉัน</button><button class="btn alt" id="rScan"><i data-lucide="scan-line"></i>สแกนฐานถัดไป</button></div></div>',
   after:function(){wire();if($("rCert"))$("rCert").onclick=function(){go("cert",{},true);};}};
   function wire(){$("rScan").onclick=function(){go("scan",{},true);};$("rPass").onclick=function(){go("passport",{},true);};}
@@ -504,8 +634,8 @@ VIEWS.passport=function(){
   var certCard=S.cert?'<button class="btn gold" id="pCert"><i data-lucide="award"></i>ดูวุฒิบัตร · '+esc(S.cert.no)+'</button>'
     :'<div class="card" style="display:flex;gap:12px;align-items:center"><i data-lucide="lock"></i><div><b>วุฒิบัตรดิจิทัล</b><div class="sub" style="margin:0">ร่วมกิจกรรมอีก '+(certMin()-n)+' ฐาน เพื่อปลดล็อก</div></div></div>';
   return {title:"My Passport",html:
-  '<div class="hero"><div class="pass"><div class="avatar">'+esc(S.user.name.charAt(0))+'</div><div><div class="nm">'+esc(S.user.name)+'</div><div class="sc">'+esc(S.user.school)+' · '+esc(S.user.level)+'</div></div><div class="grp">กลุ่ม '+esc(S.user.group)+'</div></div>'+
-  '<div class="pts"><b>'+pts()+'</b><span>แต้ม · '+n+'/9 ฐาน</span></div>'+segs()+'<div class="prog-note">'+progNote()+'</div></div>'+
+  '<div class="hero"><div class="hud-k">PLAYER CARD<span class="lv">LV '+count()+'</span></div><div class="pass"><div class="avatar">'+esc(S.user.name.charAt(0))+'</div><div><div class="nm">'+esc(S.user.name)+'</div><div class="sc">'+esc(S.user.school)+' · '+esc(S.user.level)+'</div></div><div class="grp">กลุ่ม '+esc(S.user.group)+'</div></div>'+
+  '<div class="pts"><b>'+pts()+'</b><span>XP · '+n+'/9 ฐาน</span></div>'+segs()+'<div class="prog-note">'+progNote()+'</div></div>'+
   '<h2 class="sec" style="margin-top:18px">Badge ของฉัน</h2><p class="sub">ได้แล้ว '+n+' จาก 9</p>'+
   '<div class="card"><div class="badges">'+missions().map(function(m){var t=done(m.id);return '<div class="badge">'+hex(m,64,!t)+'<span class="bn">'+esc(m.badge)+'</span><span class="bt">'+(t?fmtTime(t):'ฐาน '+m.id)+'</span></div>';}).join("")+'</div>'+
   '<div class="badge" style="margin-top:16px;flex-direction:row;justify-content:center;gap:12px;text-align:left"><div class="hex'+(n>=9?'':' locked')+'" style="--c:#C98A10;width:56px"><i data-lucide="'+(n>=9?'crown':'lock')+'"></i></div><div><span class="bn">Special Badge · Future City Master</span><br><span class="bt">'+(n>=9?'ได้รับแล้ว':'ทำครบทั้ง 9 Mission')+'</span></div></div></div>'+
@@ -522,11 +652,23 @@ VIEWS.missions=function(){
 };
 
 VIEWS.city=function(p){
-  var sel=p.sel||1, m=mission(sel);
-  return {title:"Explore City",html:'<h2 class="sec">ผังฐาน Zone 3 · BA&amp;IT FUTURE CITY</h2><p class="sub">แตะฐานเพื่อดูรายละเอียด ฐานที่ทำแล้วจะจางลง</p>'+
-  '<div class="city">'+missions().map(function(x){return '<button class="block'+(x.id===sel?' sel':'')+(done(x.id)?' done':'')+'" style="background:'+x.c+'" data-sel="'+x.id+'" aria-label="ฐาน '+x.id+' '+esc(x.act)+'"><b>'+x.id+'</b>'+esc(x.type)+'</button>';}).join("")+'</div>'+
-  '<div class="card" style="margin-top:14px;display:flex;gap:14px;align-items:center">'+hex(m,64,false)+'<div><div style="font-family:var(--head);font-weight:700">ฐาน '+m.id+' · '+esc(m.act)+'</div><div class="sub" style="margin:2px 0 0">Mission '+esc(m.type)+' · '+esc(m.th)+'<br>'+(done(m.id)?'ทำแล้ว '+fmtTime(done(m.id)):'รับ '+S.settings.pointsPerStation+' แต้ม และ Badge '+esc(m.badge))+'</div></div></div>',
-  after:function(){[].forEach.call(document.querySelectorAll("[data-sel]"),function(b){b.onclick=function(){go("city",{sel:+b.dataset.sel},true);};});}};
+  var sel=p.sel||1, m=mission(sel), n=count(), pp=S.settings.pointsPerStation;
+  var nodes=missions().map(function(x){var d=done(x.id);
+    return '<button class="node'+(x.id===sel?' sel':'')+(d?' clear':'')+'" style="--nc:'+x.c+'" data-sel="'+x.id+'" aria-label="ฐาน '+x.id+' '+esc(x.act)+(d?' ทำแล้ว':'')+'">'+
+      '<span class="nnum">0'+x.id+'</span><i data-lucide="'+(d?'check-circle-2':x.icon)+'"></i><span class="nname">'+esc(x.act)+'</span><span class="nstat">'+(d?'CLEARED':'+'+pp+' XP')+'</span></button>';}).join("");
+  var d=done(m.id);
+  return {title:"Explore City",html:
+  '<div class="map-head"><div><div class="hud-k">ZONE 3 · CITY MAP</div><h2 class="sec">BA&amp;IT FUTURE CITY</h2><p class="sub">Innovator Showcase &amp; Career Match</p></div><div class="hud-prog"><b>'+n+'/9</b><span>CLEARED</span></div></div>'+
+  '<div class="zmap"><div class="zgrid">'+nodes+'</div>'+
+  '<div class="zfoot"><span><i data-lucide="log-in"></i>ทางเข้า · ลงทะเบียน</span><span><i data-lucide="radio-tower"></i>ศูนย์ควบคุม</span></div></div>'+
+  '<div class="legend"><span><i style="background:var(--lime)"></i>ผ่านแล้ว</span><span><i style="background:var(--cyan)"></i>ยังไม่ได้ทำ</span><span><i style="background:#fff"></i>ฐานที่เลือก</span></div>'+
+  '<div class="mbrief" style="--nc:'+m.c+'"><div class="bk">MISSION BRIEF · ฐาน 0'+m.id+'</div><div class="bt">'+esc(m.act)+'</div><div class="bm">Mission '+esc(m.type)+' · '+esc(m.th)+'</div>'+
+  '<div class="row3"><span class="pill"><i data-lucide="zap"></i>+'+pp+' XP</span><span class="pill"><i data-lucide="'+m.icon+'"></i>'+esc(m.badge)+'</span><span class="pill"><i data-lucide="'+(d?'check-circle-2':'circle-dashed')+'"></i>'+(d?'ผ่านแล้ว '+fmtTime(d):'ยังไม่ได้ทำ')+'</span></div>'+
+  (d?'':'<button class="btn" id="bScan" style="margin-top:14px"><i data-lucide="scan-line"></i>สแกนรับภารกิจ</button>')+'</div>',
+  after:function(){
+    [].forEach.call(document.querySelectorAll("[data-sel]"),function(b){b.onclick=function(){go("city",{sel:+b.dataset.sel},true);};});
+    if($("bScan")) $("bScan").onclick=function(){go("scan");};
+  }};
 };
 
 VIEWS.rewards=function(){
