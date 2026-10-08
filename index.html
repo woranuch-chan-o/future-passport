@@ -401,8 +401,9 @@ VIEWS.register=function(){
   (walkin?'<p class="note" style="margin:12px 0 0"><i data-lucide="footprints"></i> ลงทะเบียนแบบ Walk-in</p>':'')+
   '<div class="card" style="margin-top:14px">'+
   '<label class="f" for="rName">ชื่อ–นามสกุล (แสดงบนวุฒิบัตร)</label><input class="in" id="rName" autocomplete="name" maxlength="80" placeholder="เช่น อนงค์ ใจดี">'+
-  '<label class="f" for="rSchool">สถานศึกษา</label><select class="in" id="rSchool"><option value="">เลือกสถานศึกษา</option>'+opts(SCHOOLS)+'<option>'+OTHER+'</option></select>'+
-  '<input class="in" id="rSchoolOther" maxlength="120" placeholder="พิมพ์ชื่อสถานศึกษา" style="margin-top:8px;display:none">'+
+  '<label class="f" for="rSchool">ชื่อสถานศึกษา</label><input class="in" id="rSchool" list="schoolList" maxlength="120" autocomplete="off" placeholder="พิมพ์ชื่อโรงเรียน/วิทยาลัย เช่น อยุธยานุสรณ์">'+
+  '<datalist id="schoolList">'+opts(SCHOOLS)+'</datalist>'+
+  '<div class="help" style="font-size:12.5px;color:var(--muted);margin-top:4px">พิมพ์ชื่อเต็มของสถานศึกษา ไม่ต้องใส่คำว่า "โรงเรียน" (ชื่อนี้จะแสดงบนวุฒิบัตร)</div>'+
   '<div class="row"><div><label class="f" for="rLevel">ระดับชั้น</label><select class="in" id="rLevel">'+opts(LEVELS)+'</select></div>'+
   '<div><label class="f" for="rProv">จังหวัด</label><select class="in" id="rProv">'+opts(PROVINCES)+'</select></div></div>'+
   '<label class="f">ความสนใจ (เลือกได้หลายข้อ)</label><div class="chips" id="rInt">'+INTERESTS.map(function(x){return '<button type="button" class="chip" aria-pressed="false">'+esc(x)+'</button>';}).join("")+'</div>'+
@@ -412,12 +413,11 @@ VIEWS.register=function(){
   '<p class="note">การลงทะเบียนถือว่าคุณได้อ่าน'+(ps?'<button class="linkbtn" id="rPriv">ประกาศความเป็นส่วนตัว</button>':'ประกาศความเป็นส่วนตัว')+'ของงานแล้ว</p></div>',
   after:function(){
     [].forEach.call(document.querySelectorAll("#rInt .chip"),function(b){b.onclick=function(){b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")==="true"?"false":"true");};});
-    $("rSchool").onchange=function(){$("rSchoolOther").style.display=this.value===OTHER?"block":"none";};
     if($("rPriv")) $("rPriv").onclick=function(){openUrl(ps);};
     $("rGo").onclick=function(){
-      var name=$("rName").value.trim(), sel=$("rSchool").value, school=sel===OTHER?$("rSchoolOther").value.trim():sel, err=$("rErr");
+      var name=$("rName").value.trim(), school=$("rSchool").value.replace(/\s+/g," ").trim().replace(/^โรงเรียน\s*/,""), err=$("rErr");
       if(name.length<3){err.textContent="กรอกชื่อ–นามสกุล เพื่อใช้แสดงบนวุฒิบัตร";return;}
-      if(!school){err.textContent="เลือกหรือพิมพ์ชื่อสถานศึกษา";return;}
+      if(school.length<3){err.textContent="พิมพ์ชื่อสถานศึกษา";return;}
       err.textContent=""; var btn=this; btn.disabled=true; btn.textContent="กำลังลงทะเบียน…";
       api("register",{name:name,school:school,level:$("rLevel").value,province:$("rProv").value,
         interests:[].map.call(document.querySelectorAll('#rInt .chip[aria-pressed="true"]'),function(b){return b.textContent;}),
