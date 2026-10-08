@@ -209,6 +209,15 @@ input.in,select.in{width:100%;border:1px solid var(--line);background:var(--surf
 .c-no b{display:block;font-family:var(--head);font-weight:700;font-size:1.5cqw;color:#120D46}
 .c-qr{left:81.9%;top:74.6%;width:11.8%;aspect-ratio:1/1;line-height:0}
 .c-qr img,.c-qr canvas{width:100%!important;height:100%!important}
+.cert-view{position:fixed;inset:0;z-index:90;background:#06051C;display:flex;flex-direction:column;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+.cv-top{display:flex;justify-content:space-between;gap:8px;padding:10px 12px}
+.cv-btn{border:0;border-radius:999px;padding:8px 16px;background:#fff;color:#120D46;font-family:var(--head);font-weight:600;font-size:15px}
+.cv-stage{flex:1;position:relative;overflow:hidden;display:grid;place-items:center;min-height:0}
+.cv-stage .loading{color:#A9A4D6;min-height:0}
+.cv-img{display:block;max-width:96vw;max-height:calc(100vh - 210px);width:auto;height:auto;border-radius:6px}
+.cv-img.rot{position:absolute;left:50%;top:50%;max-width:none;max-height:none;width:min(calc(100vh - 210px),134vw);transform:translate(-50%,-50%) rotate(90deg)}
+.cv-bar{padding:10px 16px 16px}
+.cv-hint{color:#A9A4D6;font-size:12.5px;line-height:1.5;text-align:center;margin:8px 0 0}
 .cert-full{position:fixed;inset:0;z-index:80;background:rgba(6,5,28,.92);display:grid;place-items:center;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
 .cert-full .certimg{width:min(94vw,1100px)}
 @media (orientation:portrait){.cert-full .certimg{width:min(92vh,1100px);transform:rotate(90deg)}}
@@ -570,18 +579,82 @@ function certHtml(){
 VIEWS.cert=function(){
   if(!S.cert) return VIEWS.passport();
   return {title:"Digital Certificate",html:certHtml()+
-  '<p class="note" style="text-align:center">กด "ดูขนาดเต็ม" แล้วบันทึกภาพหน้าจอเก็บไว้ได้ · สแกน QR บนวุฒิบัตรเพื่อตรวจสอบว่าเป็นของจริง</p>'+
+  '<p class="note" style="text-align:center">กด "ดูวุฒิบัตรขนาดเต็ม" แล้วกดบันทึกรูปเก็บไว้ในมือถือได้ · สแกน QR บนวุฒิบัตรเพื่อตรวจสอบว่าเป็นของจริง</p>'+
   '<div class="stack"><button class="btn gold" id="cFull"><i data-lucide="maximize-2"></i>ดูวุฒิบัตรขนาดเต็ม</button><button class="btn alt" id="cVerify"><i data-lucide="shield-check"></i>เปิดหน้าตรวจสอบวุฒิบัตร</button></div>',
   after:function(){
     $("cVerify").onclick=function(){openUrl(S.settings.verifyUrl+"?cert="+encodeURIComponent(S.cert.no));};
-    $("cFull").onclick=function(){
-      var o=document.createElement("div");o.className="cert-full";o.setAttribute("role","dialog");o.setAttribute("aria-label","วุฒิบัตรขนาดเต็ม");
-      o.innerHTML='<button class="x">ปิด</button>'+certHtml();document.body.appendChild(o);
-      var close=function(){o.remove();document.removeEventListener("keydown",k);}, k=function(e){if(e.key==="Escape")close();};
-      o.querySelector(".x").onclick=close;o.addEventListener("click",function(e){if(e.target===o)close();});document.addEventListener("keydown",k);
-    };
+    $("cFull").onclick=openCertViewer;
   }};
 };
+
+/* ===== certificate image (save) ===== */
+function loadImg(src){return new Promise(function(res,rej){var i=new Image();i.onload=function(){res(i);};i.onerror=function(){rej(new Error("โหลดภาพพื้นหลังไม่สำเร็จ"));};i.src=src;});}
+function renderCert(){
+  var want=["800 40px Prompt","700 40px Prompt","600 40px Prompt",'600 40px "IBM Plex Sans Thai"','400 40px "IBM Plex Sans Thai"'];
+  var fl=(document.fonts&&document.fonts.load)?Promise.all(want.map(function(f){return document.fonts.load(f,"วุฒิบัตร Aa");})).catch(function(){}):Promise.resolve();
+  return fl.then(function(){return loadImg("cert-bg.jpg");}).then(function(bg){
+    var W=3508,H=2480,c=document.createElement("canvas");c.width=W;c.height=H;var x=c.getContext("2d");
+    x.drawImage(bg,0,0,W,H);
+    var HEAD='"Prompt","Leelawadee UI",Tahoma,sans-serif',BODY='"IBM Plex Sans Thai","Leelawadee UI",Tahoma,sans-serif';
+    function txt(str,o){
+      var fs=o.size*W/100,fam=o.head?HEAD:BODY,mw=(o.maxW||90)*W/100;
+      x.fillStyle=o.color||"#1C1640";x.textAlign=o.align||"center";x.textBaseline="top";
+      if("letterSpacing" in x)x.letterSpacing=o.ls?(o.ls*fs)+"px":"0px";
+      x.font=(o.weight||400)+" "+fs+"px "+fam;
+      while(x.measureText(str).width>mw&&fs>12){fs*=0.96;x.font=(o.weight||400)+" "+fs+"px "+fam;}
+      x.fillText(str,(o.x!=null?o.x:50)*W/100,o.top*H/100+fs*0.1);
+    }
+    var R=W/H;
+    txt("วุฒิบัตร",{top:46.9,size:3.6,head:1,weight:800,color:"#2A1488"});
+    txt("FUTURE CITY EXPLORER CERTIFICATE",{top:53.3,size:1.35,head:1,weight:600,color:"#A8761A",ls:0.2});
+    txt("ขอมอบวุฒิบัตรฉบับนี้ไว้เพื่อแสดงว่า",{top:57.4,size:1.5,color:"#5E5987"});
+    txt(S.user.name,{top:60.3,size:3.8,head:1,weight:700,color:"#120D46",maxW:70});
+    txt(S.user.school,{top:67.4,size:1.8,weight:600,maxW:70});
+    ["ได้เข้าร่วมกิจกรรม Future Passport และผ่านภารกิจ "+count()+" จาก 9 ฐาน",
+     "ในงาน BA&IT EXPO 2027 การแข่งขันทักษะวิชาการด้านบริหารธุรกิจระดับชาติ ครั้งที่ 4",
+     "ระหว่างวันที่ 13–14 มกราคม 2570 ณ The Hall อยุธยาซิตี้พาร์ค"].forEach(function(l,i){txt(l,{top:71.9+i*1.45*1.5*R,size:1.45,maxW:60});});
+    x.fillStyle="#1C1640";x.fillRect(W*0.18,H*0.87,W*0.26,Math.max(2,0.12*W/100));
+    var sy=87+0.6*R;
+    txt("(ชื่อคณบดี)",{top:sy,size:1.15,weight:600,x:31,maxW:26});
+    txt("คณบดีคณะบริหารธุรกิจและเทคโนโลยีสารสนเทศ",{top:sy+1.15*1.2*R,size:1.15,color:"#3E3970",x:31,maxW:26});
+    txt("มหาวิทยาลัยเทคโนโลยีราชมงคลสุวรรณภูมิ",{top:sy+2*1.15*1.2*R,size:1.15,color:"#3E3970",x:31,maxW:26});
+    txt("เลขที่ "+S.cert.no,{top:86.6,size:1.5,head:1,weight:700,color:"#120D46",align:"right",x:78.6,maxW:30});
+    txt("สแกน QR เพื่อตรวจสอบ",{top:86.6+1.5*1.2*R,size:1.15,color:"#5E5987",align:"right",x:78.6,maxW:30});
+    if(window.qrcode){
+      var q=qrcode(0,"M");q.addData(S.settings.verifyUrl+"?cert="+encodeURIComponent(S.cert.no));q.make();
+      var n=q.getModuleCount(),qx=0.819*W,qy=0.746*H,qs=0.118*W,cell=qs/(n+4);
+      x.fillStyle="#fff";x.fillRect(qx,qy,qs,qs);x.fillStyle="#120D46";
+      for(var r=0;r<n;r++)for(var k=0;k<n;k++)if(q.isDark(r,k))x.fillRect(qx+(k+2)*cell,qy+(r+2)*cell,Math.ceil(cell),Math.ceil(cell));
+    }
+    return c.toDataURL("image/jpeg",0.92);
+  });
+}
+function dataUrlToBlob(u){var p=u.split(","),b=atob(p[1]),a=new Uint8Array(b.length);for(var i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return new Blob([a],{type:"image/jpeg"});}
+function openCertViewer(){
+  var o=document.createElement("div");o.className="cert-view";o.setAttribute("role","dialog");o.setAttribute("aria-label","วุฒิบัตรขนาดเต็ม");
+  o.innerHTML='<div class="cv-top"><button class="cv-btn" id="cvClose">ปิด</button><button class="cv-btn" id="cvRot">หมุนภาพ</button></div>'+
+    '<div class="cv-stage" id="cvStage"><div class="loading"><div class="spinner"></div><div>กำลังสร้างรูปวุฒิบัตร…</div></div></div>'+
+    '<div class="cv-bar"><button class="btn gold" id="cvSave" disabled>บันทึกรูปวุฒิบัตร</button><p class="cv-hint" id="cvHint">ถ้าปุ่มบันทึกไม่ทำงาน ให้แตะค้างที่รูปแล้วเลือก "บันทึกรูปภาพ" หรือแคปหน้าจอเก็บไว้</p></div>';
+  document.body.appendChild(o);
+  var rot=window.innerHeight>window.innerWidth, img=null, dataUrl=null;
+  function close(){o.remove();document.removeEventListener("keydown",key);}
+  function key(e){if(e.key==="Escape")close();}
+  document.addEventListener("keydown",key);
+  o.querySelector("#cvClose").onclick=close;
+  o.querySelector("#cvRot").onclick=function(){rot=!rot;if(img)img.className="cv-img"+(rot?" rot":"");};
+  renderCert().then(function(u){
+    dataUrl=u; img=new Image(); img.src=u; img.alt="วุฒิบัตรเลขที่ "+S.cert.no; img.className="cv-img"+(rot?" rot":"");
+    var st=o.querySelector("#cvStage"); st.innerHTML=""; st.appendChild(img);
+    var btn=o.querySelector("#cvSave"); btn.disabled=false;
+    btn.onclick=function(){
+      var name="Certificate-"+S.cert.no+".jpg", blob=dataUrlToBlob(dataUrl);
+      try{var f=new File([blob],name,{type:"image/jpeg"});
+        if(navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],title:"วุฒิบัตร BA&IT EXPO 2027"}).catch(function(){});return;}}catch(e){}
+      var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();
+      o.querySelector("#cvHint").textContent='ถ้ายังไม่มีรูปในเครื่อง ให้แตะค้างที่รูปแล้วเลือก "บันทึกรูปภาพ" หรือแคปหน้าจอเก็บไว้';
+    };
+  }).catch(function(e){o.querySelector("#cvStage").innerHTML='<p class="cv-hint">'+esc(e.message||"สร้างรูปไม่สำเร็จ")+' ลองปิดแล้วเปิดใหม่</p>';});
+}
 
 /* ===== boot ===== */
 function boot(){
