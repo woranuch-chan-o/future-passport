@@ -593,8 +593,10 @@ var STYLE = {1:["crown","#D3263A"],2:["truck","#C92A8A"],3:["trending-up","#B974
 var TIER_STYLE = [["gift","#E2399E"],["ticket","#2F6BFF"],["package","#13A57F"],["star","#C98A10"]];
 var SCHOOLS = ["อยุธยานุสรณ์","วิทยาลัยเทคโนโลยีพณิชยการอยุธยา","จอมสุรางค์อุปถัมภ์","วิทยาลัยเทคโนโลยีไทยอโยธยาบริหารธุรกิจ","อยุธยาวิทยาลัย","อิสลามศรีอยุธยามูลนิธิ","ภาชี สุนทรวิทยานุกูล","บางปะอิน ราชานุเคราะห์ 1","เสนา เสนาประสิทธิ์","ธรรมโชติศึกษาลัย","สามชุกรัตนโภคาราม","บรรหารแจ่มใสวิทยา 3","สตรีอ่างทอง","ปาโมกข์วิทยาภูมิ","อ่างทองปัทมโรจน์วิทยาคม"];
 var OTHER = "อื่น ๆ (พิมพ์ชื่อสถานศึกษา)";
-var PROVINCES = ["พระนครศรีอยุธยา","สุพรรณบุรี","อ่างทอง","อื่น ๆ"];
-var LEVELS = ["ม.4","ม.5","ม.6","ปวช.","ปวส.","อื่น ๆ"];
+var PROVINCES = ["กรุงเทพมหานคร", "กระบี่", "กาญจนบุรี", "กาฬสินธุ์", "กำแพงเพชร", "ขอนแก่น", "จันทบุรี", "ฉะเชิงเทรา", "ชลบุรี", "ชัยนาท", "ชัยภูมิ", "ชุมพร", "เชียงราย", "เชียงใหม่", "ตรัง", "ตราด", "ตาก", "นครนายก", "นครปฐม", "นครพนม", "นครราชสีมา", "นครศรีธรรมราช", "นครสวรรค์", "นนทบุรี", "นราธิวาส", "น่าน", "บึงกาฬ", "บุรีรัมย์", "ปทุมธานี", "ประจวบคีรีขันธ์", "ปราจีนบุรี", "ปัตตานี", "พระนครศรีอยุธยา", "พะเยา", "พังงา", "พัทลุง", "พิจิตร", "พิษณุโลก", "เพชรบุรี", "เพชรบูรณ์", "แพร่", "ภูเก็ต", "มหาสารคาม", "มุกดาหาร", "แม่ฮ่องสอน", "ยโสธร", "ยะลา", "ร้อยเอ็ด", "ระนอง", "ระยอง", "ราชบุรี", "ลพบุรี", "ลำปาง", "ลำพูน", "เลย", "ศรีสะเกษ", "สกลนคร", "สงขลา", "สตูล", "สมุทรปราการ", "สมุทรสงคราม", "สมุทรสาคร", "สระแก้ว", "สระบุรี", "สิงห์บุรี", "สุโขทัย", "สุพรรณบุรี", "สุราษฎร์ธานี", "สุรินทร์", "หนองคาย", "หนองบัวลำภู", "อ่างทอง", "อำนาจเจริญ", "อุดรธานี", "อุตรดิตถ์", "อุทัยธานี", "อุบลราชธานี"];
+var NEAR_PROVINCES = ["พระนครศรีอยุธยา","อ่างทอง","สุพรรณบุรี","สิงห์บุรี","ชัยนาท","ลพบุรี","สระบุรี","ปทุมธานี","นนทบุรี"];
+var LEVELS = ["มัธยมศึกษาตอนต้น","มัธยมศึกษาตอนปลาย","ประกาศนียบัตรวิชาชีพ (ปวช.)","ประกาศนียบัตรวิชาชีพชั้นสูง (ปวส.)","มหาวิทยาลัย"];
+var YEARS = ["1","2","3","4","5","6"];
 var INTERESTS = ["ธุรกิจ/การจัดการ","การตลาด","บัญชี/การเงิน","โลจิสติกส์","เทคโนโลยี/AI","ดิจิทัลคอนเทนต์"];
 
 var S = null, pending = null, walkin = false, lastFetch = 0, SUB = "";
@@ -732,12 +734,11 @@ VIEWS.register=function(){
     st.map(function(x){return '<button type="button" role="radio" aria-checked="'+(x[0]===pre)+'" data-st="'+x[0]+'"><i data-lucide="'+x[1]+'"></i><b>'+x[2]+'</b><span>'+x[3]+'</span></button>';}).join("")+'</div>'+
   '<div id="rCompBox" style="display:none"><label class="f" for="rComp">รายการที่เข้าแข่งขัน</label><select class="in" id="rComp"><option value="">เลือกรายการแข่งขัน</option>'+opts(COMPETITIONS)+'</select></div>'+
   '<label class="f" for="rName">ชื่อ–นามสกุล (แสดงบน Passport ID และวุฒิบัตร)</label><input class="in" id="rName" autocomplete="name" maxlength="80" placeholder="เช่น นางสาวอนงค์ ใจดี">'+
-  '<label class="f" for="rSchool">สถานศึกษา</label><div class="schoolrow"><select class="in" id="rPrefix">'+opts(SCHOOL_PREFIX)+'</select>'+
-  '<input class="in" id="rSchool" list="schoolList" maxlength="120" autocomplete="off" placeholder="ชื่อสถานศึกษา เช่น อยุธยานุสรณ์"></div>'+
-  '<datalist id="schoolList">'+opts(SCHOOLS)+'</datalist>'+
-  '<div class="schoolprev" id="rSchoolPrev">จะแสดงเป็น: –</div>'+
-  '<div class="row"><div><label class="f" for="rLevel">ระดับชั้น</label><select class="in" id="rLevel">'+opts(LEVELS)+'</select></div>'+
-  '<div><label class="f" for="rProv">จังหวัด</label><select class="in" id="rProv">'+opts(PROVINCES)+'</select></div></div>'+
+  '<label class="f" for="rSchool">ชื่อสถานศึกษา (พิมพ์ชื่อเต็ม)</label><input class="in" id="rSchool" maxlength="120" autocomplete="off" placeholder="เช่น โรงเรียนอยุธยานุสรณ์ / วิทยาลัยเทคนิคอ่างทอง">'+
+  '<div class="schoolprev">พิมพ์คำว่า โรงเรียน หรือ วิทยาลัย นำหน้าด้วย ชื่อนี้จะแสดงบน Passport ID และวุฒิบัตร</div>'+
+  '<label class="f" for="rLevel">ระดับการศึกษา</label><select class="in" id="rLevel"><option value="">เลือกระดับการศึกษา</option>'+opts(LEVELS)+'</select>'+
+  '<div class="row"><div><label class="f" for="rYear">ชั้นปี</label><select class="in" id="rYear"><option value="">เลือกชั้นปี</option>'+opts(YEARS)+'</select></div>'+
+  '<div><label class="f" for="rProv">จังหวัด</label><select class="in" id="rProv"><option value="">เลือกจังหวัด</option><optgroup label="จังหวัดใกล้เคียงงาน">'+opts(NEAR_PROVINCES)+'</optgroup><optgroup label="ทุกจังหวัด (77 จังหวัด)">'+opts(PROVINCES)+'</optgroup></select></div></div>'+
   '<label class="f">ความสนใจ (เลือกได้หลายข้อ)</label><div class="chips" id="rInt">'+INTERESTS.map(function(x){return '<button type="button" class="chip" aria-pressed="false">'+esc(x)+'</button>';}).join("")+'</div>'+
   '<label class="check"><input type="checkbox" id="rNews"><span>ยินยอมรับข่าวสารหลักสูตรและการรับสมัครเรียนของคณะทาง LINE (ไม่บังคับ ยกเลิกได้ทุกเมื่อ)</span></label>'+
   '<div class="err" id="rErr" role="alert"></div>'+
@@ -748,19 +749,20 @@ VIEWS.register=function(){
     function setType(v){status=v;[].forEach.call(document.querySelectorAll("#rType [data-st]"),function(b){b.setAttribute("aria-checked",String(b.dataset.st===v));});$("rCompBox").style.display=v==="competitor"?"block":"none";}
     [].forEach.call(document.querySelectorAll("#rType [data-st]"),function(b){b.onclick=function(){setType(b.dataset.st);};});
     if(pre) setType(pre);
-    function prev(){var v=fullSchool($("rPrefix").value,$("rSchool").value);$("rSchoolPrev").textContent="จะแสดงเป็น: "+(v||"–");}
-    $("rSchool").oninput=function(){var v=this.value.trim();if(/^วิทยาลัย/.test(v))$("rPrefix").value="วิทยาลัย";else if(/^มหาวิทยาลัย/.test(v))$("rPrefix").value="มหาวิทยาลัย";else if(/^โรงเรียน/.test(v))$("rPrefix").value="โรงเรียน";prev();};
-    $("rPrefix").onchange=prev;
     [].forEach.call(document.querySelectorAll("#rInt .chip"),function(b){b.onclick=function(){b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")==="true"?"false":"true");};});
     if($("rPriv")) $("rPriv").onclick=function(){openUrl(ps);};
     $("rGo").onclick=function(){
-      var name=$("rName").value.replace(/\s+/g," ").trim(), school=fullSchool($("rPrefix").value,$("rSchool").value), comp=$("rComp").value, err=$("rErr");
+      var name=$("rName").value.replace(/\s+/g," ").trim(), school=$("rSchool").value.replace(/\s+/g," ").trim(), comp=$("rComp").value, err=$("rErr");
       if(!status){err.textContent="เลือกประเภทผู้เข้าร่วม";$("rType").scrollIntoView({block:"center"});return;}
       if(status==="competitor"&&!comp){err.textContent="เลือกรายการที่เข้าแข่งขัน";return;}
       if(name.length<3){err.textContent="กรอกชื่อ–นามสกุล";return;}
       if(school.length<5){err.textContent="กรอกชื่อสถานศึกษา";return;}
+      if(!/(โรงเรียน|วิทยาลัย|มหาวิทยาลัย|สถาบัน|ศูนย์|การศึกษา)/.test(school)){err.textContent="พิมพ์ชื่อสถานศึกษาแบบเต็ม เช่น โรงเรียนอยุธยานุสรณ์ หรือ วิทยาลัยเทคนิคอ่างทอง";return;}
+      if(!$("rLevel").value){err.textContent="เลือกระดับการศึกษา";return;}
+      if(!$("rYear").value){err.textContent="เลือกชั้นปี";return;}
+      if(!$("rProv").value){err.textContent="เลือกจังหวัด";return;}
       err.textContent=""; var btn=this; btn.disabled=true; btn.textContent="กำลังลงทะเบียน…";
-      api("register",{name:name,school:school,level:$("rLevel").value,province:$("rProv").value,status:status,competition:status==="competitor"?comp:"",
+      api("register",{name:name,school:school,level:$("rLevel").value,year:$("rYear").value,province:$("rProv").value,status:status,competition:status==="competitor"?comp:"",
         interests:[].map.call(document.querySelectorAll('#rInt .chip[aria-pressed="true"]'),function(b){return b.textContent;}),
         consentNews:$("rNews").checked,walkin:status==="walkin"})
       .then(function(d){
@@ -780,7 +782,7 @@ VIEWS.register=function(){
 };
 function statusLabel(u){u=u||S.user;return STATUS_LABEL[u.status]||(u.walkin?STATUS_LABEL.walkin:"ผู้เข้าร่วมงาน");}
 function idRows(){
-  var u=S.user, r=[["ชื่อ–นามสกุล",u.name],["สถานศึกษา",u.school],["ระดับชั้น",u.level||"-"],["จังหวัด",u.province||"-"],["ประเภทผู้เข้าร่วม",statusLabel(u)]];
+  var u=S.user, r=[["ชื่อ–นามสกุล",u.name],["สถานศึกษา",u.school],["ระดับการศึกษา",u.level||"-"],["ชั้นปี",u.year?("ปีที่ "+u.year):"-"],["จังหวัด",u.province||"-"],["ประเภทผู้เข้าร่วม",statusLabel(u)]];
   if(u.status==="competitor"&&u.competition) r.push(["รายการแข่งขัน",u.competition]);
   r.push(["รหัส Passport",memberId()]);
   return r;
@@ -870,7 +872,7 @@ VIEWS.passport=function(p){
     '<p class="note" style="margin:10px 0 0">ชื่อหรือสถานศึกษาผิด แจ้งเจ้าหน้าที่ที่จุดลงทะเบียนเพื่อแก้ไขก่อนรับวุฒิบัตร</p></div>';
   var tabs=[["missions","ภารกิจ","list-checks"],["badges","Badge","hexagon"],["profile","บัตร ID","contact"]];
   return {title:"My Passport",html:
-  '<div class="hero"><div class="hud-k">PLAYER CARD<span class="lv">LV '+n+'</span><button class="idbtn" id="pIdTop"><i data-lucide="contact"></i>บัตร ID</button></div><div class="pass"><div><div class="nm">'+esc(S.user.name)+'</div><div class="sc">'+esc(S.user.school)+' · '+esc(S.user.level)+'</div></div></div>'+
+  '<div class="hero"><div class="hud-k">PLAYER CARD<span class="lv">LV '+n+'</span><button class="idbtn" id="pIdTop"><i data-lucide="contact"></i>บัตร ID</button></div><div class="pass"><div><div class="nm">'+esc(S.user.name)+'</div><div class="sc">'+esc(S.user.school)+(S.user.year?' · ปี '+esc(S.user.year):'')+'</div></div></div>'+
   '<div class="pts"><b>'+n+'</b><span>/ 9 ฐาน</span></div>'+segs()+'<div class="prog-note">'+progNote()+'</div></div>'+
   '<button class="btn scanbig" id="pScan"><i data-lucide="scan-line"></i>SCAN MISSION · สแกนฐาน</button>'+
   '<div class="tabs" role="tablist">'+tabs.map(function(t){return '<button role="tab" aria-selected="'+(t[0]===tab)+'" data-tab="'+t[0]+'"><i data-lucide="'+t[2]+'"></i>'+t[1]+'</button>';}).join("")+'</div>'+
@@ -1055,12 +1057,12 @@ function openImageViewer(srcOrPromise,fileName,rotDefault){
 function memberId(){var id=(SUB||"").replace(/[^A-Za-z0-9]/g,"").slice(-6).toUpperCase()||"000000";return "FP-"+id;}
 var idCache={key:"",url:""}; // v-noavatar
 function renderIdCard(){
-  var key=[memberId(),S.user.name,S.user.school,S.user.level,S.user.province,S.user.status,S.user.competition,count(),!!S.cert].join("|");
+  var key=[memberId(),S.user.name,S.user.school,S.user.level,S.user.year,S.user.province,S.user.status,S.user.competition,count(),!!S.cert].join("|");
   if(idCache.key===key&&idCache.url) return Promise.resolve(idCache.url);
   var want=["800 40px Prompt","700 40px Prompt",'600 40px "IBM Plex Sans Thai"','400 40px "IBM Plex Sans Thai"'];
   var fl=(document.fonts&&document.fonts.load)?Promise.all(want.map(function(f){return document.fonts.load(f,"บัตร Aa");})).catch(function(){}):Promise.resolve();
   return fl.then(function(){return loadImg("expo-header.jpg").catch(function(){return null;});}).then(function(logo){
-    var W=1080,H=2050,c=document.createElement("canvas");c.width=W;c.height=H;var x=c.getContext("2d");
+    var W=1080,H=1448+idRows().length*86,c=document.createElement("canvas");c.width=W;c.height=H;var x=c.getContext("2d");
     var HEAD='"Prompt","Leelawadee UI",sans-serif',BODY='"IBM Plex Sans Thai","Leelawadee UI",sans-serif';
     function cut(px,py,w,h,k){x.beginPath();x.moveTo(px+k,py);x.lineTo(px+w,py);x.lineTo(px+w,py+h-k);x.lineTo(px+w-k,py+h);x.lineTo(px,py+h);x.lineTo(px,py+k);x.closePath();}
     function t(str,px,py,o){var fs=o.size,mw=o.maxW||W-160;x.font=(o.w||400)+" "+fs+"px "+(o.head?HEAD:BODY);
