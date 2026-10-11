@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
 <meta charset="utf-8">
-<meta name="theme-color" content="#070B1F">
+<meta name="theme-color" content="#EAF6FF">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Future Passport · BA&amp;IT EXPO 2027</title>
 <link rel="preconnect" href="https://script.google.com">
@@ -427,6 +427,136 @@ input.in:focus,select.in:focus{border-color:var(--cyan);box-shadow:var(--glow-c)
 .idmeta{display:flex;flex-direction:column;align-items:center;gap:2px;margin-top:10px;font-family:var(--head);color:#DDE8FF;font-size:13.5px;text-align:center}
 .idmeta span:first-child{color:var(--lime);font-weight:700;letter-spacing:.04em}
 #hId .idimg{width:min(100%,300px)}
+
+/* ================= FUTURE CITY LIGHT THEME (ล่าสุด) ================= */
+:root,:root[data-theme],:root:not([data-theme="light"]){
+  --bg:#EAF6FF;--surface:rgba(255,255,255,.82);--surface-2:#F3F9FF;--text:#0E2A5C;--muted:#5B7299;--line:#CFE3F7;
+  --cyan:#1EA7E8;--magenta:#E5257D;--lime:#5FB52E;--gold:#F5B100;--violet:#7C5CF0;--danger:#D92D5B;--blue:#1A5FD0;--mint:#18B58A;
+  --rainbow:linear-gradient(90deg,#22C3EE,#7CC242,#FFC531,#E5257D,#8B5CF6);
+  --head:"Prompt","Leelawadee UI",sans-serif;
+  --cut:inset(0 round 18px);
+  --glow-c:0 0 0 3px rgba(30,136,240,.25);
+}
+html,body{background:#EAF6FF;color:var(--text)}
+.phone{background:
+  linear-gradient(180deg,rgba(244,250,255,0) 55%,rgba(244,250,255,.25) 100%),
+  url("bg-city.jpg") bottom center/100% auto no-repeat,
+  radial-gradient(70% 40% at 50% 0%,#FFFFFF 0,rgba(255,255,255,0) 70%),
+  linear-gradient(180deg,#A9DBFF 0,#DDF0FF 280px,#EEF7FF 100%)}
+.liff-bar{background:rgba(255,255,255,.75);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.9);box-shadow:0 4px 18px rgba(30,95,208,.08)}
+.liff-bar .t{color:var(--blue);font-family:var(--head);letter-spacing:.03em;text-transform:none}
+.icon-btn{color:var(--blue)}
+h2.sec{color:var(--text);font-family:var(--head)}
+.sub,.note{color:var(--muted)}
+.card{background:rgba(255,255,255,.86);border:1px solid #fff;border-radius:20px;box-shadow:0 10px 30px -12px rgba(30,95,208,.25);backdrop-filter:blur(10px)}
+.hud-k{color:var(--blue);letter-spacing:.16em}
+.hud-k::before{background:var(--rainbow);box-shadow:none;width:10px;height:10px;clip-path:none;border-radius:50%}
+/* banner */
+.banner{display:block;width:100%;height:auto;border-radius:22px;margin:-2px 0 14px;box-shadow:0 12px 30px -14px rgba(30,95,208,.45)}
+/* hero (player card) */
+.hero{color:#fff;border:0;border-radius:24px;box-shadow:0 16px 36px -16px rgba(30,95,208,.55);
+  background:radial-gradient(90% 80% at 100% 0%,rgba(229,37,125,.55),transparent 60%),radial-gradient(70% 60% at 0% 100%,rgba(124,194,66,.45),transparent 60%),linear-gradient(140deg,#1E88F0,#1A5FD0 55%,#5B3FD8)}
+.hero::after{border-color:rgba(255,255,255,.25)}
+.hero .hud-k{color:#fff}
+.hero .hud-k::before{background:#fff}
+.wordmark{font-family:var(--head);letter-spacing:.02em;background:linear-gradient(90deg,#fff,#FFF6C8);-webkit-background-clip:text;background-clip:text}
+.avatar{background:linear-gradient(140deg,#E5257D,#8B5CF6);box-shadow:none;border-radius:16px}
+.lv{background:#FFC531;color:#3A2600;box-shadow:none;clip-path:none;border-radius:999px}
+.grp{clip-path:none;border-radius:999px}
+.pts b{color:#fff;text-shadow:none}
+.pts span{color:#E6F1FF}
+.segs i{transform:none;border-radius:4px;background:rgba(255,255,255,.3)}
+.segs i.on{background:linear-gradient(90deg,#FFC531,#7CC242);box-shadow:none}
+.segs i.goal{box-shadow:inset 0 0 0 2px #fff}
+.prog-note{color:#F0F7FF}
+.idbtn{border-radius:999px;clip-path:none;background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.6)}
+/* menu tiles */
+.menu{background:rgba(255,255,255,.6);border:1px solid #fff;border-radius:24px;box-shadow:0 10px 30px -14px rgba(30,95,208,.3);backdrop-filter:blur(10px)}
+.tile{background:#fff!important;color:var(--text);border:0;clip-path:none;border-radius:18px;box-shadow:0 6px 16px -8px rgba(30,95,208,.35),inset 0 0 0 1px #E3EEFA}
+.tile svg.lucide{color:var(--tc);filter:none}
+.tile .en{color:var(--text);font-family:var(--head)}
+.tile .th{color:var(--muted)}
+.t1{--tc:#1A5FD0}.t2{--tc:#1EA7E8}.t3{--tc:#E5257D}.t4{--tc:#5FB52E}.t5{--tc:#F5A100}.t6{--tc:#7C5CF0}
+.tile.t1{box-shadow:inset 0 0 0 2px #1A5FD0,0 8px 20px -8px rgba(26,95,208,.5)}
+.tile.t3{box-shadow:0 6px 16px -8px rgba(30,95,208,.35),inset 0 0 0 1px #E3EEFA}
+/* buttons */
+.btn{font-family:var(--head);letter-spacing:.01em;clip-path:none;border-radius:16px;background:linear-gradient(90deg,#1E88F0,#1A5FD0);color:#fff;box-shadow:0 10px 22px -10px rgba(26,95,208,.7)}
+.btn.gold{background:linear-gradient(90deg,#FFC531,#FF9A3D);color:#3A2100;box-shadow:0 10px 22px -10px rgba(245,161,0,.7)}
+.btn.alt{background:#fff;color:var(--blue);border:1px solid #D6E6F8;box-shadow:0 4px 12px -8px rgba(30,95,208,.4)}
+.scanbig{background:linear-gradient(90deg,#E5257D,#8B5CF6 55%,#1E88F0);box-shadow:0 12px 26px -10px rgba(229,37,125,.6)}
+/* forms */
+label.f{color:var(--text)}
+input.in,select.in{background:#fff;border:1px solid #D6E6F8;color:var(--text)}
+input.in:focus,select.in:focus{border-color:#1E88F0;box-shadow:var(--glow-c)}
+.chip{background:#fff;border:1px solid #D6E6F8;color:var(--text)}
+.chip[aria-pressed="true"]{background:linear-gradient(90deg,#1E88F0,#7C5CF0);color:#fff;box-shadow:none}
+.check{color:var(--text)}
+/* scanner */
+.viewfinder{background:radial-gradient(circle at 50% 50%,#1A3F8F,#0B1F4D);border:0;box-shadow:0 14px 30px -14px rgba(26,95,208,.6)}
+.viewfinder .fr::before,.viewfinder .fr::after{border-color:#7CC242;filter:none}
+.scanline{background:#FFC531;box-shadow:0 0 12px #FFC531}
+.codein .in{color:var(--blue)}
+/* result & badges */
+.hex.locked{background:#DCE8F6;color:#9AB0CF}
+.badge .bn{color:var(--text)}.badge .bt{color:var(--muted)}
+.result h2{background:linear-gradient(90deg,#1E88F0,#7C5CF0,#E5257D);-webkit-background-clip:text;background-clip:text;color:transparent}
+.result .clear-th{color:var(--text)}
+.plus{color:var(--lime);text-shadow:none}
+.burst::before{background:radial-gradient(circle,rgba(255,197,49,.45),transparent 65%)}
+.unlock{background:linear-gradient(120deg,#FFF4D1,#FFE3F0);border:1px solid #FFD27A;color:#5A3A00}
+.unlock svg.lucide{color:#F5A100}
+/* lists */
+.mlist li{border-color:#E3EEFA}
+.mlist .mt{color:var(--text)}
+.num{clip-path:none;border-radius:12px;box-shadow:none}
+.st.ok{background:#E7F7DC;color:#3E8E16}
+.st.wait{background:#EEF4FB;color:var(--muted)}
+.tabs{background:#fff;border:1px solid #E3EEFA;clip-path:none;border-radius:16px;box-shadow:0 4px 12px -8px rgba(30,95,208,.35)}
+.tabs button{clip-path:none;border-radius:12px;color:var(--muted)}
+.tabs button[aria-selected="true"]{background:linear-gradient(90deg,#1E88F0,#7C5CF0);color:#fff;box-shadow:none}
+.prof dt{color:var(--muted)}.prof dd{color:var(--text)}
+/* sheet & toast */
+.sheet{background:#fff;border-top:0;color:var(--text)}
+.toast{background:#0E2A5C;border:0;color:#fff;box-shadow:0 10px 30px rgba(14,42,92,.3)}
+.loading{color:var(--muted)}.spinner{border-color:#D6E6F8;border-top-color:#1E88F0}
+/* city map (zone C) */
+.map-head h2.sec{color:var(--text)}
+.hud-prog b{color:var(--lime);text-shadow:none}
+.zmap{border:1px solid #fff;background:linear-gradient(180deg,rgba(255,255,255,.7),rgba(234,246,255,.9));box-shadow:0 12px 30px -14px rgba(30,95,208,.35)}
+.node{color:var(--text);background:#fff;clip-path:none;border-radius:16px;box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--nc) 55%,#fff),0 6px 14px -8px rgba(30,95,208,.4)}
+.node .nnum{color:var(--nc)}
+.node svg.lucide{color:var(--nc);filter:none}
+.node .nname{color:var(--text)}
+.node .nstat{background:color-mix(in srgb,var(--nc) 12%,#fff);color:var(--nc);border-radius:999px}
+.node.clear{background:#F1FBEA;box-shadow:inset 0 0 0 2px #7CC242}
+.node.clear .nstat{background:#7CC242;color:#fff}
+.node.clear svg.lucide{color:#5FB52E;filter:none}
+.node.sel{box-shadow:inset 0 0 0 3px var(--nc),0 10px 22px -8px color-mix(in srgb,var(--nc) 60%,transparent)}
+@media (prefers-reduced-motion:no-preference){.node.sel{animation:none}}
+.zfoot,.legend{color:var(--muted)}.zfoot svg.lucide{color:var(--blue)}
+.mbrief{background:#fff;border:0;clip-path:none;border-radius:20px;box-shadow:inset 0 4px 0 var(--nc),0 12px 28px -14px rgba(30,95,208,.4)}
+.mbrief .bk{color:var(--nc)}
+.mbrief .bt{color:var(--text)}
+.mbrief .bm{color:var(--muted)}
+.mbrief .pill{background:#F1F6FC;color:var(--text);clip-path:none;border-radius:999px}
+.mbrief .pill svg.lucide{color:var(--nc)}
+.zdesc{color:var(--text)}
+/* zones A–D */
+.zcard{color:var(--text);background:#fff;clip-path:none;border-radius:20px;box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--zc) 55%,#fff),0 8px 18px -10px rgba(30,95,208,.4)}
+.zcard .zl{color:var(--zc);text-shadow:none}
+.zcard svg.lucide{color:var(--zc);filter:none}
+.zcard .zs{color:var(--muted)}
+.zcard.sel{box-shadow:inset 0 0 0 3px var(--zc),0 12px 24px -10px color-mix(in srgb,var(--zc) 60%,transparent)}
+.imgcard{border:0;background:#fff;clip-path:none;border-radius:18px;overflow:hidden;box-shadow:0 10px 24px -12px rgba(30,95,208,.45)}
+.imgcard span{background:rgba(14,42,92,.75);clip-path:none;border-radius:999px}
+.emptybox{color:var(--text)}.emptybox svg.lucide{color:var(--blue)}
+.pgn{color:var(--blue);text-shadow:none}.pgt{color:var(--text)}.pgh{color:var(--text)}
+/* home ID */
+.welcome{background:linear-gradient(120deg,#E7F7DC,#E2F2FF);border:1px solid #BFE6A6;clip-path:none;border-radius:18px;color:#1F4D10}
+.welcome svg.lucide{color:#5FB52E}
+.idskel{border-color:#CFE3F7;border-radius:20px;background:rgba(255,255,255,.6)}
+.idmeta{color:var(--text)}.idmeta span:first-child{color:var(--blue)}
+.idimg{filter:drop-shadow(0 14px 24px rgba(30,95,208,.3))}
 </style>
 </head>
 <body>
@@ -573,6 +703,7 @@ VIEWS.register=function(){
   function opts(a){return a.map(function(x){return '<option>'+esc(x)+'</option>';}).join("");}
   var ps=S&&S.settings&&S.settings.privacyUrl;
   return {title:"ลงทะเบียน Future Passport",noBack:true,html:
+  '<img class="banner" src="expo-logo.jpg" alt="BA&amp;IT EXPO 2027 Smart BIZ-IT">'+
   '<div class="hero"><div class="kicker">BA&amp;IT EXPO 2027 · Zone C BA&amp;IT FUTURE CITY</div><div class="wordmark">FUTURE PASSPORT</div><p>ลงทะเบียนครั้งเดียว แล้วสแกน QR ที่ฐานกิจกรรมเพื่อเก็บ Badge รับ Badge และวุฒิบัตร</p></div>'+
   (walkin?'<p class="note" style="margin:12px 0 0"><i data-lucide="footprints"></i> ลงทะเบียนแบบ Walk-in</p>':'')+
   '<div class="card" style="margin-top:14px">'+
@@ -618,6 +749,7 @@ VIEWS.home=function(p){
   var u=S.user;
   var tiles=[["passport","t1","contact","MY PASSPORT","ID · ภารกิจ"],["schedule","t2","calendar-clock","SCHEDULE","ตารางการแข่งขัน"],["map","t3","map","EVENT MAP","ผังงาน Zone A–D"],["eval","t4","clipboard-check","EVALUATION","แบบประเมินงาน"],["journey","t5","route","JOURNEY MAP","Competition Journey"],["programs","t6","graduation-cap","PROGRAMS","ข้อมูลหลักสูตร"]];
   return {title:"Future Passport",noBack:true,html:
+  '<img class="banner" src="expo-logo.jpg" alt="BA&amp;IT EXPO 2027 Smart BIZ-IT">'+
   ((p&&p.fresh)?'<div class="welcome"><i data-lucide="party-popper"></i><div><b>ลงทะเบียนสำเร็จ!</b><br>นี่คือ Passport ID ของคุณ แตะบัตรเพื่อบันทึกเก็บไว้</div></div>':'')+
   '<div class="hud-k">PASSPORT ID</div>'+
   '<div class="idwrap" id="hId"><div class="idskel"><div class="spinner"></div><div>กำลังสร้าง Passport ID…</div></div></div>'+
@@ -735,7 +867,7 @@ VIEWS.city=function(p){
   '<div class="map-head"><div><div class="hud-k">ZONE C · CITY MAP</div><h2 class="sec">BA&amp;IT FUTURE CITY</h2><p class="sub">Innovator Showcase &amp; Career Match</p></div><div class="hud-prog"><b>'+n+'/9</b><span>CLEARED</span></div></div>'+
   '<div class="zmap"><div class="zgrid">'+nodes+'</div>'+
   '<div class="zfoot"><span><i data-lucide="log-in"></i>ทางเข้า · ลงทะเบียน</span><span><i data-lucide="radio-tower"></i>ศูนย์ควบคุม</span></div></div>'+
-  '<div class="legend"><span><i style="background:var(--lime)"></i>ผ่านแล้ว</span><span><i style="background:var(--cyan)"></i>ยังไม่ได้ทำ</span><span><i style="background:#fff"></i>ฐานที่เลือก</span></div>'+
+  '<div class="legend"><span><i style="background:var(--lime)"></i>ผ่านแล้ว</span><span><i style="background:var(--cyan)"></i>ยังไม่ได้ทำ</span><span><i style="background:var(--blue)"></i>ฐานที่เลือก</span></div>'+
   '<div class="mbrief" style="--nc:'+m.c+'"><div class="bk">MISSION BRIEF · ฐาน 0'+m.id+'</div><div class="bt">'+esc(m.act)+'</div><div class="bm">Mission '+esc(m.type)+' · '+esc(m.th)+'</div>'+
   '<div class="row3"><span class="pill"><i data-lucide="'+m.icon+'"></i>'+esc(m.badge)+'</span><span class="pill"><i data-lucide="'+(d?'check-circle-2':'circle-dashed')+'"></i>'+(d?'ผ่านแล้ว '+fmtTime(d):'ยังไม่ได้ทำ')+'</span></div>'+
   (d?'':'<button class="btn" id="bScan" style="margin-top:14px"><i data-lucide="scan-line"></i>สแกนรับภารกิจ</button>')+'</div>',
@@ -882,49 +1014,51 @@ function openImageViewer(srcOrPromise,fileName,rotDefault){
 
 /* ===== player ID card ===== */
 function memberId(){var id=(SUB||"").replace(/[^A-Za-z0-9]/g,"").slice(-6).toUpperCase()||"000000";return "FP-"+id;}
-var idCache={key:"",url:""};
+var idCache={key:"",url:""}; // v-light
 function renderIdCard(){
   var key=[memberId(),S.user.name,S.user.school,count()].join("|");
   if(idCache.key===key&&idCache.url) return Promise.resolve(idCache.url);
-  var want=["700 40px \"Chakra Petch\"","600 40px \"Chakra Petch\"",'600 40px "IBM Plex Sans Thai"','400 40px "IBM Plex Sans Thai"'];
+  var want=["800 40px Prompt","700 40px Prompt",'600 40px "IBM Plex Sans Thai"','400 40px "IBM Plex Sans Thai"'];
   var fl=(document.fonts&&document.fonts.load)?Promise.all(want.map(function(f){return document.fonts.load(f,"บัตร Aa");})).catch(function(){}):Promise.resolve();
   return fl.then(function(){
     var W=1080,H=1620,c=document.createElement("canvas");c.width=W;c.height=H;var x=c.getContext("2d");
-    var HEAD='"Chakra Petch","Prompt","Leelawadee UI",sans-serif',BODY='"IBM Plex Sans Thai","Leelawadee UI",sans-serif';
+    var HEAD='"Prompt","Leelawadee UI",sans-serif',BODY='"IBM Plex Sans Thai","Leelawadee UI",sans-serif';
     function cut(px,py,w,h,k){x.beginPath();x.moveTo(px+k,py);x.lineTo(px+w,py);x.lineTo(px+w,py+h-k);x.lineTo(px+w-k,py+h);x.lineTo(px,py+h);x.lineTo(px,py+k);x.closePath();}
     function t(str,px,py,o){var fs=o.size,mw=o.maxW||W-160;x.font=(o.w||400)+" "+fs+"px "+(o.head?HEAD:BODY);
       while(x.measureText(str).width>mw&&fs>14){fs*=0.95;x.font=(o.w||400)+" "+fs+"px "+(o.head?HEAD:BODY);}
       x.fillStyle=o.color||"#fff";x.textAlign=o.align||"center";x.textBaseline="top";if("letterSpacing" in x)x.letterSpacing=(o.ls||0)+"px";
       if(o.glow){x.shadowColor=o.glow;x.shadowBlur=24;} x.fillText(str,px,py); x.shadowBlur=0;}
-    // background
-    var g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,"#1B2A8C");g.addColorStop(.55,"#22126B");g.addColorStop(1,"#070B1F");x.fillStyle=g;x.fillRect(0,0,W,H);
-    var r1=x.createRadialGradient(W,0,0,W,0,700);r1.addColorStop(0,"rgba(255,62,165,.55)");r1.addColorStop(1,"rgba(255,62,165,0)");x.fillStyle=r1;x.fillRect(0,0,W,H);
-    var r2=x.createRadialGradient(0,H,0,0,H,700);r2.addColorStop(0,"rgba(34,228,255,.35)");r2.addColorStop(1,"rgba(34,228,255,0)");x.fillStyle=r2;x.fillRect(0,0,W,H);
-    x.strokeStyle="rgba(255,255,255,.06)";x.lineWidth=2;for(var i=0;i<W;i+=60){x.beginPath();x.moveTo(i,0);x.lineTo(i,H);x.stroke();}for(var j=0;j<H;j+=60){x.beginPath();x.moveTo(0,j);x.lineTo(W,j);x.stroke();}
-    cut(30,30,W-60,H-60,48);x.strokeStyle="#22E4FF";x.lineWidth=5;x.shadowColor="#22E4FF";x.shadowBlur=20;x.stroke();x.shadowBlur=0;
+    // background (Future City light)
+    var g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,"#8FD3FF");g.addColorStop(.38,"#E4F4FF");g.addColorStop(1,"#FFFFFF");x.fillStyle=g;x.fillRect(0,0,W,H);
+    var r1=x.createRadialGradient(W,0,0,W,0,620);r1.addColorStop(0,"rgba(229,37,125,.28)");r1.addColorStop(1,"rgba(229,37,125,0)");x.fillStyle=r1;x.fillRect(0,0,W,H);
+    var r2=x.createRadialGradient(0,H*.55,0,0,H*.55,620);r2.addColorStop(0,"rgba(124,194,66,.22)");r2.addColorStop(1,"rgba(124,194,66,0)");x.fillStyle=r2;x.fillRect(0,0,W,H);
+    // rainbow arc
+    x.lineWidth=14;var arc=x.createLinearGradient(0,0,W,0);["#22C3EE","#7CC242","#FFC531","#E5257D","#8B5CF6"].forEach(function(c,i){arc.addColorStop(i/4,c);});
+    x.strokeStyle=arc;x.globalAlpha=.55;x.beginPath();x.arc(W/2,560,470,Math.PI*1.05,Math.PI*1.95);x.stroke();x.globalAlpha=1;
+    cut(30,30,W-60,H-60,48);x.strokeStyle=arc;x.lineWidth=8;x.stroke();
     // header
-    t("BA&IT EXPO 2027",W/2,90,{size:40,head:1,w:700,color:"#9FF4FF",ls:6});
-    t("FUTURE PASSPORT · PLAYER ID",W/2,146,{size:52,head:1,w:700,glow:"#FF3EA5",ls:3});
+    t("BA&IT EXPO 2027 · SMART BIZ-IT",W/2,90,{size:40,head:1,w:700,color:"#1A5FD0",ls:4});
+    t("FUTURE PASSPORT ID",W/2,146,{size:60,head:1,w:800,color:"#0E2A5C",ls:3});
     // avatar hex
     var cx=W/2,cy=430,R=170;x.beginPath();for(var k=0;k<6;k++){var a=Math.PI/3*k-Math.PI/2;x.lineTo(cx+R*Math.cos(a),cy+R*Math.sin(a));}x.closePath();
-    var ag=x.createLinearGradient(cx-R,cy-R,cx+R,cy+R);ag.addColorStop(0,"#FF3EA5");ag.addColorStop(1,"#8B5CFF");x.fillStyle=ag;x.shadowColor="#FF3EA5";x.shadowBlur=40;x.fill();x.shadowBlur=0;
-    t(S.user.name.charAt(0),cx,cy-95,{size:170,head:1,w:700});
+    var ag=x.createLinearGradient(cx-R,cy-R,cx+R,cy+R);ag.addColorStop(0,"#1E88F0");ag.addColorStop(1,"#8B5CF6");x.fillStyle=ag;x.shadowColor="rgba(30,95,208,.45)";x.shadowBlur=40;x.fill();x.shadowBlur=0;
+    t(S.user.name.charAt(0),cx,cy-95,{size:170,head:1,w:700,color:"#fff"});
     // LV badge
-    cut(cx+90,cy+100,170,70,16);x.fillStyle="#A6FF3D";x.fill();t("LV "+count(),cx+175,cy+110,{size:44,head:1,w:700,color:"#0A0F28"});
+    cut(cx+90,cy+100,170,70,16);x.fillStyle="#FFC531";x.fill();t(count()+"/9",cx+175,cy+110,{size:44,head:1,w:800,color:"#3A2600"});
     // name & school
-    t(S.user.name,W/2,650,{size:76,head:1,w:700,maxW:W-160});
-    t(S.user.school,W/2,752,{size:44,w:600,color:"#DDE8FF",maxW:W-160});
-    t([S.user.level,S.user.province,S.user.walkin?"Walk-in":""].filter(Boolean).join(" · ")||"BA&IT EXPO 2027",W/2,818,{size:36,color:"#93A6DA",maxW:W-160});
+    t(S.user.name,W/2,650,{size:76,head:1,w:800,color:"#0E2A5C",maxW:W-160});
+    t(S.user.school,W/2,752,{size:44,w:600,color:"#1A5FD0",maxW:W-160});
+    t([S.user.level,S.user.province,S.user.walkin?"Walk-in":""].filter(Boolean).join(" · ")||"BA&IT EXPO 2027",W/2,818,{size:36,color:"#5B7299",maxW:W-160});
     // stats
-    var st=[["CLEARED",count()+"/9","#A6FF3D"],["BADGE",String(count()),"#22E4FF"],["CERTIFICATE",S.cert?"✓":"อีก "+Math.max(0,certMin()-count()),"#FFC83D"]],bw=280,gap=30,sx=(W-(bw*3+gap*2))/2;
-    st.forEach(function(v,i){var px=sx+i*(bw+gap);cut(px,900,bw,170,20);x.fillStyle="rgba(10,15,40,.75)";x.fill();x.strokeStyle=v[2];x.lineWidth=3;x.stroke();
-      t(v[1],px+bw/2,925,{size:70,head:1,w:700,color:v[2],glow:v[2]});t(v[0],px+bw/2,1010,{size:28,head:1,w:600,color:"#C8D6FF",ls:4});});
+    var st=[["CLEARED",count()+"/9","#5FB52E"],["BADGE",String(count()),"#1E88F0"],["CERTIFICATE",S.cert?"✓":"อีก "+Math.max(0,certMin()-count()),"#E5257D"]],bw=280,gap=30,sx=(W-(bw*3+gap*2))/2;
+    st.forEach(function(v,i){var px=sx+i*(bw+gap);cut(px,900,bw,170,20);x.fillStyle="rgba(255,255,255,.92)";x.fill();x.strokeStyle=v[2];x.lineWidth=4;x.stroke();
+      t(v[1],px+bw/2,925,{size:70,head:1,w:800,color:v[2]});t(v[0],px+bw/2,1010,{size:28,head:1,w:700,color:"#5B7299",ls:3});});
     // QR + id
-    var qs=300,qx=W/2-qs/2,qy=1130;x.fillStyle="#fff";cut(qx-16,qy-16,qs+32,qs+32,18);x.fill();
-    if(window.qrcode){var q=qrcode(0,"M");q.addData("FUTURE-PASSPORT:"+memberId());q.make();var n=q.getModuleCount(),cell=qs/(n+2);x.fillStyle="#120D46";
+    var qs=300,qx=W/2-qs/2,qy=1130;x.fillStyle="#fff";cut(qx-16,qy-16,qs+32,qs+32,18);x.fill();x.strokeStyle="#CFE3F7";x.lineWidth=3;x.stroke();
+    if(window.qrcode){var q=qrcode(0,"M");q.addData("FUTURE-PASSPORT:"+memberId());q.make();var n=q.getModuleCount(),cell=qs/(n+2);x.fillStyle="#0E2A5C";
       for(var r=0;r<n;r++)for(var kk=0;kk<n;kk++)if(q.isDark(r,kk))x.fillRect(qx+(kk+1)*cell,qy+(r+1)*cell,Math.ceil(cell),Math.ceil(cell));}
-    t(memberId(),W/2,1462,{size:46,head:1,w:700,color:"#FFC83D",ls:6,glow:"#FFC83D"});
-    t("13–14 ม.ค. 2570 · The Hall อยุธยาซิตี้พาร์ค",W/2,1528,{size:28,color:"#93A6DA"});
+    t(memberId(),W/2,1462,{size:48,head:1,w:800,color:"#1A5FD0",ls:5});
+    t("13–14 ม.ค. 2570 · The Hall อยุธยาซิตี้พาร์ค",W/2,1528,{size:28,color:"#5B7299"});
     var u=c.toDataURL("image/jpeg",0.92); idCache={key:key,url:u}; return u;
   });
 }
