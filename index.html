@@ -568,6 +568,10 @@ input.in:focus,select.in:focus{border-color:#1E88F0;box-shadow:var(--glow-c)}
 .schoolrow{display:grid;grid-template-columns:118px 1fr;gap:8px}
 .schoolprev{font-size:12.5px;color:var(--blue);margin-top:5px;font-weight:600}
 .prof dd{word-break:break-word}
+
+.cardpage{display:flex;flex-direction:column;align-items:center;gap:14px}
+.cardimg{display:block;width:min(100%,420px);height:auto;border-radius:12px;box-shadow:0 14px 30px -14px rgba(30,95,208,.45)}
+.cardpage .btn{max-width:420px;text-decoration:none}
 </style>
 </head>
 <body>
@@ -595,7 +599,7 @@ var SCHOOLS = ["อยุธยานุสรณ์","วิทยาลัย�
 var OTHER = "อื่น ๆ (พิมพ์ชื่อสถานศึกษา)";
 var PROVINCES = ["กรุงเทพมหานคร", "กระบี่", "กาญจนบุรี", "กาฬสินธุ์", "กำแพงเพชร", "ขอนแก่น", "จันทบุรี", "ฉะเชิงเทรา", "ชลบุรี", "ชัยนาท", "ชัยภูมิ", "ชุมพร", "เชียงราย", "เชียงใหม่", "ตรัง", "ตราด", "ตาก", "นครนายก", "นครปฐม", "นครพนม", "นครราชสีมา", "นครศรีธรรมราช", "นครสวรรค์", "นนทบุรี", "นราธิวาส", "น่าน", "บึงกาฬ", "บุรีรัมย์", "ปทุมธานี", "ประจวบคีรีขันธ์", "ปราจีนบุรี", "ปัตตานี", "พระนครศรีอยุธยา", "พะเยา", "พังงา", "พัทลุง", "พิจิตร", "พิษณุโลก", "เพชรบุรี", "เพชรบูรณ์", "แพร่", "ภูเก็ต", "มหาสารคาม", "มุกดาหาร", "แม่ฮ่องสอน", "ยโสธร", "ยะลา", "ร้อยเอ็ด", "ระนอง", "ระยอง", "ราชบุรี", "ลพบุรี", "ลำปาง", "ลำพูน", "เลย", "ศรีสะเกษ", "สกลนคร", "สงขลา", "สตูล", "สมุทรปราการ", "สมุทรสงคราม", "สมุทรสาคร", "สระแก้ว", "สระบุรี", "สิงห์บุรี", "สุโขทัย", "สุพรรณบุรี", "สุราษฎร์ธานี", "สุรินทร์", "หนองคาย", "หนองบัวลำภู", "อ่างทอง", "อำนาจเจริญ", "อุดรธานี", "อุตรดิตถ์", "อุทัยธานี", "อุบลราชธานี"];
 var NEAR_PROVINCES = ["พระนครศรีอยุธยา","อ่างทอง","สุพรรณบุรี","สิงห์บุรี","ชัยนาท","ลพบุรี","สระบุรี","ปทุมธานี","นนทบุรี"];
-var LEVELS = ["มัธยมศึกษาตอนต้น","มัธยมศึกษาตอนปลาย","ประกาศนียบัตรวิชาชีพ (ปวช.)","ประกาศนียบัตรวิชาชีพชั้นสูง (ปวส.)","มหาวิทยาลัย"];
+var LEVELS = ["มัธยมศึกษาตอนต้น","มัธยมศึกษาตอนปลาย","ประกาศนียบัตรวิชาชีพ (ปวช.)","ประกาศนียบัตรวิชาชีพชั้นสูง (ปวส.)","ปริญญาตรี","มหาวิทยาลัย"];
 var YEARS = ["1","2","3","4","5","6"];
 var INTERESTS = ["ธุรกิจ/การจัดการ","การตลาด","บัญชี/การเงิน","โลจิสติกส์","เทคโนโลยี/AI","ดิจิทัลคอนเทนต์"];
 
@@ -805,8 +809,8 @@ VIEWS.home=function(p){
     [].forEach.call(document.querySelectorAll("[data-go]"),function(b){b.onclick=function(){var g=b.getAttribute("data-go");if(g==="journey"&&S.settings.journeyUrl){openUrl(S.settings.journeyUrl);return;}go(g);};});
     if($("hCert")) $("hCert").onclick=function(){go("cert");};
     $("hScan").onclick=function(){go("scan");};
-    renderIdCard().then(function(u){var w=$("hId");if(!w)return;w.innerHTML='<img class="idimg" alt="Passport ID ของ '+esc(S.user.name)+'" src="'+u+'">';w.firstChild.onclick=function(){openImageViewer(u,"PassportID-"+memberId()+".jpg",false);};}).catch(function(){var w=$("hId");if(w)w.innerHTML="";});
-    $("hIdSave").onclick=function(){openImageViewer(renderIdCard(),"PassportID-"+memberId()+".jpg",false);};
+    renderIdCard().then(function(u){var w=$("hId");if(!w)return;w.innerHTML='<img class="idimg" alt="Passport ID ของ '+esc(S.user.name)+'" src="'+u+'">';w.firstChild.onclick=function(){openImageViewer(u,"PassportID-"+memberId()+".jpg",false,{kind:"id"});};}).catch(function(){var w=$("hId");if(w)w.innerHTML="";});
+    $("hIdSave").onclick=function(){openImageViewer(renderIdCard(),"PassportID-"+memberId()+".jpg",false,{kind:"id"});};
     if(Date.now()-lastFetch>20000) api("me").then(function(d){S=d; var c=stack[stack.length-1]; if(c&&c.name==="home") draw();}).catch(function(){});
   }};
 };
@@ -883,8 +887,8 @@ VIEWS.passport=function(p){
     if($("pCert"))$("pCert").onclick=function(){go("cert");};
     $("pScan").onclick=function(){go("scan");};
     $("pIdTop").onclick=function(){go("passport",{tab:"profile"},true);};
-    if($("idWrap")) renderIdCard().then(function(u){var w=$("idWrap");if(!w)return;w.innerHTML='<img class="idimg" alt="บัตร ID ของ '+esc(S.user.name)+'" src="'+u+'">';w.firstChild.onclick=function(){openImageViewer(u,"PlayerID-"+memberId()+".jpg",false);};}).catch(function(){});
-    if($("pId")) $("pId").onclick=function(){renderIdCard().then(function(u){openImageViewer(u,"PlayerID-"+memberId()+".jpg",false);});};
+    if($("idWrap")) renderIdCard().then(function(u){var w=$("idWrap");if(!w)return;w.innerHTML='<img class="idimg" alt="บัตร ID ของ '+esc(S.user.name)+'" src="'+u+'">';w.firstChild.onclick=function(){openImageViewer(u,"PassportID-"+memberId()+".jpg",false,{kind:"id"});};}).catch(function(){});
+    if($("pId")) $("pId").onclick=function(){renderIdCard().then(function(u){openImageViewer(u,"PassportID-"+memberId()+".jpg",false,{kind:"id"});});};
     $("pCity").onclick=function(){go("city");};
     [].forEach.call(document.querySelectorAll("[data-tab]"),function(b){b.onclick=function(){go("passport",{tab:b.dataset.tab},true);};});
   }};
@@ -1019,14 +1023,14 @@ function renderCertRaw(){
   });
 }
 function dataUrlToBlob(u){var p=u.split(","),b=atob(p[1]),a=new Uint8Array(b.length);for(var i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return new Blob([a],{type:"image/jpeg"});}
-function openCertViewer(){ openImageViewer(renderCert(),"Certificate-"+S.cert.no+".jpg",window.innerHeight>window.innerWidth); }
+function openCertViewer(){ openImageViewer(renderCert(),"Certificate-"+S.cert.no+".jpg",window.innerHeight>window.innerWidth,{kind:"cert"}); }
 
 /* ===== shared image viewer (save / share) ===== */
 function srcToBlob(src){
   if(/^data:/.test(src)) return Promise.resolve(dataUrlToBlob(src));
   return fetch(src).then(function(r){if(!r.ok)throw new Error("โหลดภาพไม่สำเร็จ");return r.blob();});
 }
-function openImageViewer(srcOrPromise,fileName,rotDefault){
+function openImageViewer(srcOrPromise,fileName,rotDefault,ext){
   var o=document.createElement("div");o.className="cert-view";o.setAttribute("role","dialog");o.setAttribute("aria-label","ดูภาพขนาดเต็ม");
   o.innerHTML='<div class="cv-top"><button class="cv-btn" id="cvClose">ปิด</button><button class="cv-btn" id="cvRot">หมุนภาพ</button></div>'+
     '<div class="cv-stage" id="cvStage"><div class="loading"><div class="spinner"></div><div>กำลังเตรียมภาพ…</div></div></div>'+
@@ -1042,27 +1046,20 @@ function openImageViewer(srcOrPromise,fileName,rotDefault){
     img=new Image(); img.src=src; img.alt=fileName; img.className="cv-img"+(rot?" rot":"");
     var st=o.querySelector("#cvStage"); st.innerHTML=""; st.appendChild(img);
     var btn=o.querySelector("#cvSave"); btn.disabled=false;
-    btn.onclick=function(){
-      srcToBlob(src).then(function(blob){
-        try{var f=new File([blob],fileName,{type:blob.type||"image/jpeg"});
-          if(navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],title:fileName}).catch(function(){});return;}}catch(e){}
-        var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=fileName;document.body.appendChild(a);a.click();a.remove();
-        o.querySelector("#cvHint").textContent='ถ้ายังไม่มีรูปในเครื่อง ให้แตะค้างที่รูปแล้วเลือก "บันทึกรูปภาพ" หรือแคปหน้าจอเก็บไว้';
-      }).catch(function(){o.querySelector("#cvHint").textContent='บันทึกด้วยปุ่มไม่ได้ ให้แตะค้างที่รูปแล้วเลือก "บันทึกรูปภาพ" หรือแคปหน้าจอ';});
-    };
+    btn.onclick=function(){ saveImage(src,fileName,ext,o.querySelector("#cvHint"),btn); };
   }).catch(function(e){o.querySelector("#cvStage").innerHTML='<p class="cv-hint">'+esc(e&&e.message||"เปิดภาพไม่สำเร็จ")+'</p>';});
 }
 
 /* ===== player ID card ===== */
 function memberId(){var id=(SUB||"").replace(/[^A-Za-z0-9]/g,"").slice(-6).toUpperCase()||"000000";return "FP-"+id;}
-var idCache={key:"",url:""}; // v-noavatar
+var idCache={key:"",url:""}; // v-card2
 function renderIdCard(){
   var key=[memberId(),S.user.name,S.user.school,S.user.level,S.user.year,S.user.province,S.user.status,S.user.competition,count(),!!S.cert].join("|");
   if(idCache.key===key&&idCache.url) return Promise.resolve(idCache.url);
   var want=["800 40px Prompt","700 40px Prompt",'600 40px "IBM Plex Sans Thai"','400 40px "IBM Plex Sans Thai"'];
   var fl=(document.fonts&&document.fonts.load)?Promise.all(want.map(function(f){return document.fonts.load(f,"บัตร Aa");})).catch(function(){}):Promise.resolve();
   return fl.then(function(){return loadImg("expo-header.jpg").catch(function(){return null;});}).then(function(logo){
-    var W=1080,H=1448+idRows().length*86,c=document.createElement("canvas");c.width=W;c.height=H;var x=c.getContext("2d");
+    var W=1080,LH0=logo?60+Math.round(Math.round((W-88)*0.95)*logo.height/logo.width):230,H=LH0+909+idRows().length*86,c=document.createElement("canvas");c.width=W;c.height=H;var x=c.getContext("2d");
     var HEAD='"Prompt","Leelawadee UI",sans-serif',BODY='"IBM Plex Sans Thai","Leelawadee UI",sans-serif';
     function cut(px,py,w,h,k){x.beginPath();x.moveTo(px+k,py);x.lineTo(px+w,py);x.lineTo(px+w,py+h-k);x.lineTo(px+w-k,py+h);x.lineTo(px,py+h);x.lineTo(px,py+k);x.closePath();}
     function t(str,px,py,o){var fs=o.size,mw=o.maxW||W-160;x.font=(o.w||400)+" "+fs+"px "+(o.head?HEAD:BODY);
@@ -1074,7 +1071,7 @@ function renderIdCard(){
     var r1=x.createRadialGradient(W,0,0,W,0,620);r1.addColorStop(0,"rgba(229,37,125,.28)");r1.addColorStop(1,"rgba(229,37,125,0)");x.fillStyle=r1;x.fillRect(0,0,W,H);
     var r2=x.createRadialGradient(0,H*.55,0,0,H*.55,620);r2.addColorStop(0,"rgba(124,194,66,.22)");r2.addColorStop(1,"rgba(124,194,66,0)");x.fillStyle=r2;x.fillRect(0,0,W,H);
     // event logo header (edge to edge, no box)
-    var lw=Math.round((W-88)*0.95),lpad=Math.round((W-lw)/2),ltop=60,lh=logo?ltop+Math.round(lw*logo.height/logo.width):300;
+    var lw=Math.round((W-88)*0.95),lpad=Math.round((W-lw)/2),ltop=60,lh=LH0;
     if(logo){x.drawImage(logo,lpad,ltop,lw,lh-ltop);
       var fe=function(x0,y0,x1,y1,a,b){var gg=x.createLinearGradient(x0,y0,x1,y1);gg.addColorStop(0,a);gg.addColorStop(1,b);return gg;};
       // ผสานขอบภาพกับพื้นหลังบัตร ไม่ให้เห็นเป็นกรอบสี่เหลี่ยม
@@ -1082,7 +1079,7 @@ function renderIdCard(){
       x.fillStyle=fe(0,ltop,0,ltop+30,"rgba(230,245,255,1)","rgba(230,245,255,0)");x.fillRect(lpad,ltop,lw,30);
       x.fillStyle=fe(lpad,0,lpad+24,0,"rgba(232,246,255,1)","rgba(232,246,255,0)");x.fillRect(lpad,ltop,24,lh-ltop);
       x.fillStyle=fe(W-lpad-24,0,W-lpad,0,"rgba(232,246,255,0)","rgba(232,246,255,1)");x.fillRect(W-lpad-24,ltop,24,lh-ltop);}
-    else t("BA&IT EXPO 2027 · SMART BIZ-IT",W/2,120,{size:56,head:1,w:800,color:"#1A5FD0"});
+    else t("BA&IT EXPO 2027 · SMART BIZ-IT",W/2,110,{size:56,head:1,w:800,color:"#1A5FD0"});
     var ly=0;
     // rainbow arc
     x.lineWidth=14;var arc=x.createLinearGradient(0,0,W,0);["#22C3EE","#7CC242","#FFC531","#E5257D","#8B5CF6"].forEach(function(c,i){arc.addColorStop(i/4,c);});
@@ -1178,10 +1175,53 @@ VIEWS.programs=function(){
 VIEWS.admission=VIEWS.programs;
 VIEWS.idcard=function(){return VIEWS.passport({tab:"profile"});};
 
+/* ===== save image: share sheet → external browser → download ===== */
+function inLine(){try{return !!(window.liff&&liff.isInClient&&liff.isInClient());}catch(e){return false;}}
+function absUrl(u){try{return new URL(u,location.href).href;}catch(e){return u;}}
+function saveImage(src,fileName,ext,hint,btn){
+  ext=ext||{};
+  srcToBlob(src).then(function(blob){
+    try{var f=new File([blob],fileName,{type:blob.type||"image/jpeg"});
+      if(navigator.canShare&&navigator.canShare({files:[f]})){return navigator.share({files:[f],title:fileName}).catch(function(){});}}catch(e){}
+    if(inLine()){
+      // แอป LINE บันทึกไฟล์จากหน้าเว็บไม่ได้ → เปิดในเบราว์เซอร์ของเครื่องแทน
+      if(ext.kind){ if(btn){btn.disabled=true;btn.textContent="กำลังเปิดเบราว์เซอร์…";}
+        return api("cardToken").then(function(d){
+          liff.openWindow({url:absUrl(location.pathname)+"?card="+d.token+"&kind="+ext.kind,external:true});
+          if(hint) hint.textContent="เปิดในเบราว์เซอร์แล้ว กด \u201cดาวน์โหลดรูป\u201d ในหน้านั้น หรือแตะค้างที่รูปแล้วเลือกบันทึกรูปภาพ";
+        }).catch(function(e){if(hint)hint.textContent=e.message;}).then(function(){if(btn){btn.disabled=false;btn.textContent="บันทึกรูปลงเครื่อง";}});
+      }
+      if(!/^data:/.test(src)){ liff.openWindow({url:absUrl(src),external:true}); if(hint) hint.textContent="เปิดรูปในเบราว์เซอร์แล้ว แตะค้างที่รูปแล้วเลือกบันทึกรูปภาพ"; return; }
+    }
+    var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=fileName;document.body.appendChild(a);a.click();a.remove();
+    if(hint) hint.textContent='ถ้ายังไม่มีรูปในเครื่อง ให้แตะค้างที่รูปแล้วเลือก "บันทึกรูปภาพ" หรือแคปหน้าจอเก็บไว้';
+  }).catch(function(){if(hint)hint.textContent='บันทึกด้วยปุ่มไม่ได้ ให้แตะค้างที่รูปแล้วเลือก "บันทึกรูปภาพ" หรือแคปหน้าจอ';});
+}
+
+/* ===== card page (เปิดในเบราว์เซอร์ภายนอกเพื่อบันทึกรูป) ===== */
+function cardMode(token,kind){
+  $title.textContent=kind==="cert"?"วุฒิบัตร":"Passport ID"; $back.hidden=true; $home.hidden=true;
+  busy("กำลังเตรียมรูป…");
+  fetch(CONFIG.API_URL,{method:"POST",body:JSON.stringify({action:"cardByToken",token:token})}).then(function(r){return r.json();}).then(function(j){
+    if(!j.ok) throw new Error(j.message||"เปิดไม่สำเร็จ");
+    S=j.data; SUB=S.sub||"";
+    if(kind==="cert"&&!S.cert) throw new Error("ยังไม่มีวุฒิบัตร");
+    return (kind==="cert"?renderCert():renderIdCard()).then(function(u){
+      var name=kind==="cert"?"Certificate-"+S.cert.no+".jpg":"PassportID-"+memberId()+".jpg";
+      $screen.innerHTML='<div class="cardpage"><img class="cardimg" src="'+u+'" alt="'+esc(name)+'">'+
+        '<a class="btn gold" id="cdl" href="'+u+'" download="'+esc(name)+'"><i data-lucide="download"></i>ดาวน์โหลดรูป</a>'+
+        '<p class="note" style="text-align:center">iPhone: แตะค้างที่รูป แล้วเลือก \u201cบันทึกไปยังรูปภาพ\u201d<br>Android: กดดาวน์โหลดรูป หรือแตะค้างที่รูปแล้วเลือกดาวน์โหลดรูปภาพ</p></div>';
+      if(window.lucide) lucide.createIcons();
+    });
+  }).catch(function(e){fatal("เปิดรูปไม่สำเร็จ",e.message||"ลองกลับไปที่ LINE แล้วกดบันทึกรูปอีกครั้ง");});
+}
+
 /* ===== boot ===== */
 function boot(){
   $screen=$("screen");$title=$("barTitle");$back=$("backBtn");$home=$("homeBtn");$phone=$("phone");
   $back.onclick=back; $home.onclick=function(){stack=[];go("home");};
+  var q0=new URLSearchParams(location.search);
+  if(q0.get("card")){cardMode(q0.get("card"),q0.get("kind")==="cert"?"cert":"id");return;}
   busy("กำลังเชื่อมต่อ LINE…");
   if(!window.liff){fatal("โหลดระบบไม่สำเร็จ","ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่");return;}
   if(CONFIG.API_URL.indexOf("http")!==0){fatal("ยังไม่ได้ตั้งค่าระบบ","ผู้ดูแลต้องใส่ API_URL ในไฟล์ index.html");return;}
