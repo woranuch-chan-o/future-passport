@@ -610,6 +610,9 @@ input.in:focus,select.in:focus{border-color:#1E88F0;box-shadow:var(--glow-c)}
 .pc em{font-style:normal;font-size:11.5px;color:var(--text);background:#F1F6FC;border-radius:999px;padding:2px 9px}
 .plink{margin-top:8px;border:1px solid color-mix(in srgb,var(--lc) 40%,#fff);background:#fff;color:var(--lc);border-radius:999px;padding:4px 12px;font:600 12.5px var(--head);display:inline-flex;align-items:center;gap:5px;cursor:pointer}
 .plink svg.lucide{width:14px;height:14px}
+
+.lvnote{display:flex;gap:8px;align-items:flex-start;background:#FFF8E1;border:1px solid #FFE08A;border-radius:14px;padding:10px 12px;margin:0 0 12px;font-size:13px;color:#5A4300;line-height:1.5}
+.lvnote svg.lucide{width:18px;height:18px;color:#F5A100;flex:none;margin-top:1px}
 </style>
 </head>
 <body>
@@ -1208,12 +1211,12 @@ var BAIT_LEVELS=[
    {n:"การบัญชี",c:[CW],u:"D1JePwKcuocURZWpoKKtPju9KjRvWyFu2k"},
    {n:"การตลาด",c:[CW],u:"D1vqIORQJ7J_tGnx1-sRrSpXaxwbhONFTC"},
    {n:"คอมพิวเตอร์ธุรกิจ",c:[CW],u:"D11-yjJaUIb7jlYPV5Qua8RccSkV83ACzP"}]}]},
- {k:"pvs",tab:"ปวส.",full:"ประกาศนียบัตรวิชาชีพชั้นสูง (ปวส.)",apply:"https://bait.rmutsb.ac.th/button-admishighvocational-page-3",groups:[
+ {k:"pvs",tab:"ปวส.",full:"ประกาศนียบัตรวิชาชีพชั้นสูง (ปวส.)",apply:"https://bait.rmutsb.ac.th/button-admishighvocational-page-3",note:"รับผู้จบ ปวช. สาขาตรง หรือ ม.6 / ปวช. สาขาอื่น (หรือเทียบเท่า) · หลักสูตรปรับปรุง พ.ศ. 2565 · เรียน 2 ปี",groups:[
   {g:"",items:[
-   {n:"การบัญชี",c:[CW],u:"D1PE13eix7jcgxxuR3JrZOZ4SlQG6ZQYox"},
-   {n:"การตลาด",c:[CW],u:"D19A7KiTvQ2E_cSX7ixLo606hQpL3lKwN7"},
-   {n:"การจัดการ",c:[CW],u:"D1rRVnzbPA-M9FII6Lt0gUCHE4q2d_1Y59"},
-   {n:"เทคโนโลยีธุรกิจดิจิทัล",c:[CW],u:"D11G-wYx2PgZ2FyjWu1jQSyIDGgBP707Wu"}]}]},
+   {n:"การบัญชี",c:[CW,CS],u:"D1PE13eix7jcgxxuR3JrZOZ4SlQG6ZQYox"},
+   {n:"การตลาด",c:[CW,CS],u:"D19A7KiTvQ2E_cSX7ixLo606hQpL3lKwN7"},
+   {n:"การจัดการ",c:[CW,CH],u:"D1rRVnzbPA-M9FII6Lt0gUCHE4q2d_1Y59"},
+   {n:"เทคโนโลยีธุรกิจดิจิทัล",c:[CW,CH,CS,CN],u:"D11G-wYx2PgZ2FyjWu1jQSyIDGgBP707Wu"}]}]},
  {k:"bd",tab:"ป.ตรี",full:"ปริญญาตรี",apply:"https://bait.rmutsb.ac.th/admisdegreehighvocational-3",groups:[
   {g:"สาขาวิชาการตลาด",items:[{n:"การตลาดดิจิทัล",d:"บริหารธุรกิจบัณฑิต (บธ.บ.)",c:[CW,CH,CS],u:"D1I2UqqDTAE980A-0atF9HHBrkoIMsRY0J"}]},
   {g:"สาขาวิชาระบบสารสนเทศและคอมพิวเตอร์ธุรกิจ",items:[
@@ -1263,8 +1266,9 @@ VIEWS.programs=function(p){
     '<div class="hero"><div class="hud-k">PROGRAMS</div><div class="wordmark" style="font-size:24px">หลักสูตรที่เปิดสอน</div><p>คณะบริหารธุรกิจและเทคโนโลยีสารสนเทศ มทร.สุวรรณภูมิ</p></div>'+
     tabs+
     '<div class="chead"><span style="--lc:'+st[1]+'"><i data-lucide="'+st[0]+'" style="color:'+st[1]+'"></i>'+esc(L.full)+'</span><span class="ccount">'+total+' หลักสูตร</span></div>'+
+    (L.note?'<div class="lvnote"><i data-lucide="info"></i><span>'+esc(L.note)+'</span></div>':'')+
     body+
-    '<p class="note" style="text-align:center;margin:14px 0 4px">ข้อมูลจาก bait.rmutsb.ac.th/programme · ศูนย์ที่เปิดสอนอ้างอิงปีการศึกษา 2569</p>'+
+    '<p class="note" style="text-align:center;margin:14px 0 4px">ข้อมูลจาก bait.rmutsb.ac.th/programme · ศูนย์ที่เปิดสอน ปวส. ตามเล่มหลักสูตรปรับปรุง พ.ศ. 2565 · ระดับอื่นตามข้อมูลหลักสูตรปีการศึกษา 2569</p>'+
     '<div class="applybar"><button class="btn gold" id="pgApply"><i data-lucide="file-pen-line"></i>สมัครเรียน '+esc(L.full.replace(/ \(.*\)/,""))+'</button></div>',
     after:function(){
       [].forEach.call(document.querySelectorAll("[data-l]"),function(b){b.onclick=function(){go("programs",{l:b.dataset.l},true);};});
