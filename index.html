@@ -601,6 +601,15 @@ input.in:focus,select.in:focus{border-color:#1E88F0;box-shadow:var(--glow-c)}
 .pm span{font-size:11.5px;color:var(--muted);margin-right:2px}
 .pm em{font-style:normal;font-size:12px;color:var(--lc);background:color-mix(in srgb,var(--lc) 10%,#fff);border-radius:999px;padding:2px 9px}
 .applybar{position:sticky;bottom:0;margin:10px -16px -28px;padding:12px 16px calc(14px + env(safe-area-inset-bottom,0px));background:linear-gradient(180deg,rgba(238,247,255,0),rgba(238,247,255,.96) 35%)}
+
+.ctabs.lv5{grid-template-columns:repeat(5,1fr)}
+.ctabs.lv5 b{font-size:13.5px}
+.ptag.new{background:var(--lime)}
+.pc{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin-top:6px}
+.pc svg.lucide{width:14px;height:14px;color:var(--magenta)}
+.pc em{font-style:normal;font-size:11.5px;color:var(--text);background:#F1F6FC;border-radius:999px;padding:2px 9px}
+.plink{margin-top:8px;border:1px solid color-mix(in srgb,var(--lc) 40%,#fff);background:#fff;color:var(--lc);border-radius:999px;padding:4px 12px;font:600 12.5px var(--head);display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.plink svg.lucide{width:14px;height:14px}
 </style>
 </head>
 <body>
@@ -1191,53 +1200,76 @@ VIEWS.eval=function(){
     (u?'<button class="btn scanbig" id="eGo"><i data-lucide="clipboard-check"></i>ทำแบบประเมิน</button>':'<div class="card emptybox" style="margin-top:14px"><i data-lucide="clock"></i><div><b>แบบประเมินยังไม่เปิด</b><div class="sub" style="margin:4px 0 0">จะเปิดให้ทำในวันงาน</div></div></div>'),
     after:function(){if($("eGo"))$("eGo").onclick=function(){openUrl(u);};}};
 };
-/* ข้อมูลหลักสูตรคณะบริหารธุรกิจและเทคโนโลยีสารสนเทศ ปีการศึกษา 2569 (ข้อมูล ณ 1 ก.ย. 2569) */
-var BAIT_PROGRAMS=(function(){
-  var ACC={d:"บัญชีบัณฑิต (บช.บ.)",n:"บัญชีบัณฑิต"}, ACCC={d:"บัญชีบัณฑิต (บช.บ.)",n:"บัญชีบัณฑิต",c:1};
-  function BBA(n,o){return Object.assign({d:"บริหารธุรกิจบัณฑิต (บธ.บ.)",n:n},o||{});}
-  var DBT={d:"วิทยาศาสตรบัณฑิต (วท.บ.)",n:"เทคโนโลยีธุรกิจดิจิทัล",c:1};
-  return [
-  {k:"wasukri",name:"ศูนย์วาสุกรี",loc:"จ.พระนครศรีอยุธยา",levels:[
-    {lv:"ปวช.",full:"ประกาศนียบัตรวิชาชีพ",items:[{n:"การบัญชี"},{n:"การตลาด"},{n:"เทคโนโลยีธุรกิจดิจิทัล"}]},
-    {lv:"ปวส.",full:"ประกาศนียบัตรวิชาชีพชั้นสูง",items:[{n:"การบัญชี"},{n:"การตลาด"},{n:"การจัดการ"},{n:"เทคโนโลยีธุรกิจดิจิทัล"}]},
-    {lv:"ปริญญาตรี",full:"ปริญญาตรี",items:[ACC,ACCC,BBA("การจัดการ",{m:["การจัดการทั่วไป","การจัดการอุตสาหกรรม","การจัดการสำนักงานสมัยใหม่"]}),BBA("การจัดการโลจิสติกส์และโซ่อุปทาน"),BBA("การตลาดดิจิทัล"),BBA("ระบบสารสนเทศและนวัตกรรมดิจิทัล"),BBA("การวิเคราะห์ธุรกิจและการลงทุน"),DBT]},
-    {lv:"ปริญญาโท",full:"ปริญญาโท",items:[{d:"บธ.ม.",n:"บริหารธุรกิจมหาบัณฑิต"},{d:"บช.ม.",n:"บัญชีมหาบัณฑิต"},{d:"วท.ม.",n:"วิทยาการจัดการนวัตกรรมดิจิทัล"}]},
-    {lv:"ปริญญาเอก",full:"ปริญญาเอก",items:[{d:"บธ.ด.",n:"บริหารธุรกิจดุษฎีบัณฑิต"},{d:"ปร.ด.",n:"การบัญชี"},{d:"ปร.ด.",n:"วิทยาการจัดการนวัตกรรมดิจิทัล"}]}]},
-  {k:"huntra",name:"ศูนย์หันตรา",loc:"จ.พระนครศรีอยุธยา",levels:[
-    {lv:"ปริญญาตรี",full:"ปริญญาตรี",items:[ACC,BBA("การจัดการ",{m:["การจัดการทั่วไป"]}),BBA("การจัดการ",{c:1}),BBA("การตลาดดิจิทัล"),BBA("ระบบสารสนเทศและนวัตกรรมดิจิทัล")]}]},
-  {k:"suphan",name:"ศูนย์สุพรรณบุรี",loc:"จ.สุพรรณบุรี",levels:[
-    {lv:"ปริญญาตรี",full:"ปริญญาตรี",items:[ACC,ACCC,BBA("การจัดการ",{m:["การจัดการทั่วไป"]}),BBA("การจัดการโลจิสติกส์และโซ่อุปทาน"),BBA("การตลาดดิจิทัล"),BBA("ระบบสารสนเทศและนวัตกรรมดิจิทัล"),DBT]}]},
-  {k:"nonthaburi",name:"ศูนย์นนทบุรี",loc:"จ.นนทบุรี",levels:[
-    {lv:"ปริญญาตรี",full:"ปริญญาตรี",items:[ACC,BBA("การจัดการ",{m:["การจัดการทั่วไป"]}),BBA("ระบบสารสนเทศและนวัตกรรมดิจิทัล"),DBT]},
-    {lv:"ปริญญาโท",full:"ปริญญาโท",items:[{d:"บธ.ม.",n:"บริหารธุรกิจมหาบัณฑิต"}]},
-    {lv:"ปริญญาเอก",full:"ปริญญาเอก",items:[{d:"บธ.ด.",n:"บริหารธุรกิจดุษฎีบัณฑิต"}]}]}];
-})();
-var LV_STYLE={"ปวช.":["school","#1EA7E8"],"ปวส.":["wrench","#5FB52E"],"ปริญญาตรี":["graduation-cap","#1A5FD0"],"ปริญญาโท":["award","#7C5CF0"],"ปริญญาเอก":["medal","#E5257D"]};
+/* ข้อมูลหลักสูตร: https://bait.rmutsb.ac.th/programme/ · ศูนย์ที่เปิดสอนอ้างอิงข้อมูลหลักสูตรปีการศึกษา 2569 */
+var CW="วาสุกรี",CH="หันตรา",CS="สุพรรณบุรี",CN="นนทบุรี";
+var BAIT_LEVELS=[
+ {k:"pvc",tab:"ปวช.",full:"ประกาศนียบัตรวิชาชีพ (ปวช.)",apply:"https://bait.rmutsb.ac.th/button-admisvocational-page",groups:[
+  {g:"",items:[
+   {n:"การบัญชี",c:[CW],u:"D1JePwKcuocURZWpoKKtPju9KjRvWyFu2k"},
+   {n:"การตลาด",c:[CW],u:"D1vqIORQJ7J_tGnx1-sRrSpXaxwbhONFTC"},
+   {n:"คอมพิวเตอร์ธุรกิจ",c:[CW],u:"D11-yjJaUIb7jlYPV5Qua8RccSkV83ACzP"}]}]},
+ {k:"pvs",tab:"ปวส.",full:"ประกาศนียบัตรวิชาชีพชั้นสูง (ปวส.)",apply:"https://bait.rmutsb.ac.th/button-admishighvocational-page-3",groups:[
+  {g:"",items:[
+   {n:"การบัญชี",c:[CW],u:"D1PE13eix7jcgxxuR3JrZOZ4SlQG6ZQYox"},
+   {n:"การตลาด",c:[CW],u:"D19A7KiTvQ2E_cSX7ixLo606hQpL3lKwN7"},
+   {n:"การจัดการ",c:[CW],u:"D1rRVnzbPA-M9FII6Lt0gUCHE4q2d_1Y59"},
+   {n:"เทคโนโลยีธุรกิจดิจิทัล",c:[CW],u:"D11G-wYx2PgZ2FyjWu1jQSyIDGgBP707Wu"}]}]},
+ {k:"bd",tab:"ป.ตรี",full:"ปริญญาตรี",apply:"https://bait.rmutsb.ac.th/admisdegreehighvocational-3",groups:[
+  {g:"สาขาวิชาการตลาด",items:[{n:"การตลาดดิจิทัล",d:"บริหารธุรกิจบัณฑิต (บธ.บ.)",c:[CW,CH,CS],u:"D1I2UqqDTAE980A-0atF9HHBrkoIMsRY0J"}]},
+  {g:"สาขาวิชาระบบสารสนเทศและคอมพิวเตอร์ธุรกิจ",items:[
+   {n:"ระบบสารสนเทศและนวัตกรรมดิจิทัล",d:"บริหารธุรกิจบัณฑิต (บธ.บ.)",c:[CW,CH,CS,CN],u:"D1iEOzdCT7EtSkLvxn5N1UhxOBuTASmy1B"},
+   {n:"เทคโนโลยีธุรกิจดิจิทัล",d:"วิทยาศาสตรบัณฑิต (วท.บ.)",t:"ต่อเนื่อง",c:[CW,CS,CN],u:"D1lG-hPqUVffGVgUToHtr0v_ziKrKrDn0Z"}]},
+  {g:"สาขาวิชาการจัดการ",items:[
+   {n:"การจัดการ – การจัดการทั่วไป",d:"บริหารธุรกิจบัณฑิต (บธ.บ.)",c:[CW,CH,CS,CN],u:"D1wMEn2r7jpY3fTxQw8qqtxFQ4qZTDNYnr"},
+   {n:"การจัดการ – การจัดการสำนักงานสมัยใหม่",d:"บริหารธุรกิจบัณฑิต (บธ.บ.)",c:[CW],u:"D1wMEn2r7jpY3fTxQw8qqtxFQ4qZTDNYnr"},
+   {n:"การจัดการโลจิสติกส์และโซ่อุปทาน",d:"บริหารธุรกิจบัณฑิต (บธ.บ.)",c:[CW,CS],u:"D15kozN_qqWRBSabDeyreiXDmu1FIj2T-a"},
+   {n:"การจัดการ",d:"บริหารธุรกิจบัณฑิต (บธ.บ.)",t:"ต่อเนื่อง",c:[CH],u:"D17UzdWItw4XRkdOLAg6wdQ1wLOK1m1pj4"}]},
+  {g:"สาขาวิชาการบัญชี",items:[
+   {n:"บัญชีบัณฑิต",d:"บัญชีบัณฑิต (บช.บ.)",c:[CW,CH,CS,CN],u:"D1Cb2DQtxoPzYk4mWqM1B3c6Q1ZEDucymE"},
+   {n:"บัญชีบัณฑิต",d:"บัญชีบัณฑิต (บช.บ.)",t:"ต่อเนื่อง",c:[CW,CS],u:"D1uxKk9aFLkd70Aim5Xl6qwOKFgAJPe5ay"}]},
+  {g:"สาขาวิชาการเงินและเศรษฐศาสตร์",items:[
+   {n:"การวิเคราะห์ธุรกิจและการลงทุน",d:"บริหารธุรกิจบัณฑิต (บธ.บ.)",t:"หลักสูตรใหม่ 2569",c:[CW],u:"D1ALWX1yAPQ6rzZoX3tOo6DlCUlqDiEPqi"}]}]},
+ {k:"ms",tab:"ป.โท",full:"ปริญญาโท",apply:"",groups:[
+  {g:"",items:[
+   {n:"บริหารธุรกิจมหาบัณฑิต (M.B.A.)",d:"บธ.ม.",c:[CW,CN],u:"D1X1XkhnGyXTW14CH-b4wzDrExpUuX2FFB"},
+   {n:"บัญชีมหาบัณฑิต (M.Acc.)",d:"บช.ม.",c:[CW],u:"D1UpuO-SC72fV8Egr1arr13oRNEIUL4LZ8"},
+   {n:"วิทยาการจัดการนวัตกรรมดิจิทัล (D.I.M.)",d:"วิทยาศาสตรมหาบัณฑิต (วท.ม.)",c:[CW],u:"D1NiYjxaNTJmofHpYMX942xq-pM7niFS9M"}]}]},
+ {k:"phd",tab:"ป.เอก",full:"ปริญญาเอก",apply:"",groups:[
+  {g:"",items:[
+   {n:"บริหารธุรกิจดุษฎีบัณฑิต (D.B.A.)",d:"บธ.ด.",c:[CW,CN],u:"D1dbyS4roPHz6jpYjK7Gu44V-fDgOJedvX"},
+   {n:"การบัญชี (Ph.D.Acc.)",d:"ปรัชญาดุษฎีบัณฑิต (ปร.ด.)",c:[CW],u:"D1RZ4PJlwGe8fXOfY5D4UgNNuSz27U1zAD"},
+   {n:"วิทยาการจัดการนวัตกรรมดิจิทัล (Ph.D.D.I.M.)",d:"ปรัชญาดุษฎีบัณฑิต (ปร.ด.)",c:[CW],u:"D1uGQOJhTx1s2hKKvaImWbsRMase4WrSgF"}]}]}
+];
+var LV_STYLE2={pvc:["school","#1EA7E8"],pvs:["wrench","#5FB52E"],bd:["graduation-cap","#1A5FD0"],ms:["award","#7C5CF0"],phd:["medal","#E5257D"]};
+function driveUrl(u){return u?"https://drive.google.com/file/d/"+u.slice(1)+"/view":"";}
 function progIcon(n){
   if(/บัญชี/.test(n))return "calculator"; if(/โลจิสติกส์/.test(n))return "truck"; if(/การตลาด/.test(n))return "megaphone";
-  if(/ระบบสารสนเทศ/.test(n))return "cpu"; if(/วิเคราะห์ธุรกิจ/.test(n))return "trending-up"; if(/เทคโนโลยีธุรกิจดิจิทัล/.test(n))return "monitor-smartphone";
+  if(/ระบบสารสนเทศ|คอมพิวเตอร์/.test(n))return "cpu"; if(/วิเคราะห์ธุรกิจ/.test(n))return "trending-up"; if(/เทคโนโลยีธุรกิจดิจิทัล/.test(n))return "monitor-smartphone";
   if(/นวัตกรรมดิจิทัล/.test(n))return "lightbulb"; return "briefcase";
 }
 VIEWS.programs=function(p){
-  var ck=(p&&p.c)||"wasukri", ap=S.settings.applyUrl, C=BAIT_PROGRAMS.filter(function(c){return c.k===ck;})[0]||BAIT_PROGRAMS[0];
-  var total=C.levels.reduce(function(t,l){return t+l.items.length;},0);
-  var tabs='<div class="ctabs" role="tablist">'+BAIT_PROGRAMS.map(function(c){return '<button role="tab" aria-selected="'+(c.k===C.k)+'" data-c="'+c.k+'"><b>'+esc(c.name.replace("ศูนย์",""))+'</b><span>'+esc(c.loc)+'</span></button>';}).join("")+'</div>';
-  var sections=C.levels.map(function(L){var st=LV_STYLE[L.lv]||["book-open","#1A5FD0"];
-    return '<section class="lvsec" style="--lc:'+st[1]+'"><div class="lvhead"><span class="lvic"><i data-lucide="'+st[0]+'"></i></span><div><b>'+esc(L.full)+'</b><span>'+L.items.length+' หลักสูตร/สาขา</span></div></div>'+
-      '<ul class="plist">'+L.items.map(function(it){
-        return '<li><span class="pic"><i data-lucide="'+progIcon(it.n)+'"></i></span><div><div class="pn">'+esc(it.n)+(it.c?' <span class="ptag">ต่อเนื่อง</span>':'')+'</div>'+
+  var lk=(p&&p.l)||"bd", L=BAIT_LEVELS.filter(function(x){return x.k===lk;})[0]||BAIT_LEVELS[2], st=LV_STYLE2[L.k];
+  var ap=L.apply||S.settings.applyUrl||"https://admis.rmutsb.ac.th/";
+  var total=L.groups.reduce(function(t,g){return t+g.items.length;},0);
+  var tabs='<div class="ctabs lv5" role="tablist">'+BAIT_LEVELS.map(function(x){var n=x.groups.reduce(function(t,g){return t+g.items.length;},0);return '<button role="tab" aria-selected="'+(x.k===L.k)+'" data-l="'+x.k+'"><b>'+esc(x.tab)+'</b><span>'+n+' หลักสูตร</span></button>';}).join("")+'</div>';
+  var body=L.groups.map(function(G){
+    return '<section class="lvsec" style="--lc:'+st[1]+'">'+(G.g?'<div class="lvhead"><span class="lvic"><i data-lucide="'+progIcon(G.g)+'"></i></span><div><b>'+esc(G.g)+'</b><span>'+G.items.length+' หลักสูตร</span></div></div>':'')+
+      '<ul class="plist">'+G.items.map(function(it){
+        return '<li><span class="pic"><i data-lucide="'+progIcon(it.n)+'"></i></span><div><div class="pn">'+esc(it.n)+(it.t?' <span class="ptag'+(/ใหม่/.test(it.t)?' new':'')+'">'+esc(it.t)+'</span>':'')+'</div>'+
           (it.d?'<div class="pd">'+esc(it.d)+'</div>':'')+
-          (it.m?'<div class="pm"><span>วิชาเอก</span>'+it.m.map(function(x){return '<em>'+esc(x)+'</em>';}).join("")+'</div>':'')+'</div></li>';}).join("")+'</ul></section>';}).join("");
+          '<div class="pc"><i data-lucide="map-pin"></i>'+it.c.map(function(c){return '<em>'+esc(c)+'</em>';}).join("")+'</div>'+
+          (it.u?'<button class="plink" data-doc="'+driveUrl(it.u)+'"><i data-lucide="file-text"></i>ดูรายละเอียดหลักสูตร</button>':'')+'</div></li>';}).join("")+'</ul></section>';}).join("");
   return {title:"Programs",html:
-    '<div class="hero"><div class="hud-k">PROGRAMS 2569</div><div class="wordmark" style="font-size:24px">หลักสูตรที่เปิดสอน</div><p>คณะบริหารธุรกิจและเทคโนโลยีสารสนเทศ มทร.สุวรรณภูมิ · 4 ศูนย์พื้นที่</p></div>'+
+    '<div class="hero"><div class="hud-k">PROGRAMS</div><div class="wordmark" style="font-size:24px">หลักสูตรที่เปิดสอน</div><p>คณะบริหารธุรกิจและเทคโนโลยีสารสนเทศ มทร.สุวรรณภูมิ</p></div>'+
     tabs+
-    '<div class="chead"><span><i data-lucide="map-pin"></i>'+esc(C.name)+' · '+esc(C.loc)+'</span><span class="ccount">'+total+' หลักสูตร</span></div>'+
-    sections+
-    '<p class="note" style="text-align:center;margin:14px 0 4px">ที่มา: ข้อมูลหลักสูตรประจำปีการศึกษา 2569 (ณ 1 ก.ย. 2569) ตรวจสอบหลักสูตรและรอบรับสมัครล่าสุดในระบบรับสมัคร</p>'+
-    '<div class="applybar"><button class="btn gold" id="pgApply"><i data-lucide="file-pen-line"></i>สมัครเรียน '+esc(C.name)+'</button></div>',
+    '<div class="chead"><span style="--lc:'+st[1]+'"><i data-lucide="'+st[0]+'" style="color:'+st[1]+'"></i>'+esc(L.full)+'</span><span class="ccount">'+total+' หลักสูตร</span></div>'+
+    body+
+    '<p class="note" style="text-align:center;margin:14px 0 4px">ข้อมูลจาก bait.rmutsb.ac.th/programme · ศูนย์ที่เปิดสอนอ้างอิงปีการศึกษา 2569</p>'+
+    '<div class="applybar"><button class="btn gold" id="pgApply"><i data-lucide="file-pen-line"></i>สมัครเรียน '+esc(L.full.replace(/ \(.*\)/,""))+'</button></div>',
     after:function(){
-      [].forEach.call(document.querySelectorAll("[data-c]"),function(b){b.onclick=function(){go("programs",{c:b.dataset.c},true);};});
-      $("pgApply").onclick=function(){openUrl(ap||"https://admis.rmutsb.ac.th/");};
+      [].forEach.call(document.querySelectorAll("[data-l]"),function(b){b.onclick=function(){go("programs",{l:b.dataset.l},true);};});
+      [].forEach.call(document.querySelectorAll("[data-doc]"),function(b){b.onclick=function(){openUrl(b.dataset.doc);};});
+      $("pgApply").onclick=function(){openUrl(ap);};
     }};
 };
 VIEWS.admission=VIEWS.programs;
