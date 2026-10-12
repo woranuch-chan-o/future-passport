@@ -618,6 +618,42 @@ input.in:focus,select.in:focus{border-color:#1E88F0;box-shadow:var(--glow-c)}
 .idimg,#hId .idimg{width:100%!important;max-width:none;border-radius:14px}
 .idskel{width:100%;aspect-ratio:1080/1900}
 .idmeta span:first-child{color:var(--text);font-weight:500;letter-spacing:0}
+
+.mbanner{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center;padding:14px;margin-bottom:12px;border-radius:20px;background:linear-gradient(120deg,#FFF4D1,#FFE3F0);border:1px solid #FFD27A;color:#5A3A00}
+.mbanner svg.lucide{width:28px;height:28px;color:#E5257D}
+.mbanner .btn{grid-column:1/-1;margin:4px 0 0}
+.mprog{margin-bottom:12px}
+.mprog-t{display:flex;justify-content:space-between;font-family:var(--head);color:var(--text);font-size:14px;margin-bottom:6px}
+.mprog-t span{color:var(--blue)}
+.mprog-b{height:10px;background:#fff;border-radius:6px;overflow:hidden;box-shadow:inset 0 0 0 1px #DCE8F6}
+.mprog-b i{display:block;height:100%;background:linear-gradient(90deg,#22C3EE,#7CC242,#FFC531,#E5257D,#8B5CF6);border-radius:6px;transition:width .3s}
+.mcard .sec{margin-bottom:6px}
+.mq{font-family:var(--head);font-weight:600;font-size:17px;color:var(--text);margin:4px 0 2px;line-height:1.45}
+.mopts{display:grid;gap:8px;margin-top:8px}
+.mopt{display:flex;gap:10px;align-items:flex-start;padding:11px 12px;border:1.5px solid #D6E6F8;border-radius:14px;background:#fff;cursor:pointer;font-size:14.5px;line-height:1.4;color:var(--text)}
+.mopt input{width:18px;height:18px;margin-top:2px;flex:none;accent-color:var(--blue)}
+.mopt.on{border-color:var(--blue);background:#EEF5FF;box-shadow:0 6px 16px -10px rgba(26,95,208,.6)}
+.mgroup{margin-top:12px}
+.mgh{font-family:var(--head);font-weight:700;font-size:13px;color:var(--blue);letter-spacing:.04em}
+.mta{min-height:110px;resize:vertical;line-height:1.5}
+.mcount{text-align:right;font-size:12px;color:var(--muted);margin-top:3px}
+.mconsent{background:#FFF8E1;border:1px solid #FFE08A;border-radius:14px;padding:12px}
+.mnav{margin-top:14px}
+.mdone{padding:3px;border-radius:26px;background:linear-gradient(120deg,#22C3EE,#7CC242,#FFC531,#E5257D,#8B5CF6,#22C3EE);background-size:300% 300%;animation:mshift 6s linear infinite}
+@keyframes mshift{to{background-position:300% 0}}
+@media (prefers-reduced-motion:reduce){.mdone{animation:none}}
+.mdone-in{background:#fff;border-radius:23px;padding:22px 18px;text-align:center}
+.mcheck{width:84px;height:84px;margin:0 auto;border-radius:50%;display:grid;place-items:center;background:linear-gradient(140deg,#7CC242,#22C3EE);color:#fff;box-shadow:0 12px 26px -10px rgba(95,181,46,.7)}
+.mcheck svg.lucide{width:46px;height:46px}
+.mdone h2{font-family:var(--head);font-size:28px;margin:12px 0 4px;background:linear-gradient(90deg,#1E88F0,#7C5CF0,#E5257D);-webkit-background-clip:text;background-clip:text;color:transparent}
+.mdone-msg{margin:0 0 12px;color:var(--text)}
+.mdl{text-align:left;background:#F5F9FF;border-radius:14px;padding:12px 14px}
+.mcode{margin-top:14px;display:flex;flex-direction:column;gap:2px}
+.mcode span{font-size:12.5px;color:var(--muted)}
+.mcode b{font-family:var(--head);font-size:40px;letter-spacing:.18em;color:var(--blue)}
+.mlive{margin-top:10px;display:inline-flex;gap:6px;align-items:center;background:#0E2A5C;color:#fff;border-radius:999px;padding:6px 14px;font-size:13px}
+.mlive svg.lucide{width:16px;height:16px}
+.mlive b{font-family:var(--head);letter-spacing:.06em}
 </style>
 </head>
 <body>
@@ -715,7 +751,8 @@ function fatal(title,msg){
 /* ===== UI bits ===== */
 function hex(m,size,locked){return '<div class="hex'+(locked?' locked':'')+'" style="--c:'+m.c+(size?';width:'+size+'px':'')+'"><i data-lucide="'+(locked?'lock':m.icon)+'"></i></div>';}
 function segs(light){var h='<div class="segs" aria-hidden="true">';for(var i=1;i<=9;i++){h+='<i class="'+(i<=count()?'on':'')+(i===certMin()?' goal':'')+'"'+(light&&i>count()?' style="background:var(--line)"':'')+'></i>';}return h+'</div>';}
-function progNote(){var n=count();if(n>=9)return "ครบทั้ง 9 ฐานแล้ว ได้รับ Special Badge";if(n>=certMin())return "รับวุฒิบัตรได้แล้ว · อีก "+(9-n)+" ฐานรับ Special Badge";return "อีก "+(certMin()-n)+" ฐาน รับวุฒิบัตรดิจิทัล";}
+function missionReady(){return S&&count()>=certMin()&&!S.mission;}
+function progNote(){var n=count();if(missionReady())return "ครบ "+certMin()+" ฐานแล้ว · ภารกิจสุดท้าย: ตอบ Mission 6 ข้อ เพื่อรับวุฒิบัตร";if(n>=9)return "ครบทั้ง 9 ฐานแล้ว ได้รับ Special Badge";if(S&&S.cert)return "รับวุฒิบัตรแล้ว · อีก "+(9-n)+" ฐานรับ Special Badge";return "อีก "+(certMin()-n)+" ฐาน + Mission 6 ข้อ รับวุฒิบัตรดิจิทัล";}
 var toastTimer;
 function toast(msg,icon){var o=$phone.querySelector(".toast");if(o)o.remove();var t=document.createElement("div");t.className="toast";t.setAttribute("role","status");t.innerHTML='<i data-lucide="'+(icon||"check-circle-2")+'"></i><span>'+esc(msg)+'</span>';$phone.appendChild(t);if(window.lucide)lucide.createIcons();clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.remove();},3200);}
 function closeSheet(){var s=$phone.querySelector(".scrim");if(s)s.remove();}
@@ -844,6 +881,8 @@ VIEWS.home=function(p){
   return {title:"Future Passport",noBack:true,html:
   '<img class="banner" src="expo-logo.jpg" alt="BA&amp;IT EXPO 2027 Smart BIZ-IT">'+
   ((p&&p.fresh)?'<div class="welcome"><i data-lucide="party-popper"></i><div><b>ลงทะเบียนสำเร็จ!</b><br>นี่คือ Passport ID ของคุณ แตะบัตรเพื่อบันทึกเก็บไว้</div></div>':'')+
+  (missionReady()?'<div class="mbanner"><i data-lucide="flag"></i><div><b>ภารกิจสุดท้าย!</b><br>ครบ '+certMin()+' ฐานแล้ว ตอบ Mission 6 ข้อ เพื่อรับวุฒิบัตร</div><button class="btn gold" id="hMission">เริ่ม Mission</button></div>':'')+
+  (S.mission?'<button class="btn alt" id="hMissionDone" style="margin-bottom:12px"><i data-lucide="badge-check"></i>หน้ายืนยัน Mission (แสดงที่จุด Check-out)</button>':'')+
   '<div class="hud-k">PASSPORT ID</div>'+
   '<div class="idwrap" id="hId"><div class="idskel"><div class="spinner"></div><div>กำลังสร้าง Passport ID…</div></div></div>'+
   '<div class="idmeta"><span>'+progNote()+'</span></div>'+
@@ -855,6 +894,8 @@ VIEWS.home=function(p){
     [].forEach.call(document.querySelectorAll("[data-go]"),function(b){b.onclick=function(){var g=b.getAttribute("data-go");if(g==="journey"&&S.settings.journeyUrl){openUrl(S.settings.journeyUrl);return;}go(g);};});
     if($("hCert")) $("hCert").onclick=function(){go("cert");};
     $("hScan").onclick=function(){go("scan");};
+    if($("hMission")) $("hMission").onclick=function(){go("mission");};
+    if($("hMissionDone")) $("hMissionDone").onclick=function(){go("missionDone");};
     renderIdCard(false).then(function(u){var w=$("hId");if(!w)return;w.innerHTML='<img class="idimg" alt="Passport ID ของ '+esc(S.user.name)+'" src="'+u+'">';w.firstChild.onclick=function(){openImageViewer(renderIdCard(true),"PassportID-"+memberId()+".jpg",false,{kind:"id"});};}).catch(function(){var w=$("hId");if(w)w.innerHTML="";});
     $("hIdSave").onclick=function(){openImageViewer(renderIdCard(true),"PassportID-"+memberId()+".jpg",false,{kind:"id"});};
     if(Date.now()-lastFetch>20000) api("me").then(function(d){S=d; var c=stack[stack.length-1]; if(c&&c.name==="home") draw();}).catch(function(){});
@@ -896,6 +937,7 @@ VIEWS.result=function(r){
       '<div class="stack"><button class="btn" id="rScan"><i data-lucide="scan-line"></i>สแกนฐานถัดไป</button><button class="btn alt" id="rPass">ดู Passport ของฉัน</button></div></div>',after:wire};
   }
   var extra="";
+  if(missionReady()) extra+='<div class="unlock"><i data-lucide="party-popper"></i><div><b>ยินดีด้วย! ครบ '+certMin()+' ฐานแล้ว</b><br>ภารกิจสุดท้ายก่อนรับวุฒิบัตร: ตอบ Mission 6 ข้อ ใช้เวลาไม่ถึง 5 นาที</div></div><button class="btn gold" id="rMission"><i data-lucide="flag"></i>เริ่ม Mission</button>';
   if(r.newCert) extra+='<div class="unlock"><i data-lucide="award"></i><div><b>ปลดล็อกวุฒิบัตรแล้ว</b><br>ครบ '+certMin()+' ฐาน เลขที่ '+esc(S.cert.no)+'</div></div><button class="btn gold" id="rCert"><i data-lucide="award"></i>ดูวุฒิบัตรของฉัน</button>';
   if(r.newSpecial) extra+='<div class="unlock"><i data-lucide="crown"></i><div><b>Special Badge: Future City Master</b><br>ทำครบทั้ง 9 Mission</div></div>';
   return {title:"Mission Completed",html:
@@ -903,14 +945,15 @@ VIEWS.result=function(r){
   '<div class="plus">ผ่านแล้ว '+count()+'/9 ฐาน</div><div>ได้รับ Badge <b>'+esc(m.badge)+'</b></div>'+
   '<div class="card" style="margin:16px 0;text-align:left"><div style="display:flex;justify-content:space-between;font-weight:600;margin-bottom:8px"><span>ผ่านแล้ว '+count()+'/9 ฐาน</span><span>เกณฑ์วุฒิบัตร '+certMin()+' ฐาน</span></div>'+segs(true)+'<div class="sub" style="margin:8px 0 0">'+progNote()+'</div></div>'+
   '<div class="stack">'+extra+'<button class="btn" id="rPass"><i data-lucide="book-user"></i>ดู Passport ของฉัน</button><button class="btn alt" id="rScan"><i data-lucide="scan-line"></i>สแกนฐานถัดไป</button></div></div>',
-  after:function(){wire();if($("rCert"))$("rCert").onclick=function(){go("cert",{},true);};}};
+  after:function(){wire();if($("rCert"))$("rCert").onclick=function(){go("cert",{},true);};if($("rMission"))$("rMission").onclick=function(){go("mission",{},true);};}};
   function wire(){$("rScan").onclick=function(){go("scan",{},true);};$("rPass").onclick=function(){go("passport",{},true);};}
 };
 
 VIEWS.passport=function(p){
   var n=count(), tab=(p&&p.tab)||"missions", pp=S.settings.pointsPerStation;
   var certCard=S.cert?'<button class="btn gold" id="pCert"><i data-lucide="award"></i>ดูวุฒิบัตร · '+esc(S.cert.no)+'</button>'
-    :'<div class="card" style="display:flex;gap:12px;align-items:center"><i data-lucide="lock"></i><div><b>วุฒิบัตรดิจิทัล</b><div class="sub" style="margin:0">ร่วมกิจกรรมอีก '+(certMin()-n)+' ฐาน เพื่อปลดล็อก</div></div></div>';
+    :missionReady()?'<button class="btn gold" id="pMission"><i data-lucide="flag"></i>ทำ Mission 6 ข้อ เพื่อรับวุฒิบัตร</button>'
+    :'<div class="card" style="display:flex;gap:12px;align-items:center"><i data-lucide="lock"></i><div><b>วุฒิบัตรดิจิทัล</b><div class="sub" style="margin:0">ผ่านอีก '+(certMin()-n)+' ฐาน แล้วตอบ Mission 6 ข้อ เพื่อปลดล็อก</div></div></div>';
   var list='<div class="card"><ul class="mlist">'+missions().map(function(m){var t=done(m.id);
     return '<li><div class="num" style="background:'+m.c+'">'+m.id+'</div><div><div class="mt">'+esc(m.act)+'</div><div class="md">Mission '+esc(m.type)+' · Badge '+esc(m.badge)+'</div></div>'+(t?'<span class="st ok">CLEARED '+fmtTime(t)+'</span>':'<span class="st wait">ยังไม่ได้ทำ</span>')+'</li>';}).join("")+'</ul></div>';
   var badges='<div class="card"><div class="badges">'+missions().map(function(m){var t=done(m.id);return '<div class="badge">'+hex(m,64,!t)+'<span class="bn">'+esc(m.badge)+'</span><span class="bt">'+(t?fmtTime(t):'ฐาน '+m.id)+'</span></div>';}).join("")+'</div>'+
@@ -932,6 +975,7 @@ VIEWS.passport=function(p){
   after:function(){
     if($("pCert"))$("pCert").onclick=function(){go("cert");};
     $("pScan").onclick=function(){go("scan");};
+    if($("pMission")) $("pMission").onclick=function(){go("mission");};
     $("pIdTop").onclick=function(){go("passport",{tab:"profile"},true);};
     if($("idWrap")) renderIdCard(false).then(function(u){var w=$("idWrap");if(!w)return;w.innerHTML='<img class="idimg" alt="บัตร ID ของ '+esc(S.user.name)+'" src="'+u+'">';w.firstChild.onclick=function(){openImageViewer(renderIdCard(true),"PassportID-"+memberId()+".jpg",false,{kind:"id"});};}).catch(function(){});
     if($("pId")) $("pId").onclick=function(){renderIdCard(true).then(function(u){openImageViewer(u,"PassportID-"+memberId()+".jpg",false,{kind:"id"});});};
@@ -1101,7 +1145,7 @@ function memberId(){var id=(SUB||"").replace(/[^A-Za-z0-9]/g,"").slice(-6).toUpp
 var idCache={}; // v-two-variants-2
 function renderIdCard(withLogo){
   if(withLogo===undefined) withLogo=true;
-  var key=[withLogo?"L":"N",memberId(),S.user.name,S.user.school,S.user.level,S.user.year,S.user.province,S.user.status,S.user.competition,count(),!!S.cert].join("|");
+  var key=[withLogo?"L":"N",!!S.mission,memberId(),S.user.name,S.user.school,S.user.level,S.user.year,S.user.province,S.user.status,S.user.competition,count(),!!S.cert].join("|");
   if(idCache[key]) return Promise.resolve(idCache[key]);
   var want=["800 40px Prompt","700 40px Prompt",'600 40px "IBM Plex Sans Thai"','400 40px "IBM Plex Sans Thai"'];
   var fl=(document.fonts&&document.fonts.load)?Promise.all(want.map(function(f){return document.fonts.load(f,"บัตร Aa");})).catch(function(){}):Promise.resolve();
@@ -1136,7 +1180,7 @@ function renderIdCard(withLogo){
     t("FUTURE PASSPORT ID",W/2,lh+6,{size:58,head:1,w:800,color:"#0E2A5C",ls:3});
     // mission badge (ไม่มีรูปโปรไฟล์)
     var cx=W/2,cy=lh+110;
-    var msg=S.cert?"พิชิตภารกิจสำเร็จ · รับวุฒิบัตรดิจิทัลแล้ว":"พิชิตภารกิจ "+certMin()+" ฐาน เพื่อรับวุฒิบัตรดิจิทัล";
+    var msg=S.cert?"พิชิตภารกิจสำเร็จ · รับวุฒิบัตรดิจิทัลแล้ว":(count()>=certMin()&&!S.mission)?"ภารกิจสุดท้าย: ตอบ Mission 6 ข้อ เพื่อรับวุฒิบัตร":"พิชิตภารกิจ "+certMin()+" ฐาน เพื่อรับวุฒิบัตรดิจิทัล";
     cut(cx-420,cy,840,76,18);x.fillStyle="#FFC531";x.shadowColor="rgba(245,177,0,.35)";x.shadowBlur=18;x.fill();x.shadowBlur=0;
     t(msg,cx,cy+13,{size:38,head:1,w:700,color:"#3A2600",maxW:800});
     // info panel (labelled rows)
@@ -1286,6 +1330,118 @@ VIEWS.programs=function(p){
 VIEWS.admission=VIEWS.programs;
 VIEWS.idcard=function(){return VIEWS.passport({tab:"profile"});};
 
+/* ===== Mission 6 ข้อ (ก่อนรับวุฒิบัตร) ===== */
+var M_GRADES=["ม.4","ม.5","ม.6","ปวช.1","ปวช.2","ปวช.3","อื่น ๆ"];
+var M1_OPTS=["ฐาน 1 Management: NextGen CEO Hub","ฐาน 2 Logistics: Smart Supply Chain Terminal","ฐาน 3 Finance & Economics: WealthTech & Future Investor Club","ฐาน 4 Accounting: Smart Accounting Lab","ฐาน 5 Marketing: Digital Creator & MarTech Arena","ฐาน 6 Information Systems: Tech Innovator Core","ฐาน 7 บูธบริษัท / One School, One Business Innovation","ฐาน 8 BA&IT Story & Impact Gallery / Admission Station"];
+var M3_OPTS=["การสื่อสารและการนำเสนอ","ทักษะดิจิทัลและเทคโนโลยี","ตัวเลข การเงิน และการวิเคราะห์ข้อมูล","ความคิดสร้างสรรค์และการคิดไอเดียธุรกิจ","ภาษาอังกฤษ","การทำงานเป็นทีมและภาวะผู้นำ","อื่น ๆ (ระบุ)"];
+var M4_GROUPS=[["Management",["ผู้ประกอบการ/เจ้าของธุรกิจ","ผู้จัดการ/นักบริหาร","นักทรัพยากรบุคคล (HR)"]],["Logistics",["นักวางแผนโลจิสติกส์และซัพพลายเชน","เจ้าหน้าที่นำเข้า–ส่งออก","ผู้จัดการคลังสินค้า"]],["Finance & Economics",["นักวิเคราะห์การเงินและการลงทุน","เจ้าหน้าที่ธนาคาร","นักเศรษฐศาสตร์"]],["Accounting",["นักบัญชี","ผู้สอบบัญชี","ที่ปรึกษาภาษี"]],["Marketing",["นักการตลาดดิจิทัล","Content Creator","นักวิเคราะห์ข้อมูลการตลาด"]],["Information Systems",["นักวิเคราะห์ระบบ","นักพัฒนาซอฟต์แวร์/แอป","นักวิเคราะห์ข้อมูล"]],["อื่น ๆ",["อื่น ๆ (ระบุ)","ยังไม่แน่ใจ"]]];
+var M5_OPTS=["การจัดการ (Management)","โลจิสติกส์ (Logistics)","การเงินและเศรษฐศาสตร์ (Finance & Economics)","การบัญชี (Accounting)","การตลาด (Marketing)","ระบบสารสนเทศ (Information Systems)","ยังไม่แน่ใจ"];
+var MA=null;
+function maKey(){return "fp-mission-"+(SUB||"");}
+function maLoad(){if(MA)return MA;try{MA=JSON.parse(localStorage.getItem(maKey())||"null");}catch(e){}
+  if(!MA){var u=S.user,g="";if(/ตอนปลาย/.test(u.level||"")&&/^[4-6]$/.test(u.year||""))g="ม."+u.year;else if(/ปวช/.test(u.level||"")&&/^[1-3]$/.test(u.year||""))g="ปวช."+u.year;
+    MA={name:u.name,school:u.school,gradeLevel:g,consent:false,m1:"",m1r:"",m2:"",m3:[],m3o:"",m4:[],m4o:"",m5:[],m6:""};}
+  return MA;}
+function maSave(){try{localStorage.setItem(maKey(),JSON.stringify(MA));}catch(e){}}
+function chk(arr,v,max){var i=arr.indexOf(v);if(i>=0)arr.splice(i,1);else if(arr.length<max)arr.push(v);else return false;return true;}
+VIEWS.mission=function(p){
+  if(S.mission) return VIEWS.missionDone();
+  if(count()<certMin()) return {title:"Mission",html:'<div class="card emptybox"><i data-lucide="lock"></i><div><b>ยังทำ Mission ไม่ได้</b><div class="sub" style="margin:4px 0 0">ต้องผ่านครบ '+certMin()+' ฐานก่อน ตอนนี้ผ่านแล้ว '+count()+' ฐาน</div></div></div>'};
+  var a=maLoad(), step=(p&&p.step)||0, total=6;
+  function bar(){return '<div class="mprog"><div class="mprog-t"><b>'+(step?'Mission '+step+'/'+total:'ข้อมูลผู้ตอบ')+'</b><span>'+(step?Math.round(step/total*100)+'%':'เริ่ม')+'</span></div><div class="mprog-b"><i style="width:'+(step/total*100)+'%"></i></div></div>';}
+  function opt(type,name,v,on,extra){return '<label class="mopt'+(on?' on':'')+'"><input type="'+type+'" name="'+name+'" value="'+esc(v)+'"'+(on?' checked':'')+'><span>'+esc(v)+'</span>'+(extra||'')+'</label>';}
+  var body="", title="";
+  if(step===0){
+    title="ข้อมูลผู้ตอบ";
+    body='<p class="sub">ตรวจสอบข้อมูลก่อนเริ่ม แก้ไขได้ถ้าไม่ถูกต้อง</p>'+
+      '<label class="f" for="mName">ชื่อ–นามสกุล</label><input class="in" id="mName" maxlength="80" value="'+esc(a.name)+'">'+
+      '<label class="f" for="mSchool">โรงเรียน</label><input class="in" id="mSchool" maxlength="120" value="'+esc(a.school)+'">'+
+      '<label class="f" for="mGrade">ระดับชั้น</label><select class="in" id="mGrade"><option value="">เลือกระดับชั้น</option>'+M_GRADES.map(function(g){return '<option'+(g===a.gradeLevel?' selected':'')+'>'+g+'</option>';}).join("")+'</select>'+
+      '<label class="f">ประเภทผู้เข้าชม</label><div class="in" style="background:#F3F8FF">'+esc(statusLabel())+'</div>'+
+      '<label class="check mconsent"><input type="checkbox" id="mConsent"'+(a.consent?' checked':'')+'><span>ฉันรับทราบว่าคำตอบใน Mission นี้จะถูกสรุปเป็นรายงานส่งให้โรงเรียนของฉัน และใช้ปรับปรุงการจัดงานครั้งต่อไป</span></label>';
+  } else if(step===1){
+    title="ฐานที่ประทับใจที่สุด";
+    body='<p class="mq">ฐานไหนที่เธอประทับใจที่สุดในวันนี้?</p><p class="sub">เลือก 1 ข้อ</p><div class="mopts">'+M1_OPTS.map(function(o){return opt("radio","m1",o,a.m1===o);}).join("")+'</div>'+
+      '<label class="f" for="m1r">เพราะอะไร?</label><input class="in" id="m1r" maxlength="100" placeholder="พิมพ์สั้น ๆ" value="'+esc(a.m1r)+'"><div class="mcount" id="m1rc"></div>';
+  } else if(step===2){
+    title="สิ่งใหม่ที่ได้เรียนรู้";
+    body='<p class="mq">สิ่งใหม่ 1 อย่างที่เธอได้เรียนรู้จาก Workshop วันนี้คืออะไร?</p><p class="sub">พิมพ์ 1–2 ประโยค</p><textarea class="in mta" id="m2" maxlength="200" placeholder="เช่น ได้รู้ว่าการวางแผนขนส่งช่วยลดต้นทุนได้อย่างไร">'+esc(a.m2)+'</textarea><div class="mcount" id="m2c"></div>';
+  } else if(step===3){
+    title="ทักษะที่อยากพัฒนา";
+    body='<p class="mq">ทักษะไหนที่เธออยากพัฒนาเพิ่ม?</p><p class="sub">เลือกได้สูงสุด 3 ข้อ</p><div class="mopts">'+M3_OPTS.map(function(o){return opt("checkbox","m3",o,a.m3.indexOf(o)>=0);}).join("")+'</div>'+
+      '<input class="in" id="m3o" maxlength="60" placeholder="ระบุทักษะอื่น ๆ" value="'+esc(a.m3o)+'" style="margin-top:8px;display:'+(a.m3.indexOf("อื่น ๆ (ระบุ)")>=0?"block":"none")+'">';
+  } else if(step===4){
+    title="อาชีพที่สนใจ";
+    body='<p class="mq">หลังดูงานวันนี้ เธอสนใจอาชีพไหน?</p><p class="sub">เลือก 1–2 ข้อ</p>'+M4_GROUPS.map(function(g){return '<div class="mgroup"><div class="mgh">'+esc(g[0])+'</div><div class="mopts">'+g[1].map(function(o){return opt("checkbox","m4",o,a.m4.indexOf(o)>=0);}).join("")+'</div></div>';}).join("")+
+      '<input class="in" id="m4o" maxlength="60" placeholder="ระบุอาชีพอื่น ๆ" value="'+esc(a.m4o)+'" style="margin-top:8px;display:'+(a.m4.indexOf("อื่น ๆ (ระบุ)")>=0?"block":"none")+'">';
+  } else if(step===5){
+    title="สาขาที่อยากเรียนต่อ";
+    body='<p class="mq">ถ้าได้เรียนต่อ เธออยากเรียนสาขาไหน?</p><p class="sub">เลือก 1–2 ข้อ</p><div class="mopts">'+M5_OPTS.map(function(o){return opt("checkbox","m5",o,a.m5.indexOf(o)>=0);}).join("")+'</div>';
+  } else {
+    title="นำกลับไปใช้ที่โรงเรียน";
+    body='<p class="mq">เรื่องไหนจากวันนี้ที่เธอจะนำกลับไปใช้ หรือลองทำต่อที่โรงเรียน 1 อย่าง?</p><p class="sub">พิมพ์ 1–2 ประโยค</p><textarea class="in mta" id="m6" maxlength="200" placeholder="เช่น จะลองทำเพจขายของชมรมด้วยเทคนิคการตลาดดิจิทัล">'+esc(a.m6)+'</textarea><div class="mcount" id="m6c"></div>'+
+      '<p class="note">ส่งแล้วแก้ไขไม่ได้ ตรวจคำตอบให้เรียบร้อยก่อนกดส่ง</p>';
+  }
+  return {title:"Mission "+(step?step+"/6":""),noBack:false,html:bar()+'<div class="card mcard"><div class="hud-k">'+(step?'MISSION '+step:'START')+'</div><h2 class="sec">'+esc(title)+'</h2>'+body+'<div class="err" id="mErr" role="alert"></div></div>'+
+    '<div class="row mnav">'+(step?'<button class="btn alt" id="mPrev">ย้อนกลับ</button>':'')+'<button class="btn'+(step===6?' gold':'')+'" id="mNext">'+(step===0?'เริ่ม Mission':step<6?'ถัดไป':'ส่งคำตอบ')+'</button></div>',
+  after:function(){
+    function cnt(id,max){var el=$(id),c=$(id+"c");if(!el||!c)return;var f=function(){c.textContent=el.value.length+"/"+max;};el.addEventListener("input",f);f();}
+    cnt("m1r",100);cnt("m2",200);cnt("m6",200);
+    [].forEach.call(document.querySelectorAll(".mopt input"),function(inp){inp.onchange=function(){
+      var n=inp.name;
+      if(n==="m1"){a.m1=inp.value;}
+      else{var max=n==="m3"?3:2;if(!chk(a[n],inp.value,max)){inp.checked=false;$("mErr").textContent="เลือกได้สูงสุด "+max+" ข้อ";return;}}
+      $("mErr").textContent="";maSave();
+      [].forEach.call(document.querySelectorAll('.mopt input[name="'+n+'"]'),function(x){x.parentNode.classList.toggle("on",x.checked);});
+      if($("m3o"))$("m3o").style.display=a.m3.indexOf("อื่น ๆ (ระบุ)")>=0?"block":"none";
+      if($("m4o"))$("m4o").style.display=a.m4.indexOf("อื่น ๆ (ระบุ)")>=0?"block":"none";
+    };});
+    function collect(){
+      if(step===0){a.name=$("mName").value.trim();a.school=$("mSchool").value.trim();a.gradeLevel=$("mGrade").value;a.consent=$("mConsent").checked;}
+      if($("m1r"))a.m1r=$("m1r").value.trim(); if($("m2"))a.m2=$("m2").value.trim(); if($("m6"))a.m6=$("m6").value.trim();
+      if($("m3o"))a.m3o=$("m3o").value.trim(); if($("m4o"))a.m4o=$("m4o").value.trim(); maSave();
+    }
+    function check(){
+      if(step===0){if(a.name.length<3)return "กรอกชื่อ–นามสกุล";if(a.school.length<3)return "กรอกโรงเรียน";if(!a.gradeLevel)return "เลือกระดับชั้น";if(!a.consent)return "ติ๊กรับทราบข้อความยินยอมก่อนไปต่อ";}
+      if(step===1){if(!a.m1)return "เลือกฐานที่ประทับใจที่สุด 1 ข้อ";if(a.m1r.length<2)return "บอกเหตุผลสั้น ๆ";}
+      if(step===2&&a.m2.length<2)return "พิมพ์สิ่งใหม่ที่ได้เรียนรู้";
+      if(step===3){if(!a.m3.length)return "เลือกอย่างน้อย 1 ข้อ";if(a.m3.indexOf("อื่น ๆ (ระบุ)")>=0&&!a.m3o)return "ระบุทักษะอื่น ๆ";}
+      if(step===4){if(!a.m4.length)return "เลือก 1–2 ข้อ";if(a.m4.indexOf("อื่น ๆ (ระบุ)")>=0&&!a.m4o)return "ระบุอาชีพอื่น ๆ";}
+      if(step===5&&!a.m5.length)return "เลือก 1–2 ข้อ";
+      if(step===6&&a.m6.length<2)return "พิมพ์สิ่งที่จะนำกลับไปใช้";
+      return "";
+    }
+    if($("mPrev"))$("mPrev").onclick=function(){collect();go("mission",{step:step-1},true);};
+    $("mNext").onclick=function(){
+      collect();var e=check();if(e){$("mErr").textContent=e;return;}
+      if(step<6){go("mission",{step:step+1},true);return;}
+      var btn=this;btn.disabled=true;btn.textContent="กำลังส่งคำตอบ…";
+      api("submitMission",{answers:a}).then(function(d){S=d;try{localStorage.removeItem(maKey());}catch(x){}MA=null;stack=[{name:"home",params:{}}];go("missionDone");})
+      .catch(function(e2){
+        if(e2.code==="BAD_RESPONSE"||e2.code==="ALREADY"){return api("me").then(function(d){if(!d.mission)throw e2;S=d;stack=[{name:"home",params:{}}];go("missionDone");});}
+        throw e2;
+      }).catch(function(e3){$("mErr").textContent=e3.message;btn.disabled=false;btn.textContent="ส่งคำตอบ";});
+    };
+  }};
+};
+var mdTimer=null;
+VIEWS.missionDone=function(){
+  if(!S.mission) return VIEWS.mission({});
+  var at=new Date(S.mission.at), when=at.toLocaleDateString("th-TH",{day:"numeric",month:"short",year:"numeric"})+" "+fmtTime(S.mission.at);
+  return {title:"Mission สำเร็จ",html:'<div class="mdone"><div class="mdone-in">'+
+    '<div class="mcheck"><i data-lucide="badge-check"></i></div><h2>Mission สำเร็จ!</h2>'+
+    '<p class="mdone-msg">แสดงหน้าจอนี้ให้สตาฟที่จุด <b>Check-out</b> เพื่อรับเกียรติบัตร</p>'+
+    '<dl class="prof mdl"><dt>ชื่อ</dt><dd>'+esc(S.user.name)+'</dd><dt>โรงเรียน</dt><dd>'+esc(S.user.school)+'</dd><dt>ส่งเมื่อ</dt><dd>'+esc(when)+'</dd></dl>'+
+    '<div class="mcode"><span>รหัสยืนยัน</span><b>'+esc(S.mission.code)+'</b></div>'+
+    '<div class="mlive"><i data-lucide="clock"></i>เวลาปัจจุบัน <b id="mClock">--:--:--</b></div></div></div>'+
+    '<p class="note" style="text-align:center">นาฬิกาเดินตามเวลาจริง ช่วยให้สตาฟตรวจได้ว่าไม่ใช่ภาพหน้าจอของคนอื่น</p>'+
+    (S.cert?'<button class="btn gold" id="mdCert"><i data-lucide="award"></i>ดูวุฒิบัตรดิจิทัล</button>':''),
+  after:function(){
+    clearInterval(mdTimer);var tick=function(){var c=$("mClock");if(!c){clearInterval(mdTimer);return;}c.textContent=new Date().toLocaleTimeString("th-TH",{hour:"2-digit",minute:"2-digit",second:"2-digit"});};tick();mdTimer=setInterval(tick,1000);
+    if($("mdCert"))$("mdCert").onclick=function(){go("cert");};
+  }};
+};
+
 /* ===== save image: share sheet → external browser → download ===== */
 function inLine(){try{return !!(window.liff&&liff.isInClient&&liff.isInClient());}catch(e){return false;}}
 function absUrl(u){try{return new URL(u,location.href).href;}catch(e){return u;}}
@@ -1343,7 +1499,7 @@ function boot(){
     if(q.get("s")&&q.get("k")) pending={station:Number(q.get("s")),key:q.get("k")};
     var start=q.get("p");
     try{ var tok=liff.getDecodedIDToken(); SUB=tok&&tok.sub||""; }catch(e){}
-    var ok={passport:1,missions:1,rewards:1,city:1,admission:1,scan:1,cert:1,schedule:1,map:1,eval:1,journey:1,programs:1,idcard:1};
+    var ok={mission:1,missionDone:1,passport:1,missions:1,rewards:1,city:1,admission:1,scan:1,cert:1,schedule:1,map:1,eval:1,journey:1,programs:1,idcard:1};
     var cached=pending?null:recall();
     if(cached){
       // แสดงข้อมูลล่าสุดในเครื่องทันที แล้วอัปเดตจากระบบเบื้องหลัง
