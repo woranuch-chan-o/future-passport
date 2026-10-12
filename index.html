@@ -572,6 +572,35 @@ input.in:focus,select.in:focus{border-color:#1E88F0;box-shadow:var(--glow-c)}
 .cardpage{display:flex;flex-direction:column;align-items:center;gap:14px}
 .cardimg{display:block;width:min(100%,420px);height:auto;border-radius:12px;box-shadow:0 14px 30px -14px rgba(30,95,208,.45)}
 .cardpage .btn{max-width:420px;text-decoration:none}
+
+.ctabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:14px 0 10px;padding:5px;background:#fff;border-radius:18px;box-shadow:0 4px 14px -8px rgba(30,95,208,.35)}
+.ctabs button{border:0;background:transparent;border-radius:14px;padding:8px 2px;display:flex;flex-direction:column;align-items:center;gap:1px;cursor:pointer;color:var(--text);font:inherit}
+.ctabs b{font-family:var(--head);font-size:14px}
+.ctabs span{font-size:10px;color:var(--muted);line-height:1.2}
+.ctabs button[aria-selected="true"]{background:linear-gradient(140deg,#1E88F0,#7C5CF0);color:#fff;box-shadow:0 8px 18px -10px rgba(26,95,208,.7)}
+.ctabs button[aria-selected="true"] span{color:#E6F0FF}
+.chead{display:flex;justify-content:space-between;align-items:center;margin:4px 2px 10px;font-family:var(--head);font-weight:600;color:var(--text);font-size:14px}
+.chead span:first-child{display:flex;align-items:center;gap:6px}
+.chead svg.lucide{color:var(--magenta);width:18px;height:18px}
+.ccount{background:#fff;border-radius:999px;padding:3px 12px;color:var(--blue);font-size:12.5px;box-shadow:0 3px 10px -6px rgba(30,95,208,.4)}
+.lvsec{background:#fff;border-radius:20px;padding:14px 14px 6px;margin-bottom:12px;box-shadow:inset 0 4px 0 var(--lc),0 10px 24px -14px rgba(30,95,208,.35)}
+.lvhead{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.lvic{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--lc) 14%,#fff);color:var(--lc)}
+.lvic svg.lucide{width:20px;height:20px}
+.lvhead b{display:block;font-family:var(--head);font-size:16px;color:var(--text)}
+.lvhead span{font-size:12px;color:var(--muted)}
+.plist{list-style:none;margin:0;padding:0}
+.plist li{display:grid;grid-template-columns:34px 1fr;gap:10px;padding:10px 0;border-top:1px dashed #E3EEFA}
+.plist li:first-child{border-top:0}
+.pic{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(140deg,color-mix(in srgb,var(--lc) 20%,#fff),#fff);color:var(--lc);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--lc) 30%,#fff)}
+.pic svg.lucide{width:17px;height:17px}
+.pn{font-family:var(--head);font-weight:600;color:var(--text);font-size:15px;line-height:1.35}
+.ptag{display:inline-block;font-size:11px;font-weight:600;color:#fff;background:var(--magenta);border-radius:999px;padding:1px 8px;margin-left:4px;vertical-align:2px}
+.pd{font-size:12.5px;color:var(--muted);margin-top:1px}
+.pm{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;align-items:center}
+.pm span{font-size:11.5px;color:var(--muted);margin-right:2px}
+.pm em{font-style:normal;font-size:12px;color:var(--lc);background:color-mix(in srgb,var(--lc) 10%,#fff);border-radius:999px;padding:2px 9px}
+.applybar{position:sticky;bottom:0;margin:10px -16px -28px;padding:12px 16px calc(14px + env(safe-area-inset-bottom,0px));background:linear-gradient(180deg,rgba(238,247,255,0),rgba(238,247,255,.96) 35%)}
 </style>
 </head>
 <body>
@@ -1162,15 +1191,54 @@ VIEWS.eval=function(){
     (u?'<button class="btn scanbig" id="eGo"><i data-lucide="clipboard-check"></i>ทำแบบประเมิน</button>':'<div class="card emptybox" style="margin-top:14px"><i data-lucide="clock"></i><div><b>แบบประเมินยังไม่เปิด</b><div class="sub" style="margin:4px 0 0">จะเปิดให้ทำในวันงาน</div></div></div>'),
     after:function(){if($("eGo"))$("eGo").onclick=function(){openUrl(u);};}};
 };
-VIEWS.programs=function(){
-  var list=(S.settings.programs||[]).filter(function(p){return p.program;}), ap=S.settings.applyUrl;
-  return {title:"Programs",html:'<div class="hero"><div class="hud-k">PROGRAMS</div><div class="wordmark" style="font-size:24px">หลักสูตรที่เปิดสอน</div><p>คณะบริหารธุรกิจและเทคโนโลยีสารสนเทศ มทร.สุวรรณภูมิ</p></div>'+
-    (ap?'<button class="btn gold" id="pgApply" style="margin-top:14px"><i data-lucide="file-pen-line"></i>สมัครเรียนออนไลน์</button>':'')+
-    (list.length?'<div class="stack" style="margin-top:14px">'+list.map(function(p,i){return '<div class="card prog"><div class="pgn">'+String(i+1).padStart(2,"0")+'</div><div><div class="pgt">'+esc(p.program)+'</div>'+
-      (p.degree||p.campus?'<div class="pgm">'+[p.degree,p.campus].filter(Boolean).map(esc).join(" · ")+'</div>':'')+(p.highlight?'<p class="pgh">'+esc(p.highlight)+'</p>':'')+
-      (p.url?'<button class="linkbtn" data-url="'+esc(p.url)+'">ดูรายละเอียดหลักสูตร</button>':'')+'</div></div>';}).join("")+'</div>'
-      :'<div class="card emptybox" style="margin-top:14px"><i data-lucide="graduation-cap"></i><div><b>ข้อมูลหลักสูตรกำลังอัปเดต</b></div></div>'),
-    after:function(){if($("pgApply"))$("pgApply").onclick=function(){openUrl(ap);};[].forEach.call(document.querySelectorAll("[data-url]"),function(b){b.onclick=function(){openUrl(b.dataset.url);};});}};
+/* ข้อมูลหลักสูตรคณะบริหารธุรกิจและเทคโนโลยีสารสนเทศ ปีการศึกษา 2569 (ข้อมูล ณ 1 ก.ย. 2569) */
+var BAIT_PROGRAMS=(function(){
+  var ACC={d:"บัญชีบัณฑิต (บช.บ.)",n:"บัญชีบัณฑิต"}, ACCC={d:"บัญชีบัณฑิต (บช.บ.)",n:"บัญชีบัณฑิต",c:1};
+  function BBA(n,o){return Object.assign({d:"บริหารธุรกิจบัณฑิต (บธ.บ.)",n:n},o||{});}
+  var DBT={d:"วิทยาศาสตรบัณฑิต (วท.บ.)",n:"เทคโนโลยีธุรกิจดิจิทัล",c:1};
+  return [
+  {k:"wasukri",name:"ศูนย์วาสุกรี",loc:"จ.พระนครศรีอยุธยา",levels:[
+    {lv:"ปวช.",full:"ประกาศนียบัตรวิชาชีพ",items:[{n:"การบัญชี"},{n:"การตลาด"},{n:"เทคโนโลยีธุรกิจดิจิทัล"}]},
+    {lv:"ปวส.",full:"ประกาศนียบัตรวิชาชีพชั้นสูง",items:[{n:"การบัญชี"},{n:"การตลาด"},{n:"การจัดการ"},{n:"เทคโนโลยีธุรกิจดิจิทัล"}]},
+    {lv:"ปริญญาตรี",full:"ปริญญาตรี",items:[ACC,ACCC,BBA("การจัดการ",{m:["การจัดการทั่วไป","การจัดการอุตสาหกรรม","การจัดการสำนักงานสมัยใหม่"]}),BBA("การจัดการโลจิสติกส์และโซ่อุปทาน"),BBA("การตลาดดิจิทัล"),BBA("ระบบสารสนเทศและนวัตกรรมดิจิทัล"),BBA("การวิเคราะห์ธุรกิจและการลงทุน"),DBT]},
+    {lv:"ปริญญาโท",full:"ปริญญาโท",items:[{d:"บธ.ม.",n:"บริหารธุรกิจมหาบัณฑิต"},{d:"บช.ม.",n:"บัญชีมหาบัณฑิต"},{d:"วท.ม.",n:"วิทยาการจัดการนวัตกรรมดิจิทัล"}]},
+    {lv:"ปริญญาเอก",full:"ปริญญาเอก",items:[{d:"บธ.ด.",n:"บริหารธุรกิจดุษฎีบัณฑิต"},{d:"ปร.ด.",n:"การบัญชี"},{d:"ปร.ด.",n:"วิทยาการจัดการนวัตกรรมดิจิทัล"}]}]},
+  {k:"huntra",name:"ศูนย์หันตรา",loc:"จ.พระนครศรีอยุธยา",levels:[
+    {lv:"ปริญญาตรี",full:"ปริญญาตรี",items:[ACC,BBA("การจัดการ",{m:["การจัดการทั่วไป"]}),BBA("การจัดการ",{c:1}),BBA("การตลาดดิจิทัล"),BBA("ระบบสารสนเทศและนวัตกรรมดิจิทัล")]}]},
+  {k:"suphan",name:"ศูนย์สุพรรณบุรี",loc:"จ.สุพรรณบุรี",levels:[
+    {lv:"ปริญญาตรี",full:"ปริญญาตรี",items:[ACC,ACCC,BBA("การจัดการ",{m:["การจัดการทั่วไป"]}),BBA("การจัดการโลจิสติกส์และโซ่อุปทาน"),BBA("การตลาดดิจิทัล"),BBA("ระบบสารสนเทศและนวัตกรรมดิจิทัล"),DBT]}]},
+  {k:"nonthaburi",name:"ศูนย์นนทบุรี",loc:"จ.นนทบุรี",levels:[
+    {lv:"ปริญญาตรี",full:"ปริญญาตรี",items:[ACC,BBA("การจัดการ",{m:["การจัดการทั่วไป"]}),BBA("ระบบสารสนเทศและนวัตกรรมดิจิทัล"),DBT]},
+    {lv:"ปริญญาโท",full:"ปริญญาโท",items:[{d:"บธ.ม.",n:"บริหารธุรกิจมหาบัณฑิต"}]},
+    {lv:"ปริญญาเอก",full:"ปริญญาเอก",items:[{d:"บธ.ด.",n:"บริหารธุรกิจดุษฎีบัณฑิต"}]}]}];
+})();
+var LV_STYLE={"ปวช.":["school","#1EA7E8"],"ปวส.":["wrench","#5FB52E"],"ปริญญาตรี":["graduation-cap","#1A5FD0"],"ปริญญาโท":["award","#7C5CF0"],"ปริญญาเอก":["medal","#E5257D"]};
+function progIcon(n){
+  if(/บัญชี/.test(n))return "calculator"; if(/โลจิสติกส์/.test(n))return "truck"; if(/การตลาด/.test(n))return "megaphone";
+  if(/ระบบสารสนเทศ/.test(n))return "cpu"; if(/วิเคราะห์ธุรกิจ/.test(n))return "trending-up"; if(/เทคโนโลยีธุรกิจดิจิทัล/.test(n))return "monitor-smartphone";
+  if(/นวัตกรรมดิจิทัล/.test(n))return "lightbulb"; return "briefcase";
+}
+VIEWS.programs=function(p){
+  var ck=(p&&p.c)||"wasukri", ap=S.settings.applyUrl, C=BAIT_PROGRAMS.filter(function(c){return c.k===ck;})[0]||BAIT_PROGRAMS[0];
+  var total=C.levels.reduce(function(t,l){return t+l.items.length;},0);
+  var tabs='<div class="ctabs" role="tablist">'+BAIT_PROGRAMS.map(function(c){return '<button role="tab" aria-selected="'+(c.k===C.k)+'" data-c="'+c.k+'"><b>'+esc(c.name.replace("ศูนย์",""))+'</b><span>'+esc(c.loc)+'</span></button>';}).join("")+'</div>';
+  var sections=C.levels.map(function(L){var st=LV_STYLE[L.lv]||["book-open","#1A5FD0"];
+    return '<section class="lvsec" style="--lc:'+st[1]+'"><div class="lvhead"><span class="lvic"><i data-lucide="'+st[0]+'"></i></span><div><b>'+esc(L.full)+'</b><span>'+L.items.length+' หลักสูตร/สาขา</span></div></div>'+
+      '<ul class="plist">'+L.items.map(function(it){
+        return '<li><span class="pic"><i data-lucide="'+progIcon(it.n)+'"></i></span><div><div class="pn">'+esc(it.n)+(it.c?' <span class="ptag">ต่อเนื่อง</span>':'')+'</div>'+
+          (it.d?'<div class="pd">'+esc(it.d)+'</div>':'')+
+          (it.m?'<div class="pm"><span>วิชาเอก</span>'+it.m.map(function(x){return '<em>'+esc(x)+'</em>';}).join("")+'</div>':'')+'</div></li>';}).join("")+'</ul></section>';}).join("");
+  return {title:"Programs",html:
+    '<div class="hero"><div class="hud-k">PROGRAMS 2569</div><div class="wordmark" style="font-size:24px">หลักสูตรที่เปิดสอน</div><p>คณะบริหารธุรกิจและเทคโนโลยีสารสนเทศ มทร.สุวรรณภูมิ · 4 ศูนย์พื้นที่</p></div>'+
+    tabs+
+    '<div class="chead"><span><i data-lucide="map-pin"></i>'+esc(C.name)+' · '+esc(C.loc)+'</span><span class="ccount">'+total+' หลักสูตร</span></div>'+
+    sections+
+    '<p class="note" style="text-align:center;margin:14px 0 4px">ที่มา: ข้อมูลหลักสูตรประจำปีการศึกษา 2569 (ณ 1 ก.ย. 2569) ตรวจสอบหลักสูตรและรอบรับสมัครล่าสุดในระบบรับสมัคร</p>'+
+    '<div class="applybar"><button class="btn gold" id="pgApply"><i data-lucide="file-pen-line"></i>สมัครเรียน '+esc(C.name)+'</button></div>',
+    after:function(){
+      [].forEach.call(document.querySelectorAll("[data-c]"),function(b){b.onclick=function(){go("programs",{c:b.dataset.c},true);};});
+      $("pgApply").onclick=function(){openUrl(ap||"https://admis.rmutsb.ac.th/");};
+    }};
 };
 VIEWS.admission=VIEWS.programs;
 VIEWS.idcard=function(){return VIEWS.passport({tab:"profile"});};
