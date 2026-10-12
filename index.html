@@ -613,6 +613,11 @@ input.in:focus,select.in:focus{border-color:#1E88F0;box-shadow:var(--glow-c)}
 
 .lvnote{display:flex;gap:8px;align-items:flex-start;background:#FFF8E1;border:1px solid #FFE08A;border-radius:14px;padding:10px 12px;margin:0 0 12px;font-size:13px;color:#5A4300;line-height:1.5}
 .lvnote svg.lucide{width:18px;height:18px;color:#F5A100;flex:none;margin-top:1px}
+
+.idwrap,#hId{display:block}
+.idimg,#hId .idimg{width:100%!important;max-width:none;border-radius:14px}
+.idskel{width:100%;aspect-ratio:1080/1900}
+.idmeta span:first-child{color:var(--text);font-weight:500;letter-spacing:0}
 </style>
 </head>
 <body>
@@ -841,8 +846,8 @@ VIEWS.home=function(p){
   ((p&&p.fresh)?'<div class="welcome"><i data-lucide="party-popper"></i><div><b>ลงทะเบียนสำเร็จ!</b><br>นี่คือ Passport ID ของคุณ แตะบัตรเพื่อบันทึกเก็บไว้</div></div>':'')+
   '<div class="hud-k">PASSPORT ID</div>'+
   '<div class="idwrap" id="hId"><div class="idskel"><div class="spinner"></div><div>กำลังสร้าง Passport ID…</div></div></div>'+
-  '<div class="idmeta"><span>ผ่านแล้ว '+count()+'/9 ฐาน</span><span>'+progNote()+'</span></div>'+
-  '<button class="btn alt" id="hIdSave" style="margin-top:10px"><i data-lucide="download"></i>บันทึก Passport ID</button>'+
+  '<div class="idmeta"><span>'+progNote()+'</span></div>'+
+  '<button class="btn alt" id="hIdSave" style="margin-top:10px"><i data-lucide="maximize-2"></i>ดู Passport ID ฉบับเต็ม / บันทึกรูป</button>'+
   '<button class="btn scanbig" id="hScan"><i data-lucide="scan-line"></i>SCAN MISSION · สแกนฐาน</button>'+
   '<nav class="menu" aria-label="เมนู">'+tiles.map(function(t){return '<button class="tile '+t[1]+'" data-go="'+t[0]+'"><i data-lucide="'+t[2]+'"></i><span class="en">'+t[3]+'</span><span class="th">'+t[4]+'</span></button>';}).join("")+'</nav>'+
   (S.cert?'<button class="btn gold" id="hCert" style="margin-top:14px"><i data-lucide="award"></i>ดูวุฒิบัตรของฉัน</button>':''),
@@ -850,8 +855,8 @@ VIEWS.home=function(p){
     [].forEach.call(document.querySelectorAll("[data-go]"),function(b){b.onclick=function(){var g=b.getAttribute("data-go");if(g==="journey"&&S.settings.journeyUrl){openUrl(S.settings.journeyUrl);return;}go(g);};});
     if($("hCert")) $("hCert").onclick=function(){go("cert");};
     $("hScan").onclick=function(){go("scan");};
-    renderIdCard().then(function(u){var w=$("hId");if(!w)return;w.innerHTML='<img class="idimg" alt="Passport ID ของ '+esc(S.user.name)+'" src="'+u+'">';w.firstChild.onclick=function(){openImageViewer(u,"PassportID-"+memberId()+".jpg",false,{kind:"id"});};}).catch(function(){var w=$("hId");if(w)w.innerHTML="";});
-    $("hIdSave").onclick=function(){openImageViewer(renderIdCard(),"PassportID-"+memberId()+".jpg",false,{kind:"id"});};
+    renderIdCard(false).then(function(u){var w=$("hId");if(!w)return;w.innerHTML='<img class="idimg" alt="Passport ID ของ '+esc(S.user.name)+'" src="'+u+'">';w.firstChild.onclick=function(){openImageViewer(renderIdCard(true),"PassportID-"+memberId()+".jpg",false,{kind:"id"});};}).catch(function(){var w=$("hId");if(w)w.innerHTML="";});
+    $("hIdSave").onclick=function(){openImageViewer(renderIdCard(true),"PassportID-"+memberId()+".jpg",false,{kind:"id"});};
     if(Date.now()-lastFetch>20000) api("me").then(function(d){S=d; var c=stack[stack.length-1]; if(c&&c.name==="home") draw();}).catch(function(){});
   }};
 };
@@ -928,8 +933,8 @@ VIEWS.passport=function(p){
     if($("pCert"))$("pCert").onclick=function(){go("cert");};
     $("pScan").onclick=function(){go("scan");};
     $("pIdTop").onclick=function(){go("passport",{tab:"profile"},true);};
-    if($("idWrap")) renderIdCard().then(function(u){var w=$("idWrap");if(!w)return;w.innerHTML='<img class="idimg" alt="บัตร ID ของ '+esc(S.user.name)+'" src="'+u+'">';w.firstChild.onclick=function(){openImageViewer(u,"PassportID-"+memberId()+".jpg",false,{kind:"id"});};}).catch(function(){});
-    if($("pId")) $("pId").onclick=function(){renderIdCard().then(function(u){openImageViewer(u,"PassportID-"+memberId()+".jpg",false,{kind:"id"});});};
+    if($("idWrap")) renderIdCard(false).then(function(u){var w=$("idWrap");if(!w)return;w.innerHTML='<img class="idimg" alt="บัตร ID ของ '+esc(S.user.name)+'" src="'+u+'">';w.firstChild.onclick=function(){openImageViewer(renderIdCard(true),"PassportID-"+memberId()+".jpg",false,{kind:"id"});};}).catch(function(){});
+    if($("pId")) $("pId").onclick=function(){renderIdCard(true).then(function(u){openImageViewer(u,"PassportID-"+memberId()+".jpg",false,{kind:"id"});});};
     $("pCity").onclick=function(){go("city");};
     [].forEach.call(document.querySelectorAll("[data-tab]"),function(b){b.onclick=function(){go("passport",{tab:b.dataset.tab},true);};});
   }};
@@ -1093,14 +1098,15 @@ function openImageViewer(srcOrPromise,fileName,rotDefault,ext){
 
 /* ===== player ID card ===== */
 function memberId(){var id=(SUB||"").replace(/[^A-Za-z0-9]/g,"").slice(-6).toUpperCase()||"000000";return "FP-"+id;}
-var idCache={key:"",url:""}; // v-card2
-function renderIdCard(){
-  var key=[memberId(),S.user.name,S.user.school,S.user.level,S.user.year,S.user.province,S.user.status,S.user.competition,count(),!!S.cert].join("|");
-  if(idCache.key===key&&idCache.url) return Promise.resolve(idCache.url);
+var idCache={}; // v-two-variants-2
+function renderIdCard(withLogo){
+  if(withLogo===undefined) withLogo=true;
+  var key=[withLogo?"L":"N",memberId(),S.user.name,S.user.school,S.user.level,S.user.year,S.user.province,S.user.status,S.user.competition,count(),!!S.cert].join("|");
+  if(idCache[key]) return Promise.resolve(idCache[key]);
   var want=["800 40px Prompt","700 40px Prompt",'600 40px "IBM Plex Sans Thai"','400 40px "IBM Plex Sans Thai"'];
   var fl=(document.fonts&&document.fonts.load)?Promise.all(want.map(function(f){return document.fonts.load(f,"บัตร Aa");})).catch(function(){}):Promise.resolve();
-  return fl.then(function(){return loadImg("expo-header.jpg").catch(function(){return null;});}).then(function(logo){
-    var W=1080,LH0=logo?60+Math.round(Math.round((W-88)*0.95)*logo.height/logo.width):230,H=LH0+909+idRows().length*86,c=document.createElement("canvas");c.width=W;c.height=H;var x=c.getContext("2d");
+  return fl.then(function(){return withLogo?loadImg("expo-header.jpg").catch(function(){return null;}):null;}).then(function(logo){
+    var W=1080,LH0=logo?60+Math.round(Math.round((W-88)*0.95)*logo.height/logo.width):(withLogo?230:150),H=LH0+909+idRows().length*86,c=document.createElement("canvas");c.width=W;c.height=H;var x=c.getContext("2d");
     var HEAD='"Prompt","Leelawadee UI",sans-serif',BODY='"IBM Plex Sans Thai","Leelawadee UI",sans-serif';
     function cut(px,py,w,h,k){x.beginPath();x.moveTo(px+k,py);x.lineTo(px+w,py);x.lineTo(px+w,py+h-k);x.lineTo(px+w-k,py+h);x.lineTo(px,py+h);x.lineTo(px,py+k);x.closePath();}
     function t(str,px,py,o){var fs=o.size,mw=o.maxW||W-160;x.font=(o.w||400)+" "+fs+"px "+(o.head?HEAD:BODY);
@@ -1120,7 +1126,7 @@ function renderIdCard(){
       x.fillStyle=fe(0,ltop,0,ltop+30,"rgba(230,245,255,1)","rgba(230,245,255,0)");x.fillRect(lpad,ltop,lw,30);
       x.fillStyle=fe(lpad,0,lpad+24,0,"rgba(232,246,255,1)","rgba(232,246,255,0)");x.fillRect(lpad,ltop,24,lh-ltop);
       x.fillStyle=fe(W-lpad-24,0,W-lpad,0,"rgba(232,246,255,0)","rgba(232,246,255,1)");x.fillRect(W-lpad-24,ltop,24,lh-ltop);}
-    else t("BA&IT EXPO 2027 · SMART BIZ-IT",W/2,110,{size:56,head:1,w:800,color:"#1A5FD0"});
+    else t("BA&IT EXPO 2027 · SMART BIZ-IT",W/2,withLogo?110:70,{size:withLogo?56:44,head:1,w:800,color:"#1A5FD0",ls:2});
     var ly=0;
     // rainbow arc
     x.lineWidth=14;var arc=x.createLinearGradient(0,0,W,0);["#22C3EE","#7CC242","#FFC531","#E5257D","#8B5CF6"].forEach(function(c,i){arc.addColorStop(i/4,c);});
@@ -1130,8 +1136,9 @@ function renderIdCard(){
     t("FUTURE PASSPORT ID",W/2,lh+6,{size:58,head:1,w:800,color:"#0E2A5C",ls:3});
     // mission badge (ไม่มีรูปโปรไฟล์)
     var cx=W/2,cy=lh+110;
-    cut(cx-170,cy,340,72,18);x.fillStyle="#FFC531";x.shadowColor="rgba(245,177,0,.35)";x.shadowBlur=18;x.fill();x.shadowBlur=0;
-    t("MISSION "+count()+"/9",cx,cy+12,{size:40,head:1,w:800,color:"#3A2600",ls:2,maxW:310});
+    var msg=S.cert?"พิชิตภารกิจสำเร็จ · รับวุฒิบัตรดิจิทัลแล้ว":"พิชิตภารกิจ "+certMin()+" ฐาน เพื่อรับวุฒิบัตรดิจิทัล";
+    cut(cx-420,cy,840,76,18);x.fillStyle="#FFC531";x.shadowColor="rgba(245,177,0,.35)";x.shadowBlur=18;x.fill();x.shadowBlur=0;
+    t(msg,cx,cy+13,{size:38,head:1,w:700,color:"#3A2600",maxW:800});
     // info panel (labelled rows)
     var rows=idRows(), py=cy+112, rh=86, ph=40+rows.length*rh;
     cut(70,py,W-140,ph,24);x.fillStyle="rgba(255,255,255,.93)";x.fill();x.strokeStyle="#CFE3F7";x.lineWidth=3;x.stroke();
@@ -1152,7 +1159,7 @@ function renderIdCard(){
       for(var r2=0;r2<n;r2++)for(var kk=0;kk<n;kk++)if(q.isDark(r2,kk))x.fillRect(qx+(kk+1)*cell,qy+(r2+1)*cell,Math.ceil(cell),Math.ceil(cell));}
     t(memberId(),W/2,qy+qs+28,{size:44,head:1,w:800,color:"#1A5FD0",ls:5});
     t("13–14 ม.ค. 2570 · The Hall อยุธยาซิตี้พาร์ค",W/2,qy+qs+92,{size:26,color:"#5B7299"});
-    var u=c.toDataURL("image/jpeg",0.92); idCache={key:key,url:u}; return u;
+    var u=c.toDataURL("image/jpeg",0.92); idCache[key]=u; return u;
   });
 }
 function imgSrc(v){v=String(v||"").trim();return v;}
@@ -1310,7 +1317,7 @@ function cardMode(token,kind){
     if(!j.ok) throw new Error(j.message||"เปิดไม่สำเร็จ");
     S=j.data; SUB=S.sub||"";
     if(kind==="cert"&&!S.cert) throw new Error("ยังไม่มีวุฒิบัตร");
-    return (kind==="cert"?renderCert():renderIdCard()).then(function(u){
+    return (kind==="cert"?renderCert():renderIdCard(true)).then(function(u){
       var name=kind==="cert"?"Certificate-"+S.cert.no+".jpg":"PassportID-"+memberId()+".jpg";
       $screen.innerHTML='<div class="cardpage"><img class="cardimg" src="'+u+'" alt="'+esc(name)+'">'+
         '<a class="btn gold" id="cdl" href="'+u+'" download="'+esc(name)+'"><i data-lucide="download"></i>ดาวน์โหลดรูป</a>'+
