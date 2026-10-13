@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://api.line.me">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Prompt:wght@500;600;700;800&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Sarabun:wght@700&family=Prompt:wght@500;600;700;800&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
 <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lucide@0.383.0/dist/umd/lucide.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
@@ -654,6 +654,9 @@ input.in:focus,select.in:focus{border-color:#1E88F0;box-shadow:var(--glow-c)}
 .mlive{margin-top:10px;display:inline-flex;gap:6px;align-items:center;background:#0E2A5C;color:#fff;border-radius:999px;padding:6px 14px;font-size:13px}
 .mlive svg.lucide{width:16px;height:16px}
 .mlive b{font-family:var(--head);letter-spacing:.06em}
+
+.certimg.certskel{background:#EAF6FF;aspect-ratio:3508/2481;display:grid;place-items:center}
+.mro{background:#F3F8FF;color:var(--text);display:flex;align-items:center}
 </style>
 </head>
 <body>
@@ -821,8 +824,8 @@ VIEWS.register=function(){
     st.map(function(x){return '<button type="button" role="radio" aria-checked="'+(x[0]===pre)+'" data-st="'+x[0]+'"><i data-lucide="'+x[1]+'"></i><b>'+x[2]+'</b><span>'+x[3]+'</span></button>';}).join("")+'</div>'+
   '<div id="rCompBox" style="display:none"><label class="f" for="rComp">รายการที่เข้าแข่งขัน</label><select class="in" id="rComp"><option value="">เลือกรายการแข่งขัน</option>'+opts(COMPETITIONS)+'</select></div>'+
   '<label class="f" for="rName">ชื่อ–นามสกุล (แสดงบน Passport ID และวุฒิบัตร)</label><input class="in" id="rName" autocomplete="name" maxlength="80" placeholder="เช่น นางสาวอนงค์ ใจดี">'+
-  '<label class="f" for="rSchool">ชื่อสถานศึกษา (พิมพ์ชื่อเต็ม)</label><input class="in" id="rSchool" maxlength="120" autocomplete="off" placeholder="เช่น โรงเรียนอยุธยานุสรณ์ / วิทยาลัยเทคนิคอ่างทอง">'+
-  '<div class="schoolprev">พิมพ์คำว่า โรงเรียน หรือ วิทยาลัย นำหน้าด้วย ชื่อนี้จะแสดงบน Passport ID และวุฒิบัตร</div>'+
+  '<label class="f" for="rSchool">ชื่อสถานศึกษา</label><input class="in" id="rSchool" maxlength="120" autocomplete="off" placeholder="เช่น โรงเรียนอยุธยานุสรณ์ / มทร.สุวรรณภูมิ">'+
+  '<div class="schoolprev">ใช้ชื่อย่อได้ เช่น มทร.สุวรรณภูมิ · ชื่อนี้จะแสดงบน Passport ID</div>'+
   '<label class="f" for="rLevel">ระดับการศึกษา</label><select class="in" id="rLevel"><option value="">เลือกระดับการศึกษา</option>'+opts(LEVELS)+'</select>'+
   '<div class="row"><div><label class="f" for="rYear">ชั้นปี</label><select class="in" id="rYear"><option value="">เลือกชั้นปี</option>'+opts(YEARS)+'</select></div>'+
   '<div><label class="f" for="rProv">จังหวัด</label><select class="in" id="rProv"><option value="">เลือกจังหวัด</option><optgroup label="จังหวัดใกล้เคียงงาน">'+opts(NEAR_PROVINCES)+'</optgroup><optgroup label="ทุกจังหวัด (77 จังหวัด)">'+opts(PROVINCES)+'</optgroup></select></div></div>'+
@@ -843,8 +846,7 @@ VIEWS.register=function(){
       if(!status){err.textContent="เลือกประเภทผู้เข้าร่วม";$("rType").scrollIntoView({block:"center"});return;}
       if(status==="competitor"&&!comp){err.textContent="เลือกรายการที่เข้าแข่งขัน";return;}
       if(name.length<3){err.textContent="กรอกชื่อ–นามสกุล";return;}
-      if(school.length<5){err.textContent="กรอกชื่อสถานศึกษา";return;}
-      if(!/(โรงเรียน|วิทยาลัย|มหาวิทยาลัย|สถาบัน|ศูนย์|การศึกษา)/.test(school)){err.textContent="พิมพ์ชื่อสถานศึกษาแบบเต็ม เช่น โรงเรียนอยุธยานุสรณ์ หรือ วิทยาลัยเทคนิคอ่างทอง";return;}
+      if(school.length<3){err.textContent="กรอกชื่อสถานศึกษา";return;}
       if(!$("rLevel").value){err.textContent="เลือกระดับการศึกษา";return;}
       if(!$("rYear").value){err.textContent="เลือกชั้นปี";return;}
       if(!$("rProv").value){err.textContent="เลือกจังหวัด";return;}
@@ -882,7 +884,7 @@ VIEWS.home=function(p){
   '<img class="banner" src="expo-logo.jpg" alt="BA&amp;IT EXPO 2027 Smart BIZ-IT">'+
   ((p&&p.fresh)?'<div class="welcome"><i data-lucide="party-popper"></i><div><b>ลงทะเบียนสำเร็จ!</b><br>นี่คือ Passport ID ของคุณ แตะบัตรเพื่อบันทึกเก็บไว้</div></div>':'')+
   (missionReady()?'<div class="mbanner"><i data-lucide="flag"></i><div><b>ภารกิจสุดท้าย!</b><br>ครบ '+certMin()+' ฐานแล้ว ตอบ Mission 6 ข้อ เพื่อรับวุฒิบัตร</div><button class="btn gold" id="hMission">เริ่ม Mission</button></div>':'')+
-  (S.mission?'<button class="btn alt" id="hMissionDone" style="margin-bottom:12px"><i data-lucide="badge-check"></i>หน้ายืนยัน Mission (แสดงที่จุด Check-out)</button>':'')+
+  (S.mission?'<button class="btn alt" id="hMissionDone" style="margin-bottom:12px"><i data-lucide="award"></i>ดูวุฒิบัตรดิจิทัล</button>':'')+
   '<div class="hud-k">PASSPORT ID</div>'+
   '<div class="idwrap" id="hId"><div class="idskel"><div class="spinner"></div><div>กำลังสร้าง Passport ID…</div></div></div>'+
   '<div class="idmeta"><span>'+progNote()+'</span></div>'+
@@ -895,7 +897,7 @@ VIEWS.home=function(p){
     if($("hCert")) $("hCert").onclick=function(){go("cert");};
     $("hScan").onclick=function(){go("scan");};
     if($("hMission")) $("hMission").onclick=function(){go("mission");};
-    if($("hMissionDone")) $("hMissionDone").onclick=function(){go("missionDone");};
+    if($("hMissionDone")) $("hMissionDone").onclick=function(){go(S.cert?"cert":"missionDone");};
     renderIdCard(false).then(function(u){var w=$("hId");if(!w)return;w.innerHTML='<img class="idimg" alt="Passport ID ของ '+esc(S.user.name)+'" src="'+u+'">';w.firstChild.onclick=function(){openImageViewer(renderIdCard(true),"PassportID-"+memberId()+".jpg",false,{kind:"id"});};}).catch(function(){var w=$("hId");if(w)w.innerHTML="";});
     $("hIdSave").onclick=function(){openImageViewer(renderIdCard(true),"PassportID-"+memberId()+".jpg",false,{kind:"id"});};
     if(Date.now()-lastFetch>20000) api("me").then(function(d){S=d; var c=stack[stack.length-1]; if(c&&c.name==="home") draw();}).catch(function(){});
@@ -1043,13 +1045,7 @@ VIEWS.admission=function(){
 };
 
 function certHtml(){
-  return '<div class="certimg" role="img" aria-label="วุฒิบัตรเลขที่ '+esc(S.cert.no)+' ของ '+esc(S.user.name)+'">'+
-  '<div class="ctr c-title">วุฒิบัตร</div><div class="ctr c-sub">FUTURE CITY EXPLORER CERTIFICATE</div>'+
-  '<div class="ctr c-to">ขอมอบวุฒิบัตรฉบับนี้ไว้เพื่อแสดงว่า</div><div class="ctr c-name">'+esc(S.user.name)+'</div><div class="ctr c-school">'+esc(S.user.school)+'</div>'+
-  '<div class="c-body">ได้เข้าร่วมกิจกรรม Future Passport และผ่านภารกิจ '+count()+' จาก 9 ฐาน<br>ในงาน BA&amp;IT EXPO 2027 การแข่งขันทักษะวิชาการด้านบริหารธุรกิจระดับชาติ ครั้งที่ 4<br>ระหว่างวันที่ 13–14 มกราคม 2570 ณ The Hall อยุธยาซิตี้พาร์ค</div>'+
-  '<div class="c-sig"><b>(ชื่อคณบดี)</b>คณบดีคณะบริหารธุรกิจและเทคโนโลยีสารสนเทศ<br>มหาวิทยาลัยเทคโนโลยีราชมงคลสุวรรณภูมิ</div>'+
-  '<div class="c-no"><b>เลขที่ '+esc(S.cert.no)+'</b>สแกน QR เพื่อตรวจสอบ</div>'+
-  '<div class="c-qr">'+qrSvg(S.settings.verifyUrl+"?cert="+encodeURIComponent(S.cert.no))+'</div></div>';
+  return '<div class="certimg certskel" role="img" aria-label="กำลังสร้างวุฒิบัตร"><div class="loading" style="min-height:0;height:100%"><div class="spinner"></div><div>กำลังสร้างวุฒิบัตร…</div></div></div>';
 }
 VIEWS.cert=function(){
   if(!S.cert) return VIEWS.passport();
@@ -1067,49 +1063,33 @@ VIEWS.cert=function(){
 /* ===== certificate image (save) ===== */
 function loadImg(src){return new Promise(function(res,rej){var i=new Image();i.onload=function(){res(i);};i.onerror=function(){rej(new Error("โหลดภาพพื้นหลังไม่สำเร็จ"));};i.src=src;});}
 var certCache={key:"",url:""};
-function certKey(){return [S.cert.no,S.user.name,S.user.school,count()].join("|");}
+function certKey(){return ["v2570b",S.cert.no,S.user.name,S.cert.issuedAt].join("|");}
 function renderCert(){
   if(certCache.key===certKey()&&certCache.url) return Promise.resolve(certCache.url);
   return renderCertRaw().then(function(u){certCache={key:certKey(),url:u};return u;});
 }
 function renderCertRaw(){
-  var want=["800 40px Prompt","700 40px Prompt","600 40px Prompt",'600 40px "IBM Plex Sans Thai"','400 40px "IBM Plex Sans Thai"'];
-  var fl=(document.fonts&&document.fonts.load)?Promise.all(want.map(function(f){return document.fonts.load(f,"วุฒิบัตร Aa");})).catch(function(){}):Promise.resolve();
-  return fl.then(function(){return loadImg("cert-bg.jpg");}).then(function(bg){
-    var W=3508,H=2480,c=document.createElement("canvas");c.width=W;c.height=H;var x=c.getContext("2d");
+  var fl=(document.fonts&&document.fonts.load)?document.fonts.load('700 60px Sarabun',"เกียรติบัตร Aa").catch(function(){}):Promise.resolve();
+  return fl.then(function(){return loadImg("cert-bg-2570.jpg");}).then(function(bg){
+    var W=3508,H=2481,z=W/841.92,k=2.797,c=document.createElement("canvas");c.width=W;c.height=H;var x=c.getContext("2d");
     x.drawImage(bg,0,0,W,H);
-    var HEAD='"Prompt","Leelawadee UI",Tahoma,sans-serif',BODY='"IBM Plex Sans Thai","Leelawadee UI",Tahoma,sans-serif';
-    function txt(str,o){
-      var fs=o.size*W/100,fam=o.head?HEAD:BODY,mw=(o.maxW||90)*W/100;
-      x.fillStyle=o.color||"#1C1640";x.textAlign=o.align||"center";x.textBaseline="top";
-      if("letterSpacing" in x)x.letterSpacing=o.ls?(o.ls*fs)+"px":"0px";
-      x.font=(o.weight||400)+" "+fs+"px "+fam;
-      while(x.measureText(str).width>mw&&fs>12){fs*=0.96;x.font=(o.weight||400)+" "+fs+"px "+fam;}
-      x.fillText(str,(o.x!=null?o.x:50)*W/100,o.top*H/100+fs*0.1);
-    }
-    var R=W/H;
-    txt("วุฒิบัตร",{top:46.9,size:3.6,head:1,weight:800,color:"#2A1488"});
-    txt("FUTURE CITY EXPLORER CERTIFICATE",{top:53.3,size:1.35,head:1,weight:600,color:"#A8761A",ls:0.2});
-    txt("ขอมอบวุฒิบัตรฉบับนี้ไว้เพื่อแสดงว่า",{top:57.4,size:1.5,color:"#5E5987"});
-    txt(S.user.name,{top:60.3,size:3.8,head:1,weight:700,color:"#120D46",maxW:70});
-    txt(S.user.school,{top:67.4,size:1.8,weight:600,maxW:70});
-    ["ได้เข้าร่วมกิจกรรม Future Passport และผ่านภารกิจ "+count()+" จาก 9 ฐาน",
-     "ในงาน BA&IT EXPO 2027 การแข่งขันทักษะวิชาการด้านบริหารธุรกิจระดับชาติ ครั้งที่ 4",
-     "ระหว่างวันที่ 13–14 มกราคม 2570 ณ The Hall อยุธยาซิตี้พาร์ค"].forEach(function(l,i){txt(l,{top:71.9+i*1.45*1.5*R,size:1.45,maxW:60});});
-    x.fillStyle="#1C1640";x.fillRect(W*0.18,H*0.87,W*0.26,Math.max(2,0.12*W/100));
-    var sy=87+0.6*R;
-    txt("(ชื่อคณบดี)",{top:sy,size:1.15,weight:600,x:31,maxW:26});
-    txt("คณบดีคณะบริหารธุรกิจและเทคโนโลยีสารสนเทศ",{top:sy+1.15*1.2*R,size:1.15,color:"#3E3970",x:31,maxW:26});
-    txt("มหาวิทยาลัยเทคโนโลยีราชมงคลสุวรรณภูมิ",{top:sy+2*1.15*1.2*R,size:1.15,color:"#3E3970",x:31,maxW:26});
-    txt("เลขที่ "+S.cert.no,{top:86.6,size:1.5,head:1,weight:700,color:"#120D46",align:"right",x:78.6,maxW:30});
-    txt("สแกน QR เพื่อตรวจสอบ",{top:86.6+1.5*1.2*R,size:1.15,color:"#5E5987",align:"right",x:78.6,maxW:30});
-    if(window.qrcode){
-      var q=qrcode(0,"M");q.addData(S.settings.verifyUrl+"?cert="+encodeURIComponent(S.cert.no));q.make();
-      var n=q.getModuleCount(),qx=0.819*W,qy=0.746*H,qs=0.118*W,cell=qs/(n+4);
-      x.fillStyle="#fff";x.fillRect(qx,qy,qs,qs);x.fillStyle="#120D46";
-      for(var r=0;r<n;r++)for(var k=0;k<n;k++)if(q.isDark(r,k))x.fillRect(qx+(k+2)*cell,qy+(r+2)*cell,Math.ceil(cell),Math.ceil(cell));
-    }
-    return c.toDataURL("image/jpeg",0.92);
+    var F='"Sarabun","TH Sarabun New","Leelawadee UI",Tahoma,sans-serif';
+    function txt(str,cy,pt,color,maxW){var fs=pt*k;x.font="700 "+fs+"px "+F;while(x.measureText(str).width>maxW&&fs>20){fs*=0.96;x.font="700 "+fs+"px "+F;}
+      x.fillStyle=color;x.textAlign="center";x.textBaseline="middle";x.fillText(str,W/2,cy*z);}
+    // ข้อความที่เปลี่ยนตามผู้รับ (ตำแหน่ง/ขนาดตามแม่แบบ PDF)
+    txt(S.user.name,221,36,"#002060",W*0.72);
+    txt("ได้เข้าร่วม การแข่งขันทักษะวิชาการด้านบริหารธุรกิจระดับชาติ ครั้งที่ 4",258.5,18,"#002060",W*0.6);
+    var iss=S.cert.issuedAt?new Date(S.cert.issuedAt):null, d14=iss&&iss.toLocaleDateString("en-CA",{timeZone:"Asia/Bangkok"})==="2027-01-14";
+    txt("ให้ไว้ ณ วันที่ "+(d14?"14":"13")+" มกราคม 2570",358,18,"#000000",W*0.4);
+    // QR ตรวจสอบ + เลขที่วุฒิบัตร (มุมขวาล่าง)
+    var qs=Math.round(76*z),qx=Math.round(738*z),qy=Math.round(452*z),pad=Math.round(6*z);
+    x.fillStyle="rgba(255,255,255,.96)";x.beginPath();if(x.roundRect)x.roundRect(qx-pad,qy-pad,qs+pad*2,qs+pad*2+Math.round(26*z),Math.round(8*z));else x.rect(qx-pad,qy-pad,qs+pad*2,qs+pad*2+Math.round(26*z));x.fill();
+    if(window.qrcode){var q=qrcode(0,"M");q.addData(S.settings.verifyUrl+"?cert="+encodeURIComponent(S.cert.no));q.make();var n=q.getModuleCount(),cell=qs/n;x.fillStyle="#002060";
+      for(var r=0;r<n;r++)for(var kk=0;kk<n;kk++)if(q.isDark(r,kk))x.fillRect(qx+kk*cell,qy+r*cell,Math.ceil(cell),Math.ceil(cell));}
+    x.fillStyle="#002060";x.textAlign="center";x.textBaseline="middle";
+    var fs=10*k;x.font="700 "+fs+"px "+F;x.fillText("เลขที่ "+S.cert.no,qx+qs/2,qy+qs+Math.round(10*z));
+    fs=8*k;x.font="700 "+fs+"px "+F;x.fillStyle="#3A4A6B";x.fillText("สแกนเพื่อตรวจสอบ",qx+qs/2,qy+qs+Math.round(20*z));
+    return c.toDataURL("image/jpeg",0.9);
   });
 }
 function dataUrlToBlob(u){var p=u.split(","),b=atob(p[1]),a=new Uint8Array(b.length);for(var i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return new Blob([a],{type:"image/jpeg"});}
@@ -1339,8 +1319,8 @@ var M5_OPTS=["การจัดการ (Management)","โลจิสติ�
 var MA=null;
 function maKey(){return "fp-mission-"+(SUB||"");}
 function maLoad(){if(MA)return MA;try{MA=JSON.parse(localStorage.getItem(maKey())||"null");}catch(e){}
-  if(!MA){var u=S.user,g="";if(/ตอนปลาย/.test(u.level||"")&&/^[4-6]$/.test(u.year||""))g="ม."+u.year;else if(/ปวช/.test(u.level||"")&&/^[1-3]$/.test(u.year||""))g="ปวช."+u.year;
-    MA={name:u.name,school:u.school,gradeLevel:g,consent:false,m1:"",m1r:"",m2:"",m3:[],m3o:"",m4:[],m4o:"",m5:[],m6:""};}
+  if(!MA){var u=S.user;
+    MA={name:u.name,school:u.school,gradeLevel:"",consent:false,m1:"",m1r:"",m2:"",m3:[],m3o:"",m4:[],m4o:"",m5:[],m6:""};}
   return MA;}
 function maSave(){try{localStorage.setItem(maKey(),JSON.stringify(MA));}catch(e){}}
 function chk(arr,v,max){var i=arr.indexOf(v);if(i>=0)arr.splice(i,1);else if(arr.length<max)arr.push(v);else return false;return true;}
@@ -1348,6 +1328,7 @@ VIEWS.mission=function(p){
   if(S.mission) return VIEWS.missionDone();
   if(count()<certMin()) return {title:"Mission",html:'<div class="card emptybox"><i data-lucide="lock"></i><div><b>ยังทำ Mission ไม่ได้</b><div class="sub" style="margin:4px 0 0">ต้องผ่านครบ '+certMin()+' ฐานก่อน ตอนนี้ผ่านแล้ว '+count()+' ฐาน</div></div></div>'};
   var a=maLoad(), step=(p&&p.step)||0, total=6;
+  a.gradeLevel=[S.user.level,S.user.year?"ปีที่ "+S.user.year:""].filter(Boolean).join(" ")||"-";
   function bar(){return '<div class="mprog"><div class="mprog-t"><b>'+(step?'Mission '+step+'/'+total:'ข้อมูลผู้ตอบ')+'</b><span>'+(step?Math.round(step/total*100)+'%':'เริ่ม')+'</span></div><div class="mprog-b"><i style="width:'+(step/total*100)+'%"></i></div></div>';}
   function opt(type,name,v,on,extra){return '<label class="mopt'+(on?' on':'')+'"><input type="'+type+'" name="'+name+'" value="'+esc(v)+'"'+(on?' checked':'')+'><span>'+esc(v)+'</span>'+(extra||'')+'</label>';}
   var body="", title="";
@@ -1356,8 +1337,8 @@ VIEWS.mission=function(p){
     body='<p class="sub">ตรวจสอบข้อมูลก่อนเริ่ม แก้ไขได้ถ้าไม่ถูกต้อง</p>'+
       '<label class="f" for="mName">ชื่อ–นามสกุล</label><input class="in" id="mName" maxlength="80" value="'+esc(a.name)+'">'+
       '<label class="f" for="mSchool">โรงเรียน</label><input class="in" id="mSchool" maxlength="120" value="'+esc(a.school)+'">'+
-      '<label class="f" for="mGrade">ระดับชั้น</label><select class="in" id="mGrade"><option value="">เลือกระดับชั้น</option>'+M_GRADES.map(function(g){return '<option'+(g===a.gradeLevel?' selected':'')+'>'+g+'</option>';}).join("")+'</select>'+
-      '<label class="f">ประเภทผู้เข้าชม</label><div class="in" style="background:#F3F8FF">'+esc(statusLabel())+'</div>'+
+      '<label class="f">ระดับชั้น</label><div class="in mro">'+esc(a.gradeLevel)+'</div>'+
+      '<label class="f">ประเภทผู้เข้าชม</label><div class="in mro">'+esc(statusLabel())+'</div>'+
       '<label class="check mconsent"><input type="checkbox" id="mConsent"'+(a.consent?' checked':'')+'><span>ฉันรับทราบว่าคำตอบใน Mission นี้จะถูกสรุปเป็นรายงานส่งให้โรงเรียนของฉัน และใช้ปรับปรุงการจัดงานครั้งต่อไป</span></label>';
   } else if(step===1){
     title="ฐานที่ประทับใจที่สุด";
@@ -1397,12 +1378,12 @@ VIEWS.mission=function(p){
       if($("m4o"))$("m4o").style.display=a.m4.indexOf("อื่น ๆ (ระบุ)")>=0?"block":"none";
     };});
     function collect(){
-      if(step===0){a.name=$("mName").value.trim();a.school=$("mSchool").value.trim();a.gradeLevel=$("mGrade").value;a.consent=$("mConsent").checked;}
+      if(step===0){a.name=$("mName").value.trim();a.school=$("mSchool").value.trim();a.consent=$("mConsent").checked;}
       if($("m1r"))a.m1r=$("m1r").value.trim(); if($("m2"))a.m2=$("m2").value.trim(); if($("m6"))a.m6=$("m6").value.trim();
       if($("m3o"))a.m3o=$("m3o").value.trim(); if($("m4o"))a.m4o=$("m4o").value.trim(); maSave();
     }
     function check(){
-      if(step===0){if(a.name.length<3)return "กรอกชื่อ–นามสกุล";if(a.school.length<3)return "กรอกโรงเรียน";if(!a.gradeLevel)return "เลือกระดับชั้น";if(!a.consent)return "ติ๊กรับทราบข้อความยินยอมก่อนไปต่อ";}
+      if(step===0){if(a.name.length<3)return "กรอกชื่อ–นามสกุล";if(a.school.length<3)return "กรอกโรงเรียน";if(!a.consent)return "ติ๊กรับทราบข้อความยินยอมก่อนไปต่อ";}
       if(step===1){if(!a.m1)return "เลือกฐานที่ประทับใจที่สุด 1 ข้อ";if(a.m1r.length<2)return "บอกเหตุผลสั้น ๆ";}
       if(step===2&&a.m2.length<2)return "พิมพ์สิ่งใหม่ที่ได้เรียนรู้";
       if(step===3){if(!a.m3.length)return "เลือกอย่างน้อย 1 ข้อ";if(a.m3.indexOf("อื่น ๆ (ระบุ)")>=0&&!a.m3o)return "ระบุทักษะอื่น ๆ";}
@@ -1427,19 +1408,14 @@ VIEWS.mission=function(p){
 var mdTimer=null;
 VIEWS.missionDone=function(){
   if(!S.mission) return VIEWS.mission({});
-  var at=new Date(S.mission.at), when=at.toLocaleDateString("th-TH",{day:"numeric",month:"short",year:"numeric"})+" "+fmtTime(S.mission.at);
+  var when=new Date(S.mission.at).toLocaleDateString("th-TH",{day:"numeric",month:"short",year:"numeric"})+" "+fmtTime(S.mission.at);
   return {title:"Mission สำเร็จ",html:'<div class="mdone"><div class="mdone-in">'+
     '<div class="mcheck"><i data-lucide="badge-check"></i></div><h2>Mission สำเร็จ!</h2>'+
-    '<p class="mdone-msg">แสดงหน้าจอนี้ให้สตาฟที่จุด <b>Check-out</b> เพื่อรับเกียรติบัตร</p>'+
-    '<dl class="prof mdl"><dt>ชื่อ</dt><dd>'+esc(S.user.name)+'</dd><dt>โรงเรียน</dt><dd>'+esc(S.user.school)+'</dd><dt>ส่งเมื่อ</dt><dd>'+esc(when)+'</dd></dl>'+
-    '<div class="mcode"><span>รหัสยืนยัน</span><b>'+esc(S.mission.code)+'</b></div>'+
-    '<div class="mlive"><i data-lucide="clock"></i>เวลาปัจจุบัน <b id="mClock">--:--:--</b></div></div></div>'+
-    '<p class="note" style="text-align:center">นาฬิกาเดินตามเวลาจริง ช่วยให้สตาฟตรวจได้ว่าไม่ใช่ภาพหน้าจอของคนอื่น</p>'+
-    (S.cert?'<button class="btn gold" id="mdCert"><i data-lucide="award"></i>ดูวุฒิบัตรดิจิทัล</button>':''),
-  after:function(){
-    clearInterval(mdTimer);var tick=function(){var c=$("mClock");if(!c){clearInterval(mdTimer);return;}c.textContent=new Date().toLocaleTimeString("th-TH",{hour:"2-digit",minute:"2-digit",second:"2-digit"});};tick();mdTimer=setInterval(tick,1000);
-    if($("mdCert"))$("mdCert").onclick=function(){go("cert");};
-  }};
+    '<p class="mdone-msg">ส่งคำตอบเรียบร้อย ได้รับ<b>วุฒิบัตรดิจิทัล</b>แล้ว ดูและบันทึกเก็บไว้ได้เลย</p>'+
+    '<dl class="prof mdl"><dt>ชื่อ</dt><dd>'+esc(S.user.name)+'</dd><dt>สถานศึกษา</dt><dd>'+esc(S.user.school)+'</dd><dt>ส่งเมื่อ</dt><dd>'+esc(when)+'</dd>'+
+    (S.cert?'<dt>เลขที่วุฒิบัตร</dt><dd>'+esc(S.cert.no)+'</dd>':'')+'</dl></div></div>'+
+    (S.cert?'<button class="btn gold" id="mdCert" style="margin-top:16px"><i data-lucide="award"></i>ดูวุฒิบัตรดิจิทัล</button>':''),
+  after:function(){ if($("mdCert"))$("mdCert").onclick=function(){go("cert");}; }};
 };
 
 /* ===== save image: share sheet → external browser → download ===== */
