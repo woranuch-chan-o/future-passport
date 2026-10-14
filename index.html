@@ -657,6 +657,26 @@ input.in:focus,select.in:focus{border-color:#1E88F0;box-shadow:var(--glow-c)}
 
 .certimg.certskel{background:#EAF6FF;aspect-ratio:3508/2481;display:grid;place-items:center}
 .mro{background:#F3F8FF;color:var(--text);display:flex;align-items:center}
+
+/* ===== ดาว 9 ดวง (แถบความคืบหน้า) ===== */
+.segs.stars{display:flex;gap:4px;justify-content:space-between;align-items:center;height:auto;margin:10px 0 6px}
+.segs.stars .pstar{flex:none;width:min(9.4%,34px);height:auto;aspect-ratio:1;overflow:visible;display:block}
+.segs.stars .pstar path{fill:rgba(255,255,255,.28);stroke:rgba(255,255,255,.55);stroke-width:1;stroke-linejoin:round;transition:fill .3s}
+.segs.stars .pstar.on path{fill:#FFC531;stroke:#FFF1B8;stroke-width:1.2;filter:drop-shadow(0 0 3px rgba(255,197,49,.8))}
+.segs.stars .pstar.goal path{stroke:#fff;stroke-width:2}
+.segs.stars .pstar.goal:not(.on) path{fill:rgba(255,255,255,.12);stroke-dasharray:2.4 1.6}
+.segs.stars.light .pstar path{fill:#E3ECF7;stroke:#C9D8EC}
+.segs.stars.light .pstar.on path{fill:#FFC531;stroke:#F5A100}
+.segs.stars.light .pstar.goal path{stroke:#E5257D;stroke-width:1.8}
+.segs.stars.light .pstar.goal:not(.on) path{fill:#FFF0F6}
+/* ===== หมายเลขฐานในรายการภารกิจเป็นรูปดาว ===== */
+.mlist .num{width:48px;height:48px;border-radius:0;clip-path:polygon(50% 2%,62% 35%,98% 36%,69% 58%,80% 94%,50% 73%,20% 94%,31% 58%,2% 36%,38% 35%);display:grid;place-items:center;padding-top:5px;font-size:15px;box-shadow:none}
+
+.segs.stars .pstar.opt path{stroke-dasharray:2.2 1.6}
+.segs.stars .pstar.opt:not(.on){opacity:.75}
+.reqtag{display:inline-block;margin-top:4px;font-size:11px;font-weight:600;border-radius:999px;padding:1px 8px;background:#E8F0FF;color:var(--blue)}
+.reqtag.opt{background:#F1F3F7;color:var(--muted)}
+.node .nopt{position:absolute;top:6px;right:8px;font-size:9.5px;font-weight:700;color:var(--muted);background:#F1F3F7;border-radius:999px;padding:1px 6px}
 </style>
 </head>
 <body>
@@ -701,7 +721,18 @@ function missions(){return (S&&S.missions||[]).map(function(m){var st=STYLE[m.id
 function mission(id){return missions().filter(function(m){return m.id===Number(id);})[0];}
 function done(id){return S&&S.scans&&S.scans[String(id)];}
 function count(){return S?S.count:0;}
-function certMin(){return S?S.settings.certMin:5;}
+function certMin(){return (S&&S.settings&&S.settings.certMin)||8;}
+function reqList(){return (S&&S.settings&&S.settings.requiredStations)||[1,2,3,4,5,6];}
+function optList(){var r=[];for(var i=1;i<=9;i++)if(!isReq(i))r.push(i);return r;}
+function isReq(id){return reqList().indexOf(Number(id))>=0;}
+function reqLeft(){return reqList().filter(function(n){return !done(n);});}
+function reqDone(){return reqList().length-reqLeft().length;}
+function optNeed(){return Math.max(0,certMin()-reqList().length);}
+function optDone(){return optList().filter(function(n){return done(n);}).length;}
+function optLeft(){return Math.max(0,optNeed()-optDone());}
+function leftTotal(){return reqLeft().length+optLeft();}
+function reqComplete(){return !!S&&leftTotal()===0;}
+function leftText(){var p=[];if(reqLeft().length)p.push("ฐานบังคับ "+reqLeft().join(", "));if(optLeft())p.push("เลือกอีก "+optLeft()+" ฐานจากฐาน "+optList().join(", "));return p.join(" + ");}
 function pts(){return S?S.points:0;}
 
 function api(action,payload){
@@ -753,9 +784,10 @@ function fatal(title,msg){
 
 /* ===== UI bits ===== */
 function hex(m,size,locked){return '<div class="hex'+(locked?' locked':'')+'" style="--c:'+m.c+(size?';width:'+size+'px':'')+'"><i data-lucide="'+(locked?'lock':m.icon)+'"></i></div>';}
-function segs(light){var h='<div class="segs" aria-hidden="true">';for(var i=1;i<=9;i++){h+='<i class="'+(i<=count()?'on':'')+(i===certMin()?' goal':'')+'"'+(light&&i>count()?' style="background:var(--line)"':'')+'></i>';}return h+'</div>';}
-function missionReady(){return S&&count()>=certMin()&&!S.mission;}
-function progNote(){var n=count();if(missionReady())return "ครบ "+certMin()+" ฐานแล้ว · ภารกิจสุดท้าย: ตอบ Mission 6 ข้อ เพื่อรับวุฒิบัตร";if(n>=9)return "ครบทั้ง 9 ฐานแล้ว ได้รับ Special Badge";if(S&&S.cert)return "รับวุฒิบัตรแล้ว · อีก "+(9-n)+" ฐานรับ Special Badge";return "อีก "+(certMin()-n)+" ฐาน + Mission 6 ข้อ รับวุฒิบัตรดิจิทัล";}
+var STAR_PATH="M12 1.8l3.05 6.2 6.85 1-4.95 4.82 1.17 6.82L12 17.42 5.88 20.64l1.17-6.82L2.1 9l6.85-1z";
+function segs(light){var h='<div class="segs stars'+(light?' light':'')+'" role="img" aria-label="ผ่านแล้ว '+count()+' จาก 9 ฐาน">';for(var i=1;i<=9;i++){h+='<svg viewBox="0 0 24 24" class="pstar'+(done(i)?' on':'')+(isReq(i)?'':' opt')+'"><title>ฐาน '+i+(isReq(i)?'':' (ไม่บังคับ)')+'</title><path d="'+STAR_PATH+'"/></svg>';}return h+'</div>';}
+function missionReady(){return reqComplete()&&!S.mission;}
+function progNote(){var n=count();if(missionReady())return "ผ่านครบ "+certMin()+" ฐานแล้ว · ภารกิจสุดท้าย: ตอบ Mission 6 ข้อ เพื่อรับวุฒิบัตร";if(S&&S.cert)return n>=9?"ครบทั้ง 9 ฐาน ได้รับ Special Badge":"รับวุฒิบัตรแล้ว · สแกนครบ 9 ฐานรับ Special Badge";return "อีก "+leftTotal()+" ฐาน ("+leftText()+") + Mission 6 ข้อ รับวุฒิบัตร";}
 var toastTimer;
 function toast(msg,icon){var o=$phone.querySelector(".toast");if(o)o.remove();var t=document.createElement("div");t.className="toast";t.setAttribute("role","status");t.innerHTML='<i data-lucide="'+(icon||"check-circle-2")+'"></i><span>'+esc(msg)+'</span>';$phone.appendChild(t);if(window.lucide)lucide.createIcons();clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.remove();},3200);}
 function closeSheet(){var s=$phone.querySelector(".scrim");if(s)s.remove();}
@@ -883,7 +915,7 @@ VIEWS.home=function(p){
   return {title:"Future Passport",noBack:true,html:
   '<img class="banner" src="expo-logo.jpg" alt="BA&amp;IT EXPO 2027 Smart BIZ-IT">'+
   ((p&&p.fresh)?'<div class="welcome"><i data-lucide="party-popper"></i><div><b>ลงทะเบียนสำเร็จ!</b><br>นี่คือ Passport ID ของคุณ แตะบัตรเพื่อบันทึกเก็บไว้</div></div>':'')+
-  (missionReady()?'<div class="mbanner"><i data-lucide="flag"></i><div><b>ภารกิจสุดท้าย!</b><br>ครบ '+certMin()+' ฐานแล้ว ตอบ Mission 6 ข้อ เพื่อรับวุฒิบัตร</div><button class="btn gold" id="hMission">เริ่ม Mission</button></div>':'')+
+  (missionReady()?'<div class="mbanner"><i data-lucide="flag"></i><div><b>ภารกิจสุดท้าย!</b><br>สแกนครบ '+certMin()+' ฐานแล้ว ตอบ Mission 6 ข้อ เพื่อรับวุฒิบัตร</div><button class="btn gold" id="hMission">เริ่ม Mission</button></div>':'')+
   (S.mission?'<button class="btn alt" id="hMissionDone" style="margin-bottom:12px"><i data-lucide="award"></i>ดูวุฒิบัตรดิจิทัล</button>':'')+
   '<div class="hud-k">PASSPORT ID</div>'+
   '<div class="idwrap" id="hId"><div class="idskel"><div class="spinner"></div><div>กำลังสร้าง Passport ID…</div></div></div>'+
@@ -939,13 +971,13 @@ VIEWS.result=function(r){
       '<div class="stack"><button class="btn" id="rScan"><i data-lucide="scan-line"></i>สแกนฐานถัดไป</button><button class="btn alt" id="rPass">ดู Passport ของฉัน</button></div></div>',after:wire};
   }
   var extra="";
-  if(missionReady()) extra+='<div class="unlock"><i data-lucide="party-popper"></i><div><b>ยินดีด้วย! ครบ '+certMin()+' ฐานแล้ว</b><br>ภารกิจสุดท้ายก่อนรับวุฒิบัตร: ตอบ Mission 6 ข้อ ใช้เวลาไม่ถึง 5 นาที</div></div><button class="btn gold" id="rMission"><i data-lucide="flag"></i>เริ่ม Mission</button>';
+  if(missionReady()) extra+='<div class="unlock"><i data-lucide="party-popper"></i><div><b>ยินดีด้วย! สแกนครบ '+certMin()+' ฐานแล้ว</b><br>ภารกิจสุดท้ายก่อนรับวุฒิบัตร: ตอบ Mission 6 ข้อ ใช้เวลาไม่ถึง 5 นาที</div></div><button class="btn gold" id="rMission"><i data-lucide="flag"></i>เริ่ม Mission</button>';
   if(r.newCert) extra+='<div class="unlock"><i data-lucide="award"></i><div><b>ปลดล็อกวุฒิบัตรแล้ว</b><br>ครบ '+certMin()+' ฐาน เลขที่ '+esc(S.cert.no)+'</div></div><button class="btn gold" id="rCert"><i data-lucide="award"></i>ดูวุฒิบัตรของฉัน</button>';
   if(r.newSpecial) extra+='<div class="unlock"><i data-lucide="crown"></i><div><b>Special Badge: Future City Master</b><br>ทำครบทั้ง 9 Mission</div></div>';
   return {title:"Mission Completed",html:
   '<div class="result"><div class="burst pop">'+hex(m,140)+'</div><h2>Mission Clear!</h2><div class="clear-th">ภารกิจสำเร็จ</div><div class="sub" style="margin:2px 0 0">ฐาน '+m.id+' · '+esc(m.act)+'</div>'+
   '<div class="plus">ผ่านแล้ว '+count()+'/9 ฐาน</div><div>ได้รับ Badge <b>'+esc(m.badge)+'</b></div>'+
-  '<div class="card" style="margin:16px 0;text-align:left"><div style="display:flex;justify-content:space-between;font-weight:600;margin-bottom:8px"><span>ผ่านแล้ว '+count()+'/9 ฐาน</span><span>เกณฑ์วุฒิบัตร '+certMin()+' ฐาน</span></div>'+segs(true)+'<div class="sub" style="margin:8px 0 0">'+progNote()+'</div></div>'+
+  '<div class="card" style="margin:16px 0;text-align:left"><div style="display:flex;justify-content:space-between;font-weight:600;margin-bottom:8px"><span>ผ่านแล้ว '+count()+'/9 ฐาน</span><span>บังคับ '+reqDone()+'/'+reqList().length+' · เลือก '+Math.min(optDone(),optNeed())+'/'+optNeed()+'</span></div>'+segs(true)+'<div class="sub" style="margin:8px 0 0">'+progNote()+'</div></div>'+
   '<div class="stack">'+extra+'<button class="btn" id="rPass"><i data-lucide="book-user"></i>ดู Passport ของฉัน</button><button class="btn alt" id="rScan"><i data-lucide="scan-line"></i>สแกนฐานถัดไป</button></div></div>',
   after:function(){wire();if($("rCert"))$("rCert").onclick=function(){go("cert",{},true);};if($("rMission"))$("rMission").onclick=function(){go("mission",{},true);};}};
   function wire(){$("rScan").onclick=function(){go("scan",{},true);};$("rPass").onclick=function(){go("passport",{},true);};}
@@ -955,15 +987,15 @@ VIEWS.passport=function(p){
   var n=count(), tab=(p&&p.tab)||"missions", pp=S.settings.pointsPerStation;
   var certCard=S.cert?'<button class="btn gold" id="pCert"><i data-lucide="award"></i>ดูวุฒิบัตร · '+esc(S.cert.no)+'</button>'
     :missionReady()?'<button class="btn gold" id="pMission"><i data-lucide="flag"></i>ทำ Mission 6 ข้อ เพื่อรับวุฒิบัตร</button>'
-    :'<div class="card" style="display:flex;gap:12px;align-items:center"><i data-lucide="lock"></i><div><b>วุฒิบัตรดิจิทัล</b><div class="sub" style="margin:0">ผ่านอีก '+(certMin()-n)+' ฐาน แล้วตอบ Mission 6 ข้อ เพื่อปลดล็อก</div></div></div>';
+    :'<div class="card" style="display:flex;gap:12px;align-items:center"><i data-lucide="lock"></i><div><b>วุฒิบัตรดิจิทัล</b><div class="sub" style="margin:0">สแกนอีก '+leftTotal()+' ฐาน ('+leftText()+') แล้วตอบ Mission 6 ข้อ เพื่อปลดล็อก</div></div></div>';
   var list='<div class="card"><ul class="mlist">'+missions().map(function(m){var t=done(m.id);
-    return '<li><div class="num" style="background:'+m.c+'">'+m.id+'</div><div><div class="mt">'+esc(m.act)+'</div><div class="md">Mission '+esc(m.type)+' · Badge '+esc(m.badge)+'</div></div>'+(t?'<span class="st ok">CLEARED '+fmtTime(t)+'</span>':'<span class="st wait">ยังไม่ได้ทำ</span>')+'</li>';}).join("")+'</ul></div>';
+    return '<li><div class="num" style="background:'+m.c+'">'+m.id+'</div><div><div class="mt">'+esc(m.act)+'</div><div class="md">Mission '+esc(m.type)+' · Badge '+esc(m.badge)+'</div><span class="reqtag'+(isReq(m.id)?'':' opt')+'">'+(isReq(m.id)?'ฐานบังคับ':'ฐานเลือก')+'</span></div>'+(t?'<span class="st ok">CLEARED '+fmtTime(t)+'</span>':'<span class="st wait">ยังไม่ได้ทำ</span>')+'</li>';}).join("")+'</ul></div>';
   var badges='<div class="card"><div class="badges">'+missions().map(function(m){var t=done(m.id);return '<div class="badge">'+hex(m,64,!t)+'<span class="bn">'+esc(m.badge)+'</span><span class="bt">'+(t?fmtTime(t):'ฐาน '+m.id)+'</span></div>';}).join("")+'</div>'+
     '<div class="badge" style="margin-top:16px;flex-direction:row;justify-content:center;gap:12px;text-align:left"><div class="hex'+(n>=9?'':' locked')+'" style="--c:#C98A10;width:56px"><i data-lucide="'+(n>=9?'crown':'lock')+'"></i></div><div><span class="bn">Special Badge · Future City Master</span><br><span class="bt">'+(n>=9?'ได้รับแล้ว':'ทำครบทั้ง 9 Mission')+'</span></div></div></div>';
   var profile='<div class="idwrap" id="idWrap"><div class="loading" style="min-height:160px"><div class="spinner"></div><div>กำลังสร้างบัตร ID…</div></div></div>'+
     '<button class="btn gold" id="pId" style="margin:12px 0"><i data-lucide="download"></i>บันทึกบัตร ID</button>'+
     '<div class="card"><dl class="prof">'+idRows().map(function(r){return '<dt>'+esc(r[0])+'</dt><dd>'+esc(r[1])+'</dd>';}).join("")+
-    '<dt>วุฒิบัตร</dt><dd>'+(S.cert?esc(S.cert.no):'ยังไม่ปลดล็อก (ครบ '+certMin()+' ฐาน)')+'</dd></dl>'+
+    '<dt>วุฒิบัตร</dt><dd>'+(S.cert?esc(S.cert.no):'ยังไม่ปลดล็อก (เหลืออีก '+leftTotal()+' ฐาน)')+'</dd></dl>'+
     '<p class="note" style="margin:10px 0 0">ชื่อหรือสถานศึกษาผิด แจ้งเจ้าหน้าที่ที่จุดลงทะเบียนเพื่อแก้ไขก่อนรับวุฒิบัตร</p></div>';
   var tabs=[["missions","ภารกิจ","list-checks"],["badges","Badge","hexagon"],["profile","บัตร ID","contact"]];
   return {title:"My Passport",html:
@@ -987,9 +1019,9 @@ VIEWS.passport=function(p){
 };
 
 VIEWS.missions=function(){
-  return {title:"My Mission",html:'<h2 class="sec">ภารกิจของฉัน</h2><p class="sub">9 ฐาน 9 Mission · ครบ '+certMin()+' ฐานรับวุฒิบัตร</p>'+
+  return {title:"My Mission",html:'<h2 class="sec">ภารกิจของฉัน</h2><p class="sub">9 ฐาน · บังคับฐาน '+reqList().join(", ")+' + เลือกอีก '+optNeed()+' ฐานจากฐาน '+optList().join(", ")+' + Mission 6 ข้อ รับวุฒิบัตร</p>'+
   '<div class="card"><ul class="mlist">'+missions().map(function(m){var t=done(m.id);
-    return '<li><div class="num" style="background:'+m.c+'">'+m.id+'</div><div><div class="mt">'+esc(m.act)+'</div><div class="md">Mission '+esc(m.type)+' · Badge '+esc(m.badge)+'</div></div>'+(t?'<span class="st ok">สำเร็จ '+fmtTime(t)+'</span>':'<span class="st wait">ยังไม่ได้ทำ</span>')+'</li>';}).join("")+'</ul></div>'+
+    return '<li><div class="num" style="background:'+m.c+'">'+m.id+'</div><div><div class="mt">'+esc(m.act)+'</div><div class="md">Mission '+esc(m.type)+' · Badge '+esc(m.badge)+'</div><span class="reqtag'+(isReq(m.id)?'':' opt')+'">'+(isReq(m.id)?'ฐานบังคับ':'ฐานเลือก')+'</span></div>'+(t?'<span class="st ok">สำเร็จ '+fmtTime(t)+'</span>':'<span class="st wait">ยังไม่ได้ทำ</span>')+'</li>';}).join("")+'</ul></div>'+
   '<button class="btn" id="mScan" style="margin-top:14px"><i data-lucide="scan-line"></i>สแกน Mission</button>',
   after:function(){$("mScan").onclick=function(){go("scan");};}};
 };
@@ -998,7 +1030,7 @@ VIEWS.city=function(p){
   var sel=p.sel||1, m=mission(sel), n=count(), pp=S.settings.pointsPerStation;
   var nodes=missions().map(function(x){var d=done(x.id);
     return '<button class="node'+(x.id===sel?' sel':'')+(d?' clear':'')+'" style="--nc:'+x.c+'" data-sel="'+x.id+'" aria-label="ฐาน '+x.id+' '+esc(x.act)+(d?' ทำแล้ว':'')+'">'+
-      '<span class="nnum">0'+x.id+'</span><i data-lucide="'+(d?'check-circle-2':x.icon)+'"></i><span class="nname">'+esc(x.act)+'</span><span class="nstat">'+(d?'CLEARED':'MISSION')+'</span></button>';}).join("");
+      '<span class="nnum">0'+x.id+'</span>'+(isReq(x.id)?'':'<span class="nopt">เลือก</span>')+'<i data-lucide="'+(d?'check-circle-2':x.icon)+'"></i><span class="nname">'+esc(x.act)+'</span><span class="nstat">'+(d?'CLEARED':'MISSION')+'</span></button>';}).join("");
   var d=done(m.id);
   return {title:"Explore City",html:
   '<div class="map-head"><div><div class="hud-k">ZONE C · CITY MAP</div><h2 class="sec">BA&amp;IT FUTURE CITY</h2><p class="sub">Innovator Showcase &amp; Career Match</p></div><div class="hud-prog"><b>'+n+'/9</b><span>CLEARED</span></div></div>'+
@@ -1125,7 +1157,7 @@ function memberId(){var id=(SUB||"").replace(/[^A-Za-z0-9]/g,"").slice(-6).toUpp
 var idCache={}; // v-two-variants-2
 function renderIdCard(withLogo){
   if(withLogo===undefined) withLogo=true;
-  var key=[withLogo?"L":"N",!!S.mission,memberId(),S.user.name,S.user.school,S.user.level,S.user.year,S.user.province,S.user.status,S.user.competition,count(),!!S.cert].join("|");
+  var key=[withLogo?"L":"N",!!S.mission,leftTotal(),memberId(),S.user.name,S.user.school,S.user.level,S.user.year,S.user.province,S.user.status,S.user.competition,count(),!!S.cert].join("|");
   if(idCache[key]) return Promise.resolve(idCache[key]);
   var want=["800 40px Prompt","700 40px Prompt",'600 40px "IBM Plex Sans Thai"','400 40px "IBM Plex Sans Thai"'];
   var fl=(document.fonts&&document.fonts.load)?Promise.all(want.map(function(f){return document.fonts.load(f,"บัตร Aa");})).catch(function(){}):Promise.resolve();
@@ -1160,7 +1192,7 @@ function renderIdCard(withLogo){
     t("FUTURE PASSPORT ID",W/2,lh+6,{size:58,head:1,w:800,color:"#0E2A5C",ls:3});
     // mission badge (ไม่มีรูปโปรไฟล์)
     var cx=W/2,cy=lh+110;
-    var msg=S.cert?"พิชิตภารกิจสำเร็จ · รับวุฒิบัตรดิจิทัลแล้ว":(count()>=certMin()&&!S.mission)?"ภารกิจสุดท้าย: ตอบ Mission 6 ข้อ เพื่อรับวุฒิบัตร":"พิชิตภารกิจ "+certMin()+" ฐาน เพื่อรับวุฒิบัตรดิจิทัล";
+    var msg=S.cert?"พิชิตภารกิจสำเร็จ · รับวุฒิบัตรดิจิทัลแล้ว":(reqComplete()&&!S.mission)?"ภารกิจสุดท้าย: ตอบ Mission 6 ข้อ เพื่อรับวุฒิบัตร":"พิชิตภารกิจ "+certMin()+" ฐาน เพื่อรับวุฒิบัตรดิจิทัล";
     cut(cx-420,cy,840,76,18);x.fillStyle="#FFC531";x.shadowColor="rgba(245,177,0,.35)";x.shadowBlur=18;x.fill();x.shadowBlur=0;
     t(msg,cx,cy+13,{size:38,head:1,w:700,color:"#3A2600",maxW:800});
     // info panel (labelled rows)
@@ -1174,7 +1206,7 @@ function renderIdCard(withLogo){
     });
     // stats
     var sy=py+ph+30;
-    var st=[["CLEARED",count()+"/9","#5FB52E"],["BADGE",String(count()),"#1E88F0"],["CERTIFICATE",S.cert?"✓":"อีก "+Math.max(0,certMin()-count()),"#E5257D"]],bw=280,gap=30,sx=(W-(bw*3+gap*2))/2;
+    var st=[["CLEARED",count()+"/9","#5FB52E"],["BADGE",String(count()),"#1E88F0"],["CERTIFICATE",S.cert?"✓":"อีก "+leftTotal(),"#E5257D"]],bw=280,gap=30,sx=(W-(bw*3+gap*2))/2;
     st.forEach(function(v,i){var px=sx+i*(bw+gap);cut(px,sy,bw,140,20);x.fillStyle="rgba(255,255,255,.93)";x.fill();x.strokeStyle=v[2];x.lineWidth=4;x.stroke();
       t(v[1],px+bw/2,sy+18,{size:60,head:1,w:800,color:v[2]});t(v[0],px+bw/2,sy+94,{size:26,head:1,w:700,color:"#5B7299",ls:3});});
     // QR + id
@@ -1326,7 +1358,7 @@ function maSave(){try{localStorage.setItem(maKey(),JSON.stringify(MA));}catch(e)
 function chk(arr,v,max){var i=arr.indexOf(v);if(i>=0)arr.splice(i,1);else if(arr.length<max)arr.push(v);else return false;return true;}
 VIEWS.mission=function(p){
   if(S.mission) return VIEWS.missionDone();
-  if(count()<certMin()) return {title:"Mission",html:'<div class="card emptybox"><i data-lucide="lock"></i><div><b>ยังทำ Mission ไม่ได้</b><div class="sub" style="margin:4px 0 0">ต้องผ่านครบ '+certMin()+' ฐานก่อน ตอนนี้ผ่านแล้ว '+count()+' ฐาน</div></div></div>'};
+  if(!reqComplete()) return {title:"Mission",html:'<div class="card emptybox"><i data-lucide="lock"></i><div><b>ยังทำ Mission ไม่ได้</b><div class="sub" style="margin:4px 0 0">ต้องสแกนครบ '+certMin()+' ฐานก่อน (บังคับฐาน '+reqList().join(", ")+' + ฐานเลือก '+optNeed()+' ฐาน) ยังขาด: '+esc(leftText())+'</div></div></div>'};
   var a=maLoad(), step=(p&&p.step)||0, total=6;
   a.gradeLevel=[S.user.level,S.user.year?"ปีที่ "+S.user.year:""].filter(Boolean).join(" ")||"-";
   function bar(){return '<div class="mprog"><div class="mprog-t"><b>'+(step?'Mission '+step+'/'+total:'ข้อมูลผู้ตอบ')+'</b><span>'+(step?Math.round(step/total*100)+'%':'เริ่ม')+'</span></div><div class="mprog-b"><i style="width:'+(step/total*100)+'%"></i></div></div>';}
