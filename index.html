@@ -677,6 +677,20 @@ input.in:focus,select.in:focus{border-color:#1E88F0;box-shadow:var(--glow-c)}
 .reqtag{display:inline-block;margin-top:4px;font-size:11px;font-weight:600;border-radius:999px;padding:1px 8px;background:#E8F0FF;color:var(--blue)}
 .reqtag.opt{background:#F1F3F7;color:var(--muted)}
 .node .nopt{position:absolute;top:6px;right:8px;font-size:9.5px;font-weight:700;color:var(--muted);background:#F1F3F7;border-radius:999px;padding:1px 6px}
+
+.zdetail .imgcard{margin:12px 0 4px}
+.imgcard .imgmiss{display:none}
+.imgcard.noimg{cursor:default;padding:18px;background:#F3F8FF}
+.imgcard.noimg img,.imgcard.noimg span{display:none}
+.imgcard.noimg .imgmiss{display:flex;gap:6px;align-items:center;justify-content:center;font-style:normal;color:var(--muted);font-size:13px}
+.zsec{margin-top:14px}
+.zsh{display:flex;align-items:center;gap:8px;font-family:var(--head);font-weight:700;font-size:15px;color:var(--text);line-height:1.35}
+.zsi{width:32px;height:32px;flex:none;border-radius:10px;display:grid;place-items:center;background:color-mix(in srgb,var(--nc) 15%,#fff);color:var(--nc)}
+.zsi svg.lucide{width:18px;height:18px}
+.zlist{list-style:none;margin:8px 0 0;padding:0 0 0 6px;display:grid;gap:7px}
+.zlist li{display:grid;grid-template-columns:26px 1fr;gap:8px;align-items:start;font-size:14px;color:var(--text);line-height:1.5}
+.zli{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:#fff;color:var(--nc);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--nc) 40%,#fff)}
+.zli svg.lucide{width:14px;height:14px}
 </style>
 </head>
 <body>
@@ -1239,25 +1253,47 @@ VIEWS.journey=function(){
 };
 VIEWS.journeyImg=function(){return imagePage("Journey Map","BA&IT COMPETITION","Competition Journey Map","เส้นทางการแข่งขันและกิจกรรมตลอดงาน",imgSrc(S.settings.journeyImg),"BAIT-Competition-Journey-Map.jpg","ยังไม่มีภาพ Journey Map");};
 
-var ZONE_STYLE={A:["#22E4FF","trophy"],B:["#FFC83D","briefcase"],C:["#A6FF3D","building-2"],D:["#FF3EA5","laptop"]};
+var ZONE_STYLE={A:["#1EA7E8","trophy"],B:["#F5A100","briefcase"],C:["#5FB52E","building-2"],D:["#E5257D","laptop"]};
+/* ข้อมูลโซน A–D (ตามภาพประกอบงาน) · ภาพโซนอยู่ในไฟล์ zone-a.jpg … zone-d.jpg บน GitHub */
+var ZONE_DATA=[
+ {zone:"A",title:"NextGen Challenge Arena",subtitle:"7 การแข่งขันระดับชาติ (ระดับชั้น ม.ปลาย & ปวช.)",image:"zone-a.jpg",sections:[
+   {h:"การแข่งขันทักษะวิชาการ",i:"trophy",items:[["lightbulb","การแข่งขันการเป็นผู้ประกอบการนวัตกรรม (Innovator Next Gen)"],["calculator","การแข่งขันตอบปัญหาทางบัญชี ระดับ ม.ปลาย"],["calculator","การแข่งขันตอบปัญหาทางบัญชี ระดับ ปวช."],["bot","การแข่งขันทักษะการใช้ปัญญาประดิษฐ์ “GEN AI(dea) Challenge”"]]},
+   {h:"สมรภูมิเกม E-Sport และ AI สุดท้าทาย",i:"gamepad-2",items:[["gamepad-2","การแข่งขัน BA&IT E-SPORT MATCH presented by True 5G"],["dice-5","การแข่งขัน BA&IT BOARD GAMES CHAMPIONSHIP"]]},
+   {h:"พื้นที่ปล่อยของสายครีเอทีฟ",i:"music",items:[["music","การแข่งขัน BIZIT Cover Dance Contest 2027"]]},
+   {h:"ยกระดับงาน พร้อมเชื่อมสัมพันธ์พันธมิตร",i:"handshake",items:[["radio-tower","True 5G พันธมิตรด้านเทคโนโลยี สนับสนุนการแข่งขัน E-Sport (ROV) เต็มรูปแบบ เพื่อเข้าถึงกลุ่ม Gen Z"],["store","High-Traffic Generator กระตุ้นศูนย์การค้า ดึงดูดเยาวชน ครู และผู้ปกครอง สร้างความคึกคักและยอดหมุนเวียนเศรษฐกิจ"]]},
+   {h:"เกียรติบัตร",i:"award",items:[["medal","นักเรียน: ระบุเป็นผู้เข้าแข่งขัน พร้อมระดับเหรียญตามเกณฑ์การแข่งขัน"],["user-check","คุณครู: ระบุเป็นผู้ฝึกสอนและควบคุมทีม พร้อมระดับเหรียญ"]]}]},
+ {zone:"B",title:"Smart BIZ-IT",subtitle:"5 กิจกรรมการแข่งขันประลองความรู้ ระดับปริญญาตรี ภายในคณะ",image:"zone-b.jpg",sections:[
+   {h:"ครอบคลุม 5 ศาสตร์ทางธุรกิจ",i:"layers",items:[["calculator","บัญชี"],["handshake","การจัดการ"],["truck","การจัดการโลจิสติกส์"],["megaphone","การตลาดดิจิทัล"],["cpu","ระบบสารสนเทศและนวัตกรรมดิจิทัล"]]}]},
+ {zone:"C",title:"BA&IT FUTURE CITY",subtitle:"Innovator Showcase & Career Match · โซนฐานภารกิจ Future Passport",image:"zone-c.jpg",link:"city",sections:[
+   {h:"01 Future Economy & Innovation Quarter · ย่านเศรษฐกิจและนวัตกรรมแห่งอนาคต",i:"building-2",items:[
+     ["users","Leadership & Business District: Management – NextGen CEO Hub"],["truck","Leadership & Business District: Logistics – Smart Supply Chain Terminal"],
+     ["trending-up","Wealth & Value District: Finance & Economics – WealthTech & Future Investor Club"],["calculator","Wealth & Value District: Accounting – Smart Accounting Lab"],
+     ["megaphone","Digital & Innovation District: Marketing – Digital Creator & MarTech Arena"],["cpu","Digital & Innovation District: Information Systems – Tech Innovator Core"]]},
+   {h:"02 Career & Business Gateway · ประตูสู่โลกอาชีพและเครือข่ายธุรกิจ",i:"briefcase",items:[["network","Networking & Industry Partnerships"],["briefcase","Career Opportunities"],["handshake","Business Matching"],["user-check","Mentoring & Expert Advisory"]]},
+   {h:"03 Future City Central · ศูนย์กลางมหานครแห่งอนาคต",i:"sparkles",items:[["lightbulb","Innovation Showcase"],["book-open","Knowledge & Inspiration"],["globe","Global Connections"],["rocket","Future Solutions"],["users","Talent & Opportunities"],["hand-heart","Impact for a Better Future"]]}]},
+ {zone:"D",title:"The RUN Lab",subtitle:"Future Skills Workshop · พัฒนาทักษะเพื่อการเรียนรู้ตลอดชีวิต (Lifelong Learning)",image:"zone-d.jpg",sections:[
+   {h:"Reskill",i:"refresh-cw",items:[["refresh-cw","ปรับทักษะเดิมให้กับยุคดิจิทัล"]]},
+   {h:"Upskill",i:"arrow-up-circle",items:[["arrow-up-circle","ยกระดับทักษะ เพิ่มความเชี่ยวชาญ"],["laptop","Advanced software"],["bot","Generative AI"]]},
+   {h:"New Skill",i:"plus-circle",items:[["rocket","สร้างทักษะใหม่แห่งอนาคต"]]}]}
+];
 VIEWS.map=function(p){
-  var zones=(S.settings.zones||[]).filter(function(z){return z.zone;}), sel=(p&&p.z)||(zones[0]&&zones[0].zone), img=imgSrc(S.settings.mapImg);
-  var z=zones.filter(function(v){return v.zone===sel;})[0];
-  function st(code){return ZONE_STYLE[String(code).toUpperCase()]||["#8B5CFF","map-pin"];}
-  var cards=zones.map(function(v){var c=st(v.zone);return '<button class="zcard'+(v.zone===sel?' sel':'')+'" style="--zc:'+c[0]+'" data-z="'+esc(v.zone)+'"><span class="zl">'+esc(v.zone)+'</span><i data-lucide="'+c[1]+'"></i><span class="zt">'+esc(v.title||("Zone "+v.zone))+'</span>'+(v.subtitle?'<span class="zs">'+esc(v.subtitle)+'</span>':'')+'</button>';}).join("");
-  var detail=z?(function(){var c=st(z.zone),link=String(z.link||"").trim();
-    return '<div class="mbrief" style="--nc:'+c[0]+'"><div class="bk">ZONE '+esc(z.zone)+'</div><div class="bt">'+esc(z.title||("Zone "+z.zone))+'</div>'+(z.subtitle?'<div class="bm">'+esc(z.subtitle)+'</div>':'')+
-      (z.image?'<button class="imgcard" id="zImg" aria-label="ดูภาพโซนขนาดเต็ม"><img src="'+esc(z.image)+'" alt="'+esc(z.title||("Zone "+z.zone))+'" loading="lazy"><span><i data-lucide="maximize-2"></i>แตะเพื่อขยาย / บันทึกรูป</span></button>':'')+
-      '<p class="zdesc">'+(z.description?esc(z.description).replace(/\n/g,"<br>"):'รายละเอียดโซนจะอัปเดตเร็ว ๆ นี้')+'</p>'+
-      (link==="city"?'<button class="btn" id="zGo"><i data-lucide="map"></i>ดูฐานภารกิจ Future Passport</button>':/^https?:/.test(link)?'<button class="btn" id="zGo"><i data-lucide="external-link"></i>ดูรายละเอียดเพิ่มเติม</button>':'')+'</div>';})():'';
-  return {title:"Event Map",html:'<div class="map-head"><div><div class="hud-k">EVENT MAP</div><h2 class="sec">ผังงาน BA&amp;IT EXPO 2027</h2><p class="sub">แตะโซนเพื่อดูรายละเอียด</p></div></div>'+
+  var zones=ZONE_DATA, sel=(p&&p.z)||"A", img=imgSrc(S.settings.mapImg), z=zones.filter(function(v){return v.zone===sel;})[0]||zones[0];
+  function st(code){return ZONE_STYLE[code]||["#7C5CF0","map-pin"];}
+  var cards=zones.map(function(v){var c=st(v.zone);return '<button class="zcard'+(v.zone===z.zone?' sel':'')+'" style="--zc:'+c[0]+'" data-z="'+v.zone+'"><span class="zl">'+v.zone+'</span><i data-lucide="'+c[1]+'"></i><span class="zt">'+esc(v.title)+'</span><span class="zs">'+esc(v.subtitle.split(" · ")[0])+'</span></button>';}).join("");
+  var c=st(z.zone);
+  var detail='<div class="mbrief zdetail" style="--nc:'+c[0]+'"><div class="bk">ZONE '+z.zone+'</div><div class="bt">'+esc(z.title)+'</div><div class="bm">'+esc(z.subtitle)+'</div>'+
+    '<button class="imgcard" id="zImg" aria-label="ดูภาพโซนขนาดเต็ม"><img src="'+esc(z.image)+'" alt="ภาพประกอบ Zone '+z.zone+' '+esc(z.title)+'" onerror="this.closest(\'.imgcard\').classList.add(\'noimg\')"><span><i data-lucide="maximize-2"></i>แตะเพื่อขยาย / บันทึกรูป</span><em class="imgmiss"><i data-lucide="image-off"></i>ยังโหลดภาพโซนไม่ได้</em></button>'+
+    z.sections.map(function(sec){return '<div class="zsec"><div class="zsh"><span class="zsi"><i data-lucide="'+sec.i+'"></i></span>'+esc(sec.h)+'</div><ul class="zlist">'+
+      sec.items.map(function(it){return '<li><span class="zli"><i data-lucide="'+it[0]+'"></i></span><span>'+esc(it[1])+'</span></li>';}).join("")+'</ul></div>';}).join("")+
+    (z.link==="city"?'<button class="btn" id="zGo"><i data-lucide="map"></i>ดูฐานภารกิจ Future Passport</button>':'')+'</div>';
+  return {title:"Event Map",html:'<div class="map-head"><div><div class="hud-k">EVENT MAP</div><h2 class="sec">ผังงาน BA&amp;IT EXPO 2027</h2><p class="sub">แตะโซนเพื่อดูภาพและรายละเอียด</p></div></div>'+
     (img?'<button class="imgcard" id="mImg" aria-label="ดูผังงานขนาดเต็ม"><img src="'+esc(img)+'" alt="ผังงาน" loading="lazy"><span><i data-lucide="maximize-2"></i>แตะเพื่อขยายผังงาน</span></button>':'')+
-    (zones.length?'<div class="zgrid2">'+cards+'</div>'+detail:'<div class="card emptybox"><i data-lucide="map"></i><div><b>ยังไม่มีข้อมูลโซน</b></div></div>'),
+    '<div class="zgrid2">'+cards+'</div>'+detail,
     after:function(){
       [].forEach.call(document.querySelectorAll("[data-z]"),function(b){b.onclick=function(){go("map",{z:b.dataset.z},true);};});
       if($("mImg")) $("mImg").onclick=function(){openImageViewer(img,"BAIT-EXPO-2027-Map.jpg",false);};
-      if($("zImg")) $("zImg").onclick=function(){openImageViewer(z.image,"BAIT-EXPO-2027-Zone-"+z.zone+".jpg",window.innerHeight>window.innerWidth);};
-      if($("zGo")) $("zGo").onclick=function(){var l=String(z.link||"").trim();if(l==="city")go("city");else openUrl(l);};
+      $("zImg").onclick=function(){if(this.classList.contains("noimg"))return;openImageViewer(z.image,"BAIT-EXPO-2027-Zone-"+z.zone+".jpg",window.innerHeight>window.innerWidth);};
+      if($("zGo")) $("zGo").onclick=function(){go("city");};
     }};
 };
 VIEWS.eval=function(){
