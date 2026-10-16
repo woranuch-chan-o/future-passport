@@ -699,6 +699,17 @@ input.in:focus,select.in:focus{border-color:#1E88F0;box-shadow:var(--glow-c)}
 .wordmark{background:none!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;-webkit-text-fill-color:currentColor;color:#fff;line-height:1.4;padding:.06em 0}
 .mdone h2,.result h2{background:none!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;-webkit-text-fill-color:currentColor;color:#3B4FD8;line-height:1.4}
 .liff-bar .t,.hud-k,h2.sec,.zt,.pgt,.pn,.mq{line-height:1.45}
+
+/* ช่องพิมพ์ข้อความยาว (Mission ชุดที่ 1 และ 2) */
+textarea.in,.mta{display:block;width:100%;box-sizing:border-box;min-height:120px;margin-top:8px;padding:12px 14px;
+  border:1px solid #D6E6F8;border-radius:14px;background:#fff;color:var(--text);font:inherit;font-size:15px;line-height:1.6;
+  resize:vertical;box-shadow:inset 0 1px 2px rgba(14,42,92,.04);-webkit-appearance:none;appearance:none}
+textarea.in::placeholder,input.in::placeholder{color:#9AACC8}
+textarea.in:focus{border-color:#1E88F0;box-shadow:0 0 0 3px rgba(30,136,240,.2);outline:0}
+.mcard input.in,.mcard select.in{box-sizing:border-box;width:100%;background:#fff;border:1px solid #D6E6F8;border-radius:14px;padding:12px 14px;font-size:15px;color:var(--text)}
+.mcard input.in:focus,.mcard select.in:focus{border-color:#1E88F0;box-shadow:0 0 0 3px rgba(30,136,240,.2);outline:0}
+.mcard .mro{border-radius:14px;padding:12px 14px;min-height:0;border:1px dashed #D6E6F8}
+.mcount{margin-top:4px}
 </style>
 </head>
 <body>
@@ -1409,10 +1420,10 @@ VIEWS.idcard=function(){return VIEWS.passport({tab:"profile"});};
 
 /* ===== Mission 6 ข้อ (ก่อนรับวุฒิบัตร) ===== */
 var M_GRADES=["ม.4","ม.5","ม.6","ปวช.1","ปวช.2","ปวช.3","อื่น ๆ"];
-var M1_OPTS=["ฐาน 1 Management: NextGen CEO Hub","ฐาน 2 Logistics: Smart Supply Chain Terminal","ฐาน 3 Finance & Economics: WealthTech & Future Investor Club","ฐาน 4 Accounting: Smart Accounting Lab","ฐาน 5 Marketing: Digital Creator & MarTech Arena","ฐาน 6 Information Systems: Tech Innovator Core","ฐาน 7 Career & Business Gateway (บูธบริษัท)","ฐาน 8 One School, One Business Innovation","ฐาน 9 Future City Central (BA&IT Story & Impact Gallery / Admission Station)"];
+var M1_OPTS=["ฐาน 1 NextGen CEO Hub", "ฐาน 2 Smart Supply Chain Terminal", "ฐาน 3 WealthTech & Future Investor Club", "ฐาน 4 Smart Accounting Lab", "ฐาน 5 Digital Creator & MarTech Arena", "ฐาน 6 Tech Innovator Core", "ฐาน 7 CAREER & BUSINESS GATEWAY", "ฐาน 8 ONE SCHOOL ONE BUSINESS INNOVATION", "ฐาน 9 FUTURE CITY CENTRAL"];
 var M3_OPTS=["การสื่อสารและการนำเสนอ","ทักษะดิจิทัลและเทคโนโลยี","ตัวเลข การเงิน และการวิเคราะห์ข้อมูล","ความคิดสร้างสรรค์และการคิดไอเดียธุรกิจ","ภาษาอังกฤษ","การทำงานเป็นทีมและภาวะผู้นำ","อื่น ๆ (ระบุ)"];
 var M4_GROUPS=[["Management",["ผู้ประกอบการ/เจ้าของธุรกิจ","ผู้จัดการ/นักบริหาร","นักทรัพยากรบุคคล (HR)"]],["Logistics",["นักวางแผนโลจิสติกส์และซัพพลายเชน","เจ้าหน้าที่นำเข้า–ส่งออก","ผู้จัดการคลังสินค้า"]],["Finance & Economics",["นักวิเคราะห์การเงินและการลงทุน","เจ้าหน้าที่ธนาคาร","นักเศรษฐศาสตร์"]],["Accounting",["นักบัญชี","ผู้สอบบัญชี","ที่ปรึกษาภาษี"]],["Marketing",["นักการตลาดดิจิทัล","Content Creator","นักวิเคราะห์ข้อมูลการตลาด"]],["Information Systems",["นักวิเคราะห์ระบบ","นักพัฒนาซอฟต์แวร์/แอป","นักวิเคราะห์ข้อมูล"]],["อื่น ๆ",["อื่น ๆ (ระบุ)","ยังไม่แน่ใจ"]]];
-var M5_OPTS=["การจัดการ (Management)","โลจิสติกส์ (Logistics)","การเงินและเศรษฐศาสตร์ (Finance & Economics)","การบัญชี (Accounting)","การตลาด (Marketing)","ระบบสารสนเทศ (Information Systems)","ยังไม่แน่ใจ"];
+var M5_OPTS=["การจัดการ (Management)","การจัดการโลจิสติกส์และโซ่อุปทาน (Logistics and Supply Chain Management)","การเงินและเศรษฐศาสตร์ (Finance & Economics)","การบัญชี (Accounting)","การตลาด (Marketing)","ระบบสารสนเทศและนวัตกรรมดิจิทัล (Information Systems and Digital Innovation)","เทคโนโลยีธุรกิจดิจิทัล (Digital Business Technology)","ยังไม่แน่ใจ"];
 var MA=null;
 function maKey(){return "fp-mission-"+(SUB||"");}
 function maLoad(){if(MA)return MA;try{MA=JSON.parse(localStorage.getItem(maKey())||"null");}catch(e){}
