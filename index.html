@@ -754,7 +754,7 @@ function missions(){return (S&&S.missions||[]).filter(function(m){return activeI
 function mission(id){return missions().filter(function(m){return m.id===Number(id);})[0];}
 function done(id){return S&&S.scans&&S.scans[String(id)];}
 function count(){return S?S.count:0;}
-function certMin(){return (S&&S.settings&&S.settings.certMin)||9;}
+function certMin(){return Math.max((S&&S.settings&&S.settings.certMin)||0,reqList().length);}
 function reqList(){return (S&&S.settings&&S.settings.requiredStations)||[1,2,3,4,5,6,7,8,9];}
 function dayNo(){return (S&&S.settings&&S.settings.day)||1;}
 function activeIds(){return (S&&S.settings&&S.settings.activeStations)||[1,2,3,4,5,6,7,8,9];}
@@ -845,8 +845,7 @@ function parseQr(v){
     if(u.searchParams.get("p")==="register") return {register:true};
     return null;
   }catch(e){}
-  var code=String(v).trim().toUpperCase();
-  return /^[A-Z0-9]{6}$/.test(code)?{code:code}:null;
+  return null;
 }
 function doScan(p){
   if(!stack.length) stack.push({name:"home",params:{}});
@@ -963,7 +962,7 @@ function idRows(){
 
 VIEWS.home=function(p){
   var u=S.user;
-  var tiles=[["passport","t1","contact","MY PASSPORT","ID · ภารกิจ"],["schedule","t2","calendar-clock","SCHEDULE","ตารางการแข่งขัน"],["map","t3","map","EVENT MAP","ผังงาน Zone A–D"],["eval","t4","clipboard-check","EVALUATION","แบบประเมินงาน"],["journey","t5","route","JOURNEY MAP","Competition Journey"],["programs","t6","graduation-cap","PROGRAMS","ข้อมูลหลักสูตร"]];
+  var tiles=[["passport","t1","contact","MY PASSPORT","ID · ภารกิจ"],["schedule","t2","calendar-clock","SCHEDULE","ตารางการแข่งขัน"],["map","t3","map","EVENT MAP","ผังงาน Zone A–D"],["eval","t4","clipboard-check","EVALUATION","แบบประเมินงาน"],["journey","t5","route","JOURNEY MAP","Competition Journey"],["programs","t6","graduation-cap","PROGRAMS","ข้อมูลหลักสูตรและสมัครเรียน"]];
   return {title:"Future Passport",noBack:true,html:
   ((p&&p.fresh)?'<div class="welcome"><i data-lucide="party-popper"></i><div><b>ลงทะเบียนสำเร็จ!</b><br>นี่คือ Passport ID ของคุณ แตะบัตรเพื่อบันทึกเก็บไว้</div></div>':'')+
   (missionReady()?'<div class="mbanner"><i data-lucide="flag"></i><div><b>ภารกิจสุดท้าย!</b><br>สแกนครบ '+certMin()+' ฐานแล้ว ตอบ Mission 6 ข้อ เพื่อรับวุฒิบัตร</div><button class="btn gold" id="hMission">เริ่ม Mission</button></div>':'')+
@@ -988,21 +987,19 @@ VIEWS.scan=function(){
   return {title:"Scan Mission",html:
   '<button class="viewfinder" id="cam" style="width:100%;border:0;cursor:pointer" aria-label="เปิดกล้องสแกน QR"><div class="fr"></div><div class="scanline"></div><div class="hint">แตะเพื่อเปิดกล้อง แล้วส่องไปที่ QR ประจำฐาน</div></button>'+
   '<button class="btn" id="cam2" style="margin-top:14px"><i data-lucide="camera"></i>เปิดกล้องสแกน QR</button>'+
-  '<div class="card" style="margin-top:16px"><h2 class="sec" style="font-size:16px">สแกนไม่ได้? พิมพ์รหัสฐาน</h2><p class="sub" style="margin:0 0 10px">รหัส 6 ตัวอยู่ใต้ QR บนป้ายประจำฐาน</p>'+
-  '<div class="codein"><input class="in" id="code" maxlength="6" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="XXXXXX" aria-label="รหัสฐาน"><button class="btn" id="codeGo" style="width:auto;margin:0">บันทึก</button></div><div class="err" id="codeErr" role="alert"></div></div>',
+  '<p class="note" style="text-align:center;margin-top:14px">สแกน QR ที่ป้ายประจำฐานเท่านั้น · ถ้าสแกนไม่ได้ แจ้งเจ้าหน้าที่ประจำฐาน</p>',
   after:function(){
     function cam(){
-      if(!liff.isApiAvailable("scanCodeV2")){toast("เปิดกล้องในแอปไม่ได้ ใช้กล้องมือถือสแกน QR ที่ฐาน หรือพิมพ์รหัสด้านล่าง","alert-circle");return;}
+      if(!liff.isApiAvailable("scanCodeV2")){toast("เปิดกล้องในแอปไม่ได้ ใช้กล้องมือถือสแกน QR ที่ฐานแทน","alert-circle");return;}
       liff.scanCodeV2().then(function(r){
         if(!r||!r.value) return;
         var p=parseQr(r.value);
         if(!p){toast("QR นี้ไม่ใช่ QR ประจำฐานกิจกรรม","alert-circle");return;}
         if(p.register){toast("นี่คือ QR จุดลงทะเบียน ให้สแกน QR ที่ฐานกิจกรรม","info");return;}
         doScan(p);
-      }).catch(function(){toast("เปิดกล้องไม่สำเร็จ ลองอีกครั้ง หรือพิมพ์รหัสฐาน","alert-circle");});
+      }).catch(function(){toast("เปิดกล้องไม่สำเร็จ ลองอีกครั้ง หรือใช้กล้องมือถือสแกน QR","alert-circle");});
     }
     $("cam").onclick=cam; $("cam2").onclick=cam;
-    $("codeGo").onclick=function(){var v=$("code").value.trim().toUpperCase();if(!/^[A-Z0-9]{6}$/.test(v)){$("codeErr").textContent="รหัสฐานมี 6 ตัวอักษร";return;}doScan({code:v});};
   }};
 };
 
