@@ -1530,9 +1530,9 @@ VIEWS.missionDone=function(){
 
 /* ===== วันที่ 2 (14 ม.ค.) · นักศึกษาคณะ BA&IT ===== */
 var D2_CAMPUS=["พระนครศรีอยุธยา วาสุกรี","พระนครศรีอยุธยา หันตรา","นนทบุรี","สุพรรณบุรี"];
-var D2_MAJOR=["การจัดการ","โลจิสติกส์","การเงินและเศรษฐศาสตร์","การบัญชี","การตลาด","ระบบสารสนเทศ","อื่น ๆ"];
+var D2_MAJOR=["การจัดการ","การจัดการโลจิสติกส์และโซ่อุปทาน","การเงินและเศรษฐศาสตร์","การบัญชี","การตลาด","ระบบสารสนเทศและนวัตกรรมดิจิทัล","เทคโนโลยีธุรกิจดิจิทัล","อื่น ๆ"];
 var D2_LEVEL={"ปวส.":["1","2"],"ปริญญาตรี":["1","2","3","4"],"บัณฑิตศึกษา":["1","2","3"]};
-var D2_COMP=["Smart BIZ-IT: การแข่งขันด้านบัญชี","Smart BIZ-IT: การแข่งขันด้านการจัดการ","Smart BIZ-IT: การแข่งขันด้านการจัดการโลจิสติกส์","Smart BIZ-IT: การแข่งขันด้านการตลาดดิจิทัล","Smart BIZ-IT: การแข่งขันด้านระบบสารสนเทศและนวัตกรรมดิจิทัล","อื่น ๆ"];
+var D2_COMP=["Smart BIZ-IT: การแข่งขันด้านบัญชี","Smart BIZ-IT: การแข่งขันด้านการจัดการ","Smart BIZ-IT: การแข่งขันด้านการจัดการโลจิสติกส์","Smart BIZ-IT: การแข่งขันด้านการตลาดดิจิทัล","Smart BIZ-IT: การแข่งขันด้านระบบสารสนเทศและนวัตกรรมดิจิทัล"];
 VIEWS.register2=function(){
   function opts(a){return a.map(function(x){return '<option>'+esc(x)+'</option>';}).join("");}
   var ps=S&&S.settings&&S.settings.privacyUrl;
@@ -1618,7 +1618,7 @@ VIEWS.mission2=function(p){
       '<label class="f" for="m4p">ตำแหน่งที่สนใจ</label><input class="in" id="m4p" maxlength="80" placeholder="เช่น นักวิเคราะห์ข้อมูล" value="'+esc(a.m4p)+'"></div>';
   } else if(step===5){title="เส้นทางต่อยอดตัวเอง";
     body='<p class="mq">หลังจากวันนี้ คุณอยากต่อยอดตัวเองทางไหน?</p><p class="sub">เลือกได้หลายข้อ</p><div class="mopts">'+M2_PATHS.map(function(o){return opt("checkbox","m5",o,a.m5.indexOf(o)>=0);}).join("")+'</div>'+
-      '<div id="m5xb" style="display:'+(a.m5.indexOf(M2_PATHS[0])>=0?"block":"none")+'"><label class="f" for="m5x">สาขาที่อยากลงวิชาเลือก</label><select class="in" id="m5x"><option value="">เลือกสาขา</option>'+D2_MAJOR.slice(0,6).map(function(x){return '<option'+(a.m5x===x?' selected':'')+'>'+x+'</option>';}).join("")+'</select></div>'+
+      '<div id="m5xb" style="display:'+(a.m5.indexOf(M2_PATHS[0])>=0?"block":"none")+'"><label class="f" for="m5x">สาขาที่อยากลงวิชาเลือก</label><select class="in" id="m5x"><option value="">เลือกสาขา</option>'+D2_MAJOR.filter(function(x){return x!=="อื่น ๆ";}).map(function(x){return '<option'+(a.m5x===x?' selected':'')+'>'+x+'</option>';}).join("")+'</select></div>'+
       '<div id="m5lb" style="display:'+(a.m5.indexOf(M2_PATHS[3])>=0?"block":"none")+'"><label class="f" for="m5l">ระดับที่อยากเรียนต่อ</label><select class="in" id="m5l"><option value="">เลือกระดับ</option>'+["ป.ตรี","ป.โท","ป.เอก"].map(function(x){return '<option'+(a.m5l===x?' selected':'')+'>'+x+'</option>';}).join("")+'</select></div>';
   } else {title="ไอเดียนวัตกรรมธุรกิจเมืองอัจฉริยะ";
     body='<p class="mq">จากสิ่งที่เห็นวันนี้ ถ้าให้คุณคิดไอเดียธุรกิจหรือโครงงาน 1 เรื่องที่ช่วยแก้ปัญหาในเมืองหรือชุมชนของคุณ จะทำอะไร?</p>'+
