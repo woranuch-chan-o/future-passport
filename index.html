@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://api.line.me">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Sarabun:wght@700&family=Prompt:wght@500;600;700;800&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Sarabun:wght@700&family=Kanit:wght@300;500;600&family=Prompt:wght@400;500;600;700;800&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
 <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lucide@0.383.0/dist/umd/lucide.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
@@ -1139,7 +1139,7 @@ VIEWS.cert=function(){
 /* ===== certificate image (save) ===== */
 function loadImg(src){return new Promise(function(res,rej){var i=new Image();i.onload=function(){res(i);};i.onerror=function(){rej(new Error("โหลดภาพพื้นหลังไม่สำเร็จ"));};i.src=src;});}
 var certCache={key:"",url:""};
-function certKey(){return ["v2570d",S.cert.day,S.cert.no,S.user.name,S.cert.issuedAt].join("|");}
+function certKey(){return ["v2570k",S.cert.day,S.cert.no,S.user.name,S.cert.issuedAt].join("|");}
 function renderCert(){
   if(certCache.key===certKey()&&certCache.url) return Promise.resolve(certCache.url);
   return renderCertRaw().then(function(u){certCache={key:certKey(),url:u};return u;});
@@ -1160,26 +1160,26 @@ function drawTxt(x,str,px,py,font,align,ls){
 function fitFont(str,weight,size,fam,maxW,ls){var fs=size;while(textW(str,weight+" "+fs+"px "+fam,ls)>maxW&&fs>14)fs*=0.95;return weight+" "+fs+"px "+fam;}
 
 function renderCertRaw(){
-  var fl=(document.fonts&&document.fonts.load)?document.fonts.load('700 60px Sarabun',"เกียรติบัตร Aa").catch(function(){}):Promise.resolve();
-  return fl.then(function(){return loadImg("cert-bg-2570.jpg");}).then(function(bg){
-    var W=3508,H=2481,z=W/841.92,k=2.797,c=document.createElement("canvas");c.width=W;c.height=H;var x=c.getContext("2d");
+  var fl=(document.fonts&&document.fonts.load)?Promise.all([document.fonts.load('600 80px Kanit',"เกียรติบัตร Aa"),document.fonts.load('300 34px Kanit',"ให้ไว้ ณ วันที่ 2570"),document.fonts.load('500 20px Kanit',"BAIT-2570 สแกน")]).catch(function(){}):Promise.resolve();
+  return fl.then(function(){return loadImg("cert-template-2570.jpg");}).then(function(bg){
+    var W=2000,H=1414,c=document.createElement("canvas");c.width=W;c.height=H;var x=c.getContext("2d");
     x.drawImage(bg,0,0,W,H);
-    var F='"Sarabun","TH Sarabun New","Leelawadee UI",Tahoma,sans-serif';
-    function txt(str,cy,pt,color,maxW){var font=fitFont(str,"700",pt*k,F,maxW);x.fillStyle=color;x.textBaseline="middle";drawTxt(x,str,W/2,cy*z,font,"center");}
-    // ข้อความที่เปลี่ยนตามผู้รับ (ตำแหน่ง/ขนาดตามแม่แบบ PDF)
-    txt(S.user.name,221,36,"#002060",W*0.72);
-    txt("ได้เข้าร่วม การแข่งขันทักษะวิชาการด้านบริหารธุรกิจระดับชาติ ครั้งที่ 4",258.5,18,"#002060",W*0.6);
-    var d14=(S.cert.day||dayNo())===2;
-    txt("ให้ไว้ ณ วันที่ "+(d14?"14":"13")+" มกราคม 2570",358,18,"#000000",W*0.4);
+    var F='"Kanit","Prompt","Leelawadee UI",Tahoma,sans-serif', NAVY="#13216A"; // ฟอนต์เดียวกับแม่แบบ (Kanit)
+    x.textBaseline="middle";
+    // ชื่อผู้รับ (ช่องว่างใต้ "เกียรติบัตรฉบับนี้ให้ไว้เพื่อแสดงว่า")
+    x.fillStyle=NAVY;drawTxt(x,S.user.name,W/2,450,fitFont(S.user.name,"600",80,F,1500),"center");
+    // วันที่ให้ไว้ (13 หรือ 14 ตามวันที่เข้าร่วม)
+    var d14=(S.cert.day||dayNo())===2, dt="ให้ไว้ ณ วันที่ "+(d14?"14":"13")+" มกราคม พุทธศักราช 2570";
+    drawTxt(x,dt,W/2,947,"300 35.6px "+F,"center");
     // QR ตรวจสอบ + เลขที่วุฒิบัตร (มุมขวาล่าง)
-    var qs=Math.round(76*z),qx=Math.round(738*z),qy=Math.round(452*z),pad=Math.round(6*z);
-    x.fillStyle="rgba(255,255,255,.96)";x.beginPath();if(x.roundRect)x.roundRect(qx-pad,qy-pad,qs+pad*2,qs+pad*2+Math.round(26*z),Math.round(8*z));else x.rect(qx-pad,qy-pad,qs+pad*2,qs+pad*2+Math.round(26*z));x.fill();
-    if(window.qrcode){var q=qrcode(0,"M");q.addData(S.settings.verifyUrl+"?cert="+encodeURIComponent(S.cert.no));q.make();var n=q.getModuleCount(),cell=qs/n;x.fillStyle="#002060";
+    var qs=150,qx=1712,qy=1112,pad=12;
+    x.fillStyle="rgba(255,255,255,.96)";x.beginPath();if(x.roundRect)x.roundRect(qx-pad,qy-pad,qs+pad*2,qs+pad*2+58,14);else x.rect(qx-pad,qy-pad,qs+pad*2,qs+pad*2+58);x.fill();
+    x.strokeStyle="rgba(19,33,106,.15)";x.lineWidth=2;x.stroke();
+    if(window.qrcode){var q=qrcode(0,"M");q.addData(S.settings.verifyUrl+"?cert="+encodeURIComponent(S.cert.no));q.make();var n=q.getModuleCount(),cell=qs/n;x.fillStyle=NAVY;
       for(var r=0;r<n;r++)for(var kk=0;kk<n;kk++)if(q.isDark(r,kk))x.fillRect(qx+kk*cell,qy+r*cell,Math.ceil(cell),Math.ceil(cell));}
-    x.fillStyle="#002060";x.textBaseline="middle";
-    drawTxt(x,"เลขที่ "+S.cert.no,qx+qs/2,qy+qs+Math.round(10*z),fitFont("เลขที่ "+S.cert.no,"700",10*k,F,qs+pad*2-8),"center");
-    x.fillStyle="#3A4A6B";drawTxt(x,"สแกนเพื่อตรวจสอบ",qx+qs/2,qy+qs+Math.round(20*z),"700 "+(8*k)+"px "+F,"center");
-    return c.toDataURL("image/jpeg",0.9);
+    x.fillStyle=NAVY;drawTxt(x,S.cert.no,qx+qs/2,qy+qs+22,fitFont(S.cert.no,"500",20,F,qs+pad*2-6),"center");
+    x.fillStyle="#4A5A82";drawTxt(x,"สแกนเพื่อตรวจสอบ",qx+qs/2,qy+qs+48,"300 16px "+F,"center");
+    return c.toDataURL("image/jpeg",0.92);
   });
 }
 function dataUrlToBlob(u){var p=u.split(","),b=atob(p[1]),a=new Uint8Array(b.length);for(var i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return new Blob([a],{type:"image/jpeg"});}
